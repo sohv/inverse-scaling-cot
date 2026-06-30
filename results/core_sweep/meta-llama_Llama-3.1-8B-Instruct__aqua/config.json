@@ -1,0 +1,19 @@
+{
+  "git_hash": "87e3b4cb",
+  "config": {
+    "model_id": "meta-llama/Llama-3.1-8B-Instruct",
+    "dataset_name": "aqua",
+    "output_dir": "results/core_sweep",
+    "splits_dir": "data/splits",
+    "n_questions": 100,
+    "n_cot_samples": 20,
+    "seed": 42,
+    "temperature": 0.8,
+    "top_p": 0.95,
+    "max_tokens_cot": 1024,
+    "max_tokens_no_cot": 20,
+    "tensor_parallel_size": 1,
+    "gpu_memory_utilization": 0.9,
+    "max_model_len": null
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "git_hash": "87e3b4cb",
+  "config": {
+    "core_sweep_results_dir": "results/core_sweep",
+    "accuracy_results_dir": "results/accuracy",
+    "output_dir": "results/regression",
+    "drop_threshold": 0.5,
+    "retain_threshold": 0.3,
+    "seed": 42
+  }
+}

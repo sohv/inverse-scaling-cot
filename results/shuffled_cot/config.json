@@ -1,0 +1,12 @@
+{
+  "git_hash": "87e3b4cb",
+  "config": {
+    "core_sweep_results_dir": "results/core_sweep",
+    "output_dir": "results/shuffled_cot",
+    "seed": 42,
+    "n_bootstrap": 1000
+  },
+  "metadata": {
+    "n_cells_processed": 45
+  }
+}

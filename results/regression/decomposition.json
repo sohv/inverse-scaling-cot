@@ -1,0 +1,126 @@
+{
+  "baseline_coef_log_params": 0.2811749756603015,
+  "controlled_coef_log_params": 0.05351777794658616,
+  "pct_drop": 80.96637945076482,
+  "decision": "confound_explained",
+  "regressions": [
+    {
+      "model_name": "baseline",
+      "formula": "faithfulness_proxy ~ log_params",
+      "n_obs": 45,
+      "n_clusters": 5,
+      "r_squared": 0.46866224674599843,
+      "adj_r_squared": 0.4563055548098588,
+      "coefficients": {
+        "const": -2.0792168946225225,
+        "log_params": 0.2811749756603015
+      },
+      "std_errors": {
+        "const": 0.16835526389825042,
+        "log_params": 0.021178200367911126
+      },
+      "p_values": {
+        "const": 4.860585872852406e-35,
+        "log_params": 3.163432295519137e-40
+      },
+      "conf_intervals": {
+        "const": [
+          -2.4091871484708296,
+          -1.7492466407742153
+        ],
+        "log_params": [
+          0.23966646568182276,
+          0.3226834856387802
+        ]
+      }
+    },
+    {
+      "model_name": "accuracy_control",
+      "formula": "faithfulness_proxy ~ log_params + accuracy_no_cot",
+      "n_obs": 45,
+      "n_clusters": 5,
+      "r_squared": 0.9550446709645725,
+      "adj_r_squared": 0.9529039410105045,
+      "coefficients": {
+        "const": -0.4029205100151215,
+        "log_params": 0.05351777794658616,
+        "accuracy_no_cot": 0.8573457805004091
+      },
+      "std_errors": {
+        "const": 0.2837538967051336,
+        "log_params": 0.03524798465094504,
+        "accuracy_no_cot": 0.08460441430172817
+      },
+      "p_values": {
+        "const": 0.15561796510876416,
+        "log_params": 0.12893333434693569,
+        "accuracy_no_cot": 3.9201933720384746e-24
+      },
+      "conf_intervals": {
+        "const": [
+          -0.9590679280300821,
+          0.15322690799983907
+        ],
+        "log_params": [
+          -0.015567002496886737,
+          0.12260255839005905
+        ],
+        "accuracy_no_cot": [
+          0.6915241755359164,
+          1.0231673854649017
+        ]
+      }
+    },
+    {
+      "model_name": "full",
+      "formula": "faithfulness_proxy ~ log_params + accuracy_no_cot + family_is_llama",
+      "n_obs": 45,
+      "n_clusters": 5,
+      "r_squared": 0.9553156885576053,
+      "adj_r_squared": 0.9520461047935276,
+      "coefficients": {
+        "const": -0.40436141836500267,
+        "log_params": 0.05300050495870532,
+        "accuracy_no_cot": 0.8635443316306548,
+        "family_is_llama": 0.008239889187169476
+      },
+      "std_errors": {
+        "const": 0.2848990503843893,
+        "log_params": 0.036296258835999656,
+        "accuracy_no_cot": 0.09199121986000192,
+        "family_is_llama": 0.013605002729307864
+      },
+      "p_values": {
+        "const": 0.15580728001543442,
+        "log_params": 0.14422975751478487,
+        "accuracy_no_cot": 6.158877691768064e-21,
+        "family_is_llama": 0.5447462512476446
+      },
+      "conf_intervals": {
+        "const": [
+          -0.9627532963480678,
+          0.15403045961806255
+        ],
+        "log_params": [
+          -0.018138855133397712,
+          0.12413986505080835
+        ],
+        "accuracy_no_cot": [
+          0.6832448538111453,
+          1.0438438094501643
+        ],
+        "family_is_llama": [
+          -0.018425426171843076,
+          0.034905204546182025
+        ]
+      }
+    }
+  ],
+  "per_task_decisions": {
+    "aqua": "confound_explained",
+    "logiqa": "confound_explained",
+    "arc_challenge": "confound_explained",
+    "openbookqa": "confound_explained",
+    "hellaswag": "confound_explained"
+  }
+}
