@@ -1,0 +1,48 @@
+[project]
+name = "inverse-scaling-cot"
+version = "0.1.0"
+description = "Inverse scaling of chain-of-thought faithfulness in LLMs"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy",
+    "pandas",
+    "scipy",
+    "pyyaml",
+    "tqdm",
+    "pydantic",
+    "simple-parsing",
+    "datasets",
+    "statsmodels",
+    "matplotlib",
+    "seaborn",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pre-commit",
+    "ruff",
+]
+inference = [
+    "vllm>=0.6.0",
+    "transformers",
+    "accelerate",
+    "torch",
+]
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+
+[tool.ruff.lint]
+ignore = ["E501", "E402", "E741", "F841", "F403", "F401"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
