@@ -13,8 +13,11 @@ dependencies = [
     "simple-parsing",
     "datasets",
     "statsmodels",
+    "pytest",
     "matplotlib",
     "seaborn",
+    "python-dotenv",
+    "huggingface_hub",
 ]
 
 [project.optional-dependencies]

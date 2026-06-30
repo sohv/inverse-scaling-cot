@@ -48,6 +48,7 @@ class VLLMEngine:
         self,
         conversations: list[list[dict[str, str]]],
         gen_config: GenerationConfig,
+        continue_final_message: bool = False,
     ) -> list[list[str]]:
         """Generate completions for a batch of conversations.
 
@@ -74,6 +75,8 @@ class VLLMEngine:
             messages=conversations,
             sampling_params=sampling_params,
             use_tqdm=True,
+            continue_final_message=continue_final_message,
+            add_generation_prompt=not continue_final_message,
         )
         results = []
         for output in outputs:

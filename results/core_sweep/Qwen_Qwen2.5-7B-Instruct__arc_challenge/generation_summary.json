@@ -1,0 +1,9 @@
+{
+  "n_questions": 100,
+  "model_id": "Qwen/Qwen2.5-7B-Instruct",
+  "dataset_name": "arc_challenge",
+  "n_cot_samples_per_question": 20,
+  "n_cot_extraction_failures": 0,
+  "total_cot_samples": 2000,
+  "n_no_cot_extraction_failures": 0
+}

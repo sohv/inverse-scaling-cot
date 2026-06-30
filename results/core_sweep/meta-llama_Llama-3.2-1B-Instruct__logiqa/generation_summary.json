@@ -1,0 +1,9 @@
+{
+  "n_questions": 100,
+  "model_id": "meta-llama/Llama-3.2-1B-Instruct",
+  "dataset_name": "logiqa",
+  "n_cot_samples_per_question": 20,
+  "n_cot_extraction_failures": 8,
+  "total_cot_samples": 2000,
+  "n_no_cot_extraction_failures": 0
+}

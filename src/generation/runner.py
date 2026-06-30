@@ -145,7 +145,7 @@ def run_generation_for_model(
             all_final_conversations.append(msgs)
             conversation_index_map.append((q_idx, s_idx))
 
-    final_outputs = engine.generate_chat(all_final_conversations, final_answer_config)
+    final_outputs = engine.generate_chat(all_final_conversations, final_answer_config, continue_final_message=True)
 
     # Reorganize final outputs into per-question structure
     cot_final_answers: list[list[str]] = [[] for _ in range(n_questions)]
@@ -155,7 +155,7 @@ def run_generation_for_model(
     # Step 3: Generate no-CoT answers (n=1 per question)
     LOGGER.info("Step 3: Generating no-CoT answers...")
     no_cot_conversations = [build_no_cot_messages(q) for q in questions]
-    no_cot_outputs = engine.generate_chat(no_cot_conversations, no_cot_gen_config)
+    no_cot_outputs = engine.generate_chat(no_cot_conversations, no_cot_gen_config, continue_final_message=True)
 
     # Step 4: Assemble results with answer extraction
     LOGGER.info("Step 4: Extracting answers and assembling results...")

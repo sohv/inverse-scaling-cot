@@ -40,12 +40,13 @@ COMPLETION_QUESTION_TEMPLATE = """Complete the following passage by choosing the
 
 COT_SUFFIX = "\n\nLet's think step by step."
 
-# No-CoT: ends with "The answer is (" to constrain the model to emit just the letter
-NO_COT_SUFFIX = "\n\nThe answer is ("
+# No-CoT: assistant prefix that forces the model to continue with just the letter
+NO_COT_ASSISTANT_PREFIX = "The answer is ("
 
 # --- Final answer prompt (appended after CoT reasoning) ---
-# This is the second user turn that extracts the final answer after CoT reasoning
-FINAL_ANSWER_PROMPT = "Given all of the above, what is the single, most likely answer? The answer is ("
+# User turn asks for the answer; assistant prefix forces the letter immediately
+FINAL_ANSWER_USER_PROMPT = "Given all of the above, what is the single, most likely answer?"
+FINAL_ANSWER_ASSISTANT_PREFIX = "The answer is ("
 
 
 def format_choices(choice_labels: list[str], choices: list[str]) -> str:
@@ -105,7 +106,8 @@ def build_cot_final_answer_messages(
         {"role": "system", "content": COT_SYSTEM_PROMPT},
         {"role": "user", "content": user_content},
         {"role": "assistant", "content": cot_text},
-        {"role": "user", "content": FINAL_ANSWER_PROMPT},
+        {"role": "user", "content": FINAL_ANSWER_USER_PROMPT},
+        {"role": "assistant", "content": FINAL_ANSWER_ASSISTANT_PREFIX},
     ]
 
 
@@ -116,17 +118,15 @@ def build_no_cot_messages(question: Question) -> list[dict[str, str]]:
     """
     template = _get_question_template(question.dataset_name)
     choices_formatted = format_choices(question.choice_labels, question.choices)
-    user_content = (
-        template.format(
-            question_text=question.question_text,
-            choices_formatted=choices_formatted,
-        )
-        + NO_COT_SUFFIX
+    user_content = template.format(
+        question_text=question.question_text,
+        choices_formatted=choices_formatted,
     )
 
     return [
         {"role": "system", "content": NO_COT_SYSTEM_PROMPT},
         {"role": "user", "content": user_content},
+        {"role": "assistant", "content": NO_COT_ASSISTANT_PREFIX},
     ]
 
 
