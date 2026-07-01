@@ -174,7 +174,7 @@ pattern.
 
 ```bash
 for dataset in aqua logiqa arc_challenge openbookqa hellaswag; do uv run -m src.experiments.base_ablation.run --model_id Qwen/Qwen2.5-0.5B --dataset_name "$dataset" --output_dir results/base_ablation --n_questions 100 --seed 42; done
-# Repeat for: Qwen2.5-1.5B  3B  7B  14B  32B  72B
+# Repeat for: Qwen2.5-1.5B  3B  7B  14B  32B
 ```
 
 > **Fallback:** drop if >20% answer-extraction failures on few-shot prompts; note

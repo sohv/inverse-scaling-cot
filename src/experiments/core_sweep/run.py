@@ -27,7 +27,7 @@ from dataclasses import dataclass
 import simple_parsing
 
 from src.data.sampler import load_or_sample_questions
-from src.generation.engine import GenerationConfig, VLLMEngine
+from src.generation.engine import GenerationConfig, HFEngine, VLLMEngine
 from src.generation.runner import run_generation_for_model, save_generation_results
 from src.metrics.faithfulness import compute_faithfulness
 from src.utils.config import make_output_dir, save_run_config
@@ -51,9 +51,12 @@ class Config:
     top_p: float = 0.95
     max_tokens_cot: int = 1024
     max_tokens_no_cot: int = 20
+    engine: str = "vllm"  # "vllm" or "hf"
     tensor_parallel_size: int = 1
     gpu_memory_utilization: float = 0.90
     max_model_len: int | None = None
+    enforce_eager: bool = False
+    quantization: str | None = None
 
 
 def main():
@@ -71,13 +74,18 @@ def main():
     )
     LOGGER.info(f"Loaded {len(questions)} questions for {config.dataset_name}")
 
-    # 2. Initialize vLLM engine
-    engine = VLLMEngine(
-        model_id=config.model_id,
-        tensor_parallel_size=config.tensor_parallel_size,
-        gpu_memory_utilization=config.gpu_memory_utilization,
-        max_model_len=config.max_model_len,
-    )
+    # 2. Initialize engine
+    if config.engine == "hf":
+        engine = HFEngine(model_id=config.model_id)
+    else:
+        engine = VLLMEngine(
+            model_id=config.model_id,
+            tensor_parallel_size=config.tensor_parallel_size,
+            gpu_memory_utilization=config.gpu_memory_utilization,
+            max_model_len=config.max_model_len,
+            enforce_eager=config.enforce_eager,
+            quantization=config.quantization,
+        )
 
     # 3. Configure generation
     cot_gen_config = GenerationConfig(

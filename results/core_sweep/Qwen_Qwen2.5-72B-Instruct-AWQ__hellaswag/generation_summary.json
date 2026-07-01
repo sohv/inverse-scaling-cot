@@ -1,0 +1,9 @@
+{
+  "n_questions": 100,
+  "model_id": "Qwen/Qwen2.5-72B-Instruct-AWQ",
+  "dataset_name": "hellaswag",
+  "n_cot_samples_per_question": 20,
+  "n_cot_extraction_failures": 0,
+  "total_cot_samples": 2000,
+  "n_no_cot_extraction_failures": 0
+}

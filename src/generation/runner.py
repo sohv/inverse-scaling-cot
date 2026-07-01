@@ -22,7 +22,7 @@ from src.generation.templates import (
 from src.utils.io import write_json, write_jsonl
 
 if TYPE_CHECKING:
-    from src.generation.engine import VLLMEngine
+    from src.generation.engine import HFEngine, VLLMEngine
 
 LOGGER = logging.getLogger(__name__)
 
@@ -105,7 +105,7 @@ def extract_answer_no_cot(text: str, choice_labels: list[str]) -> str | None:
 
 
 def run_generation_for_model(
-    engine: VLLMEngine,
+    engine: VLLMEngine | HFEngine,
     questions: list[Question],
     model_id: str,
     n_cot_samples: int = 20,

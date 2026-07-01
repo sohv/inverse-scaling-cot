@@ -1,126 +1,126 @@
 {
-  "baseline_coef_log_params": 0.2811749756603015,
-  "controlled_coef_log_params": 0.05351777794658616,
-  "pct_drop": 80.96637945076482,
+  "baseline_coef_log_params": 0.2201447220439206,
+  "controlled_coef_log_params": 0.04764814159407006,
+  "pct_drop": 78.35599184405436,
   "decision": "confound_explained",
   "regressions": [
     {
       "model_name": "baseline",
       "formula": "faithfulness_proxy ~ log_params",
-      "n_obs": 45,
+      "n_obs": 55,
       "n_clusters": 5,
-      "r_squared": 0.46866224674599843,
-      "adj_r_squared": 0.4563055548098588,
+      "r_squared": 0.45122873058666124,
+      "adj_r_squared": 0.4408745556920699,
       "coefficients": {
-        "const": -2.0792168946225225,
-        "log_params": 0.2811749756603015
+        "const": -1.508662313891841,
+        "log_params": 0.2201447220439206
       },
       "std_errors": {
-        "const": 0.16835526389825042,
-        "log_params": 0.021178200367911126
+        "const": 0.12950267829899126,
+        "log_params": 0.015919641637179155
       },
       "p_values": {
-        "const": 4.860585872852406e-35,
-        "log_params": 3.163432295519137e-40
+        "const": 2.303731483924857e-31,
+        "log_params": 1.715670721921054e-43
       },
       "conf_intervals": {
         "const": [
-          -2.4091871484708296,
-          -1.7492466407742153
+          -1.7624828992593407,
+          -1.2548417285243412
         ],
         "log_params": [
-          0.23966646568182276,
-          0.3226834856387802
+          0.1889427977882652,
+          0.25134664629957604
         ]
       }
     },
     {
       "model_name": "accuracy_control",
       "formula": "faithfulness_proxy ~ log_params + accuracy_no_cot",
-      "n_obs": 45,
+      "n_obs": 55,
       "n_clusters": 5,
-      "r_squared": 0.9550446709645725,
-      "adj_r_squared": 0.9529039410105045,
+      "r_squared": 0.9563960563981423,
+      "adj_r_squared": 0.9547189816442246,
       "coefficients": {
-        "const": -0.4029205100151215,
-        "log_params": 0.05351777794658616,
-        "accuracy_no_cot": 0.8573457805004091
+        "const": -0.3491620795928414,
+        "log_params": 0.04764814159407006,
+        "accuracy_no_cot": 0.8594635600970654
       },
       "std_errors": {
-        "const": 0.2837538967051336,
-        "log_params": 0.03524798465094504,
-        "accuracy_no_cot": 0.08460441430172817
+        "const": 0.20841592943210274,
+        "log_params": 0.027503436131043262,
+        "accuracy_no_cot": 0.0872563776452691
       },
       "p_values": {
-        "const": 0.15561796510876416,
-        "log_params": 0.12893333434693569,
-        "accuracy_no_cot": 3.9201933720384746e-24
+        "const": 0.09387268218108466,
+        "log_params": 0.08319467746930685,
+        "accuracy_no_cot": 6.86359487143472e-23
       },
       "conf_intervals": {
         "const": [
-          -0.9590679280300821,
-          0.15322690799983907
+          -0.7576497950842043,
+          0.05932563589852141
         ],
         "log_params": [
-          -0.015567002496886737,
-          0.12260255839005905
+          -0.0062576026738723756,
+          0.1015538858620125
         ],
         "accuracy_no_cot": [
-          0.6915241755359164,
-          1.0231673854649017
+          0.6884442024909121,
+          1.0304829177032186
         ]
       }
     },
     {
       "model_name": "full",
       "formula": "faithfulness_proxy ~ log_params + accuracy_no_cot + family_is_llama",
-      "n_obs": 45,
+      "n_obs": 55,
       "n_clusters": 5,
-      "r_squared": 0.9553156885576053,
-      "adj_r_squared": 0.9520461047935276,
+      "r_squared": 0.9564659232982534,
+      "adj_r_squared": 0.9539050952569742,
       "coefficients": {
-        "const": -0.40436141836500267,
-        "log_params": 0.05300050495870532,
-        "accuracy_no_cot": 0.8635443316306548,
-        "family_is_llama": 0.008239889187169476
+        "const": -0.34639889349780795,
+        "log_params": 0.047004310705300326,
+        "accuracy_no_cot": 0.8627590931618914,
+        "family_is_llama": 0.004153066758491586
       },
       "std_errors": {
-        "const": 0.2848990503843893,
-        "log_params": 0.036296258835999656,
-        "accuracy_no_cot": 0.09199121986000192,
-        "family_is_llama": 0.013605002729307864
+        "const": 0.21865219035449615,
+        "log_params": 0.029611536718279596,
+        "accuracy_no_cot": 0.0959057485146968,
+        "family_is_llama": 0.013258176857739773
       },
       "p_values": {
-        "const": 0.15580728001543442,
-        "log_params": 0.14422975751478487,
-        "accuracy_no_cot": 6.158877691768064e-21,
-        "family_is_llama": 0.5447462512476446
+        "const": 0.11313771204107907,
+        "log_params": 0.11243004946733498,
+        "accuracy_no_cot": 2.3429184435570276e-19,
+        "family_is_llama": 0.7540940081875575
       },
       "conf_intervals": {
         "const": [
-          -0.9627532963480678,
-          0.15403045961806255
+          -0.7749493117334165,
+          0.08215152473780069
         ],
         "log_params": [
-          -0.018138855133397712,
-          0.12413986505080835
+          -0.011033234789413066,
+          0.10504185620001372
         ],
         "accuracy_no_cot": [
-          0.6832448538111453,
-          1.0438438094501643
+          0.6747872801627298,
+          1.0507309061610528
         ],
         "family_is_llama": [
-          -0.018425426171843076,
-          0.034905204546182025
+          -0.021832482383340793,
+          0.030138615900323965
         ]
       }
     }
   ],
   "per_task_decisions": {
     "aqua": "confound_explained",
-    "logiqa": "confound_explained",
     "arc_challenge": "confound_explained",
-    "openbookqa": "confound_explained",
-    "hellaswag": "confound_explained"
+    "hellaswag": "confound_explained",
+    "logiqa": "confound_explained",
+    "openbookqa": "confound_explained"
   }
 }

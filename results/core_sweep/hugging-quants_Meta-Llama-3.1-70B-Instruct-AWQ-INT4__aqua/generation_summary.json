@@ -1,0 +1,9 @@
+{
+  "n_questions": 100,
+  "model_id": "hugging-quants/Meta-Llama-3.1-70B-Instruct-AWQ-INT4",
+  "dataset_name": "aqua",
+  "n_cot_samples_per_question": 20,
+  "n_cot_extraction_failures": 43,
+  "total_cot_samples": 2000,
+  "n_no_cot_extraction_failures": 2
+}

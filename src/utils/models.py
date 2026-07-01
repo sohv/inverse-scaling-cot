@@ -19,11 +19,13 @@ INSTRUCT_MODELS: list[ModelInfo] = [
     ModelInfo("Qwen/Qwen2.5-14B-Instruct", "qwen", 14.0, True, False),
     ModelInfo("Qwen/Qwen2.5-32B-Instruct", "qwen", 32.0, True, False),
     ModelInfo("Qwen/Qwen2.5-72B-Instruct", "qwen", 72.0, True, False),
+    ModelInfo("Qwen/Qwen2.5-72B-Instruct-AWQ", "qwen", 72.0, True, False),
     # Llama-3-Instruct family (4 sizes)
     ModelInfo("meta-llama/Llama-3.2-1B-Instruct", "llama", 1.0, True, False),
     ModelInfo("meta-llama/Llama-3.2-3B-Instruct", "llama", 3.0, True, False),
     ModelInfo("meta-llama/Llama-3.1-8B-Instruct", "llama", 8.0, True, False),
     ModelInfo("meta-llama/Llama-3.1-70B-Instruct", "llama", 70.0, True, False),
+    ModelInfo("hugging-quants/Meta-Llama-3.1-70B-Instruct-AWQ-INT4", "llama", 70.0, True, False),
 ]
 
 BASE_MODELS: list[ModelInfo] = [
