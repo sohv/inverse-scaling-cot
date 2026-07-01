@@ -33,6 +33,8 @@ class RegressionResult(BaseModel):
     std_errors: dict[str, float]
     p_values: dict[str, float]
     conf_intervals: dict[str, list[float]]
+    bootstrap_ci: dict[str, list[float]] = {}  # 95% bootstrap CI per coefficient
+    bootstrap_n: int = 0
 
 
 class DecompositionResult(BaseModel):
@@ -44,6 +46,17 @@ class DecompositionResult(BaseModel):
     decision: str  # "confound_explained" | "effect_survives" | "ambiguous"
     regressions: list[RegressionResult]
     per_task_decisions: dict[str, str]
+    bootstrap_log_params_model1_ci: list[float] = []  # 95% CI from bootstrap
+    bootstrap_log_params_model2_ci: list[float] = []
+    # Robustness: same regressions with AQuA dropped
+    no_aqua_baseline_coef: float | None = None
+    no_aqua_controlled_coef: float | None = None
+    no_aqua_pct_drop: float | None = None
+    no_aqua_model2_bootstrap_ci: list[float] = []
+    # Robustness: quadratic accuracy term (Model 2b)
+    quadratic_log_params_coef: float | None = None
+    quadratic_log_params_bootstrap_ci: list[float] = []
+    quadratic_r_squared: float | None = None
 
 
 def build_regression_table(
@@ -81,6 +94,7 @@ def build_regression_table(
         )
 
     df = pd.DataFrame(rows)
+    df["accuracy_no_cot_sq"] = df["accuracy_no_cot"] ** 2
     LOGGER.info(f"Built regression table with {len(df)} rows")
     return df
 
@@ -134,10 +148,35 @@ def run_regression(
     )
 
 
+def _bootstrap_coefs(
+    df: pd.DataFrame,
+    x_cols: list[str],
+    y_col: str = "faithfulness_proxy",
+    n_boot: int = 1000,
+    seed: int = 42,
+) -> dict[str, list[float]]:
+    """Bootstrap regression coefficients and return per-variable arrays."""
+    rng = np.random.default_rng(seed)
+    col_names = ["const"] + x_cols
+    boot_coefs: dict[str, list[float]] = {name: [] for name in col_names}
+
+    for _ in range(n_boot):
+        sample = df.sample(n=len(df), replace=True, random_state=int(rng.integers(1 << 31)))
+        y = sample[y_col].values
+        X = sm.add_constant(sample[x_cols].values)
+        result = sm.OLS(y, X).fit()
+        for i, name in enumerate(col_names):
+            boot_coefs[name].append(float(result.params[i]))
+
+    return boot_coefs
+
+
 def run_decomposition(
     df: pd.DataFrame,
     drop_threshold: float = 0.50,
     retain_threshold: float = 0.30,
+    n_bootstrap: int = 1000,
+    bootstrap_seed: int = 42,
 ) -> DecompositionResult:
     """Run all 3 regressions and apply the pre-registered decision procedure.
 
@@ -154,6 +193,23 @@ def run_decomposition(
 
     # Model 3: full with family
     reg3 = run_regression(df, "faithfulness_proxy", ["log_params", "accuracy_no_cot", "family_is_llama"], "full")
+
+    # Bootstrap CIs for Model 1 and Model 2
+    LOGGER.info(f"Running {n_bootstrap}-iteration bootstrap for Model 1...")
+    boot1 = _bootstrap_coefs(df, ["log_params"], n_boot=n_bootstrap, seed=bootstrap_seed)
+    reg1.bootstrap_ci = {
+        name: [float(np.percentile(vals, 2.5)), float(np.percentile(vals, 97.5))]
+        for name, vals in boot1.items()
+    }
+    reg1.bootstrap_n = n_bootstrap
+
+    LOGGER.info(f"Running {n_bootstrap}-iteration bootstrap for Model 2...")
+    boot2 = _bootstrap_coefs(df, ["log_params", "accuracy_no_cot"], n_boot=n_bootstrap, seed=bootstrap_seed)
+    reg2.bootstrap_ci = {
+        name: [float(np.percentile(vals, 2.5)), float(np.percentile(vals, 97.5))]
+        for name, vals in boot2.items()
+    }
+    reg2.bootstrap_n = n_bootstrap
 
     # Decision on pooled data
     baseline_coef = reg1.coefficients["log_params"]
@@ -205,6 +261,69 @@ def run_decomposition(
     for task, dec in per_task_decisions.items():
         LOGGER.info(f"  {task}: {dec}")
 
+    boot_m1_ci = reg1.bootstrap_ci.get("log_params", [])
+    boot_m2_ci = reg2.bootstrap_ci.get("log_params", [])
+
+    # Model 2b: quadratic accuracy control
+    LOGGER.info("Running Model 2b: quadratic accuracy term...")
+    reg2b = run_regression(
+        df, "faithfulness_proxy", ["log_params", "accuracy_no_cot", "accuracy_no_cot_sq"], "quadratic_accuracy"
+    )
+    boot2b = _bootstrap_coefs(
+        df, ["log_params", "accuracy_no_cot", "accuracy_no_cot_sq"], n_boot=n_bootstrap, seed=bootstrap_seed
+    )
+    reg2b.bootstrap_ci = {
+        k: [float(np.percentile(v, 2.5)), float(np.percentile(v, 97.5))] for k, v in boot2b.items()
+    }
+    reg2b.bootstrap_n = n_bootstrap
+
+    quadratic_log_params_coef = reg2b.coefficients["log_params"]
+    quadratic_log_params_boot_ci = reg2b.bootstrap_ci.get("log_params", [])
+    LOGGER.info(
+        "Model 2b: log_params coef=%.4f, bootstrap CI=[%.4f, %.4f]",
+        quadratic_log_params_coef,
+        quadratic_log_params_boot_ci[0] if quadratic_log_params_boot_ci else float("nan"),
+        quadratic_log_params_boot_ci[1] if quadratic_log_params_boot_ci else float("nan"),
+    )
+
+    # Robustness check: drop AQuA and re-run Models 1 & 2 with bootstrap
+    no_aqua_baseline_coef = None
+    no_aqua_controlled_coef = None
+    no_aqua_pct_drop = None
+    no_aqua_boot_m2_ci: list[float] = []
+
+    df_no_aqua = df[df["dataset_name"] != "aqua"].copy()
+    if len(df_no_aqua) >= 4:
+        LOGGER.info("Running robustness check: AQuA dropped (%d rows)", len(df_no_aqua))
+        na_reg1 = run_regression(df_no_aqua, "faithfulness_proxy", ["log_params"], "no_aqua_baseline")
+        na_reg2 = run_regression(
+            df_no_aqua, "faithfulness_proxy", ["log_params", "accuracy_no_cot"], "no_aqua_accuracy_control"
+        )
+
+        na_boot1 = _bootstrap_coefs(df_no_aqua, ["log_params"], n_boot=n_bootstrap, seed=bootstrap_seed)
+        na_boot2 = _bootstrap_coefs(
+            df_no_aqua, ["log_params", "accuracy_no_cot"], n_boot=n_bootstrap, seed=bootstrap_seed
+        )
+        na_reg1.bootstrap_ci = {
+            k: [float(np.percentile(v, 2.5)), float(np.percentile(v, 97.5))] for k, v in na_boot1.items()
+        }
+        na_reg2.bootstrap_ci = {
+            k: [float(np.percentile(v, 2.5)), float(np.percentile(v, 97.5))] for k, v in na_boot2.items()
+        }
+        na_reg1.bootstrap_n = na_reg2.bootstrap_n = n_bootstrap
+
+        no_aqua_baseline_coef = na_reg1.coefficients["log_params"]
+        no_aqua_controlled_coef = na_reg2.coefficients["log_params"]
+        if abs(no_aqua_baseline_coef) > 1e-10:
+            no_aqua_pct_drop = (1 - abs(no_aqua_controlled_coef) / abs(no_aqua_baseline_coef)) * 100
+        no_aqua_boot_m2_ci = na_reg2.bootstrap_ci.get("log_params", [])
+        LOGGER.info(
+            "No-AQuA: baseline coef=%.4f, controlled=%.4f, pct_drop=%.1f%%",
+            no_aqua_baseline_coef,
+            no_aqua_controlled_coef,
+            no_aqua_pct_drop or 0.0,
+        )
+
     return DecompositionResult(
         baseline_coef_log_params=baseline_coef,
         controlled_coef_log_params=controlled_coef,
@@ -212,4 +331,13 @@ def run_decomposition(
         decision=decision,
         regressions=[reg1, reg2, reg3],
         per_task_decisions=per_task_decisions,
+        bootstrap_log_params_model1_ci=boot_m1_ci,
+        bootstrap_log_params_model2_ci=boot_m2_ci,
+        no_aqua_baseline_coef=no_aqua_baseline_coef,
+        no_aqua_controlled_coef=no_aqua_controlled_coef,
+        no_aqua_pct_drop=no_aqua_pct_drop,
+        no_aqua_model2_bootstrap_ci=no_aqua_boot_m2_ci,
+        quadratic_log_params_coef=quadratic_log_params_coef,
+        quadratic_log_params_bootstrap_ci=quadratic_log_params_boot_ci,
+        quadratic_r_squared=reg2b.r_squared,
     )

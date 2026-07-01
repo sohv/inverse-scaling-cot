@@ -1,0 +1,26 @@
+{
+  "git_hash": "67d33091",
+  "config": {
+    "model_id": "Qwen/Qwen2.5-1.5B",
+    "dataset_name": "hellaswag",
+    "output_dir": "results/base_ablation",
+    "splits_dir": "data/splits",
+    "n_questions": 100,
+    "n_cot_samples": 20,
+    "n_few_shot": 2,
+    "seed": 42,
+    "temperature": 0.8,
+    "top_p": 0.95,
+    "max_tokens_cot": 1024,
+    "max_tokens_no_cot": 20,
+    "tensor_parallel_size": 1,
+    "gpu_memory_utilization": 0.9,
+    "max_model_len": null
+  },
+  "metadata": {
+    "prompt_type": "few_shot",
+    "n_few_shot": 2,
+    "cot_extraction_failure_rate": 6.85,
+    "no_cot_extraction_failure_rate": 0.0
+  }
+}

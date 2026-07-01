@@ -86,7 +86,9 @@ def main():
             p = reg.p_values[var]
             ci = reg.conf_intervals[var]
             sig = "***" if p < 0.001 else "**" if p < 0.01 else "*" if p < 0.05 else ""
-            print(f"  {var:<25} {coef:>10.4f} (SE={se:.4f}, p={p:.4f}) {sig}  [{ci[0]:.4f}, {ci[1]:.4f}]")
+            boot_ci = reg.bootstrap_ci.get(var)
+            boot_str = f"  bootstrap 95% CI [{boot_ci[0]:.4f}, {boot_ci[1]:.4f}]" if boot_ci else ""
+            print(f"  {var:<25} {coef:>10.4f} (SE={se:.4f}, p={p:.4f}) {sig}  [{ci[0]:.4f}, {ci[1]:.4f}]{boot_str}")
 
     print("\n--- DECISION ---")
     print(f"  Baseline log_params coef:    {decomposition.baseline_coef_log_params:.4f}")
@@ -97,6 +99,43 @@ def main():
     print("\n  Per-task verdicts:")
     for task, verdict in decomposition.per_task_decisions.items():
         print(f"    {task:<20} {verdict}")
+
+    if decomposition.bootstrap_log_params_model1_ci:
+        ci1 = decomposition.bootstrap_log_params_model1_ci
+        ci2 = decomposition.bootstrap_log_params_model2_ci
+        print("\n--- BOOTSTRAP 95% CI (1000 iterations, observation-level resample) ---")
+        print(f"  log_params (Model 1, baseline):   [{ci1[0]:.4f}, {ci1[1]:.4f}]")
+        print(f"  log_params (Model 2, controlled):  [{ci2[0]:.4f}, {ci2[1]:.4f}]")
+        contains_zero = ci2[0] <= 0.0 <= ci2[1]
+        print(f"  Model 2 CI contains zero: {contains_zero} → {'coefficient indistinguishable from zero' if contains_zero else 'coefficient remains non-zero'}")
+
+    if decomposition.no_aqua_baseline_coef is not None:
+        na_b = decomposition.no_aqua_baseline_coef
+        na_c = decomposition.no_aqua_controlled_coef
+        na_drop = decomposition.no_aqua_pct_drop
+        na_ci = decomposition.no_aqua_model2_bootstrap_ci
+        print("\n--- ROBUSTNESS: AQuA DROPPED ---")
+        print(f"  Baseline log_params coef:    {na_b:.4f}")
+        print(f"  Controlled log_params coef:  {na_c:.4f}")
+        if na_drop is not None:
+            print(f"  % drop in magnitude:         {na_drop:.1f}%")
+        if na_ci:
+            contains_zero = na_ci[0] <= 0.0 <= na_ci[1]
+            print(f"  Bootstrap 95% CI (Model 2):  [{na_ci[0]:.4f}, {na_ci[1]:.4f}]")
+            print(f"  CI contains zero: {contains_zero} → {'AQuA was driving the residual' if contains_zero else 'residual persists without AQuA'}")
+
+    if decomposition.quadratic_log_params_coef is not None:
+        q_coef = decomposition.quadratic_log_params_coef
+        q_ci = decomposition.quadratic_log_params_bootstrap_ci
+        q_r2 = decomposition.quadratic_r_squared
+        print("\n--- ROBUSTNESS: QUADRATIC ACCURACY TERM (Model 2b) ---")
+        print(f"  log_params coef:   {q_coef:.4f}")
+        if q_ci:
+            contains_zero = q_ci[0] <= 0.0 <= q_ci[1]
+            print(f"  Bootstrap 95% CI:  [{q_ci[0]:.4f}, {q_ci[1]:.4f}]")
+            print(f"  CI contains zero: {contains_zero} → {'quadratic term absorbs residual' if contains_zero else 'residual persists with quadratic term'}")
+        if q_r2 is not None:
+            print(f"  R² = {q_r2:.4f}  (vs Model 2 linear R² = {decomposition.regressions[1].r_squared:.4f})")
 
     print(
         f"\nPlot with: uv run -m src.experiments.regression.plot "

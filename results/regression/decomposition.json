@@ -32,7 +32,18 @@
           0.1889427977882652,
           0.25134664629957604
         ]
-      }
+      },
+      "bootstrap_ci": {
+        "const": [
+          -2.1326180764584506,
+          -0.8910408175459288
+        ],
+        "log_params": [
+          0.1564873285294248,
+          0.2858020461072069
+        ]
+      },
+      "bootstrap_n": 1000
     },
     {
       "model_name": "accuracy_control",
@@ -69,7 +80,22 @@
           0.6884442024909121,
           1.0304829177032186
         ]
-      }
+      },
+      "bootstrap_ci": {
+        "const": [
+          -0.5724585944732635,
+          -0.13122303161005502
+        ],
+        "log_params": [
+          0.022043182588487937,
+          0.07389555832746039
+        ],
+        "accuracy_no_cot": [
+          0.78511105752179,
+          0.9224170057479565
+        ]
+      },
+      "bootstrap_n": 1000
     },
     {
       "model_name": "full",
@@ -113,7 +139,9 @@
           -0.021832482383340793,
           0.030138615900323965
         ]
-      }
+      },
+      "bootstrap_ci": {},
+      "bootstrap_n": 0
     }
   ],
   "per_task_decisions": {
@@ -122,5 +150,26 @@
     "hellaswag": "confound_explained",
     "logiqa": "confound_explained",
     "openbookqa": "confound_explained"
-  }
+  },
+  "bootstrap_log_params_model1_ci": [
+    0.1564873285294248,
+    0.2858020461072069
+  ],
+  "bootstrap_log_params_model2_ci": [
+    0.022043182588487937,
+    0.07389555832746039
+  ],
+  "no_aqua_baseline_coef": 0.23261247862757395,
+  "no_aqua_controlled_coef": 0.0805439731943823,
+  "no_aqua_pct_drop": 65.37418212918067,
+  "no_aqua_model2_bootstrap_ci": [
+    0.059903313419279375,
+    0.09952187415407687
+  ],
+  "quadratic_log_params_coef": 0.04782104863086824,
+  "quadratic_log_params_bootstrap_ci": [
+    0.023075232283750056,
+    0.07516146949706463
+  ],
+  "quadratic_r_squared": 0.9609102835710246
 }

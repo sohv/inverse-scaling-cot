@@ -8,3 +8,5 @@ results/raw/*
 *.egg-info/
 .pytest_cache/
 .ruff_cache/
+CLAUDE.md
+research_log.md
