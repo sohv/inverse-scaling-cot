@@ -1,0 +1,16 @@
+{
+  "git_hash": "ebb60693",
+  "vllm_version": "0.24.0",
+  "config": {
+    "core_sweep_results_dir": "results/core_sweep,results/third_family",
+    "output_dir": "results/three_family",
+    "n_bootstrap": 1000,
+    "seed": 42,
+    "exclude_quantized": false,
+    "exclude_models": "",
+    "exclude_tasks": ""
+  },
+  "metadata": {
+    "n_cells": 75
+  }
+}

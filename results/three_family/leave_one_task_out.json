@@ -1,0 +1,138 @@
+{
+  "fits": [
+    {
+      "label": "drop_task=aqua",
+      "n_obs": 60,
+      "n_models": 15,
+      "n_tasks": 4,
+      "raw_coef": 0.2426,
+      "controlled_coef": 0.0781,
+      "pct_reduction": 67.8177,
+      "accuracy_coef": 0.7179,
+      "r2_raw": 0.655,
+      "r2_controlled": 0.9682,
+      "raw_coef_ci": [
+        0.2017,
+        0.2805
+      ],
+      "controlled_coef_ci": [
+        0.059,
+        0.0953
+      ],
+      "pct_reduction_ci": [
+        59.5999,
+        76.7923
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "drop_task=arc_challenge",
+      "n_obs": 60,
+      "n_models": 15,
+      "n_tasks": 4,
+      "raw_coef": 0.2179,
+      "controlled_coef": 0.0439,
+      "pct_reduction": 79.84,
+      "accuracy_coef": 0.8726,
+      "r2_raw": 0.3886,
+      "r2_controlled": 0.9529,
+      "raw_coef_ci": [
+        0.1551,
+        0.2751
+      ],
+      "controlled_coef_ci": [
+        0.0197,
+        0.0715
+      ],
+      "pct_reduction_ci": [
+        68.3391,
+        91.0167
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "drop_task=hellaswag",
+      "n_obs": 60,
+      "n_models": 15,
+      "n_tasks": 4,
+      "raw_coef": 0.2118,
+      "controlled_coef": 0.0405,
+      "pct_reduction": 80.9029,
+      "accuracy_coef": 0.8871,
+      "r2_raw": 0.3566,
+      "r2_controlled": 0.9557,
+      "raw_coef_ci": [
+        0.1475,
+        0.273
+      ],
+      "controlled_coef_ci": [
+        0.0163,
+        0.0672
+      ],
+      "pct_reduction_ci": [
+        68.2287,
+        91.9642
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "drop_task=logiqa",
+      "n_obs": 60,
+      "n_models": 15,
+      "n_tasks": 4,
+      "raw_coef": 0.2242,
+      "controlled_coef": 0.0136,
+      "pct_reduction": 93.912,
+      "accuracy_coef": 0.9273,
+      "r2_raw": 0.3776,
+      "r2_controlled": 0.9759,
+      "raw_coef_ci": [
+        0.1541,
+        0.2861
+      ],
+      "controlled_coef_ci": [
+        -0.0019,
+        0.0299
+      ],
+      "pct_reduction_ci": [
+        86.1767,
+        99.4749
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "drop_task=openbookqa",
+      "n_obs": 60,
+      "n_models": 15,
+      "n_tasks": 4,
+      "raw_coef": 0.2221,
+      "controlled_coef": 0.0342,
+      "pct_reduction": 84.6206,
+      "accuracy_coef": 0.9047,
+      "r2_raw": 0.4183,
+      "r2_controlled": 0.9529,
+      "raw_coef_ci": [
+        0.1614,
+        0.2771
+      ],
+      "controlled_coef_ci": [
+        0.0104,
+        0.0619
+      ],
+      "pct_reduction_ci": [
+        73.2959,
+        94.3587
+      ],
+      "n_bootstrap": 1000
+    }
+  ],
+  "summary": {
+    "n_fits": 5,
+    "min_pct_reduction": 67.8177,
+    "median_pct_reduction": 80.9029,
+    "max_pct_reduction": 93.912,
+    "min_label": "drop_task=aqua",
+    "max_label": "drop_task=logiqa",
+    "all_above_50": true
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "fits": [
+    {
+      "label": "pooled",
+      "n_obs": 75,
+      "raw_correlation": 0.6427,
+      "partial_correlation": 0.4038,
+      "partial_ci": [
+        0.1881,
+        0.5973
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "task=aqua",
+      "n_obs": 15,
+      "raw_correlation": 0.7318,
+      "partial_correlation": 0.2791,
+      "partial_ci": [
+        -0.5938,
+        0.6882
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "task=arc_challenge",
+      "n_obs": 15,
+      "raw_correlation": 0.9163,
+      "partial_correlation": 0.6731,
+      "partial_ci": [
+        0.4319,
+        0.8563
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "task=hellaswag",
+      "n_obs": 15,
+      "raw_correlation": 0.8913,
+      "partial_correlation": 0.4359,
+      "partial_ci": [
+        0.0422,
+        0.7516
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "task=logiqa",
+      "n_obs": 15,
+      "raw_correlation": 0.9034,
+      "partial_correlation": 0.6919,
+      "partial_ci": [
+        0.1342,
+        0.9536
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "task=openbookqa",
+      "n_obs": 15,
+      "raw_correlation": 0.8841,
+      "partial_correlation": 0.6991,
+      "partial_ci": [
+        0.3044,
+        0.9315
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "family=llama",
+      "n_obs": 20,
+      "raw_correlation": 0.62,
+      "partial_correlation": 0.3441,
+      "partial_ci": [
+        -0.3099,
+        0.763
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "family=olmo",
+      "n_obs": 20,
+      "raw_correlation": 0.6046,
+      "partial_correlation": -0.0558,
+      "partial_ci": [
+        -0.565,
+        0.5976
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "family=qwen",
+      "n_obs": 35,
+      "raw_correlation": 0.7236,
+      "partial_correlation": 0.5507,
+      "partial_ci": [
+        0.3483,
+        0.7418
+      ],
+      "n_bootstrap": 1000
+    }
+  ]
+}

@@ -1,0 +1,294 @@
+{
+  "sample_counts": [
+    20,
+    50,
+    100
+  ],
+  "per_k": [
+    {
+      "k": 20,
+      "n_cells": 30,
+      "mean_proxy": 0.6176,
+      "mean_ci_width": 0.1116,
+      "max_abs_diff_vs_k100": 0.035,
+      "mean_abs_diff_vs_k100": 0.0058,
+      "spearman_vs_k100": 0.9956,
+      "decomposition": {
+        "label": "k=20",
+        "n_obs": 30,
+        "n_models": 6,
+        "n_tasks": 5,
+        "raw_coef": 0.2367,
+        "controlled_coef": 0.0504,
+        "pct_reduction": 78.7139,
+        "accuracy_coef": 0.8654,
+        "r2_raw": 0.546,
+        "r2_controlled": 0.9699,
+        "raw_coef_ci": [
+          0.1705,
+          0.308
+        ],
+        "controlled_coef_ci": [
+          0.0183,
+          0.0928
+        ],
+        "pct_reduction_ci": [
+          62.6977,
+          92.4788
+        ],
+        "n_bootstrap": 1000
+      },
+      "per_task_summary": {
+        "n_fits": 5,
+        "min_pct_reduction": 53.3675,
+        "median_pct_reduction": 76.2855,
+        "max_pct_reduction": 91.6577,
+        "min_label": "task=logiqa",
+        "max_label": "task=aqua",
+        "all_above_50": true
+      },
+      "per_family": [
+        {
+          "label": "family=llama",
+          "n_obs": 15,
+          "n_models": 3,
+          "n_tasks": 5,
+          "raw_coef": 0.2164,
+          "controlled_coef": 0.0466,
+          "pct_reduction": 78.4737,
+          "accuracy_coef": 0.8973,
+          "r2_raw": 0.468,
+          "r2_controlled": 0.9624,
+          "raw_coef_ci": [
+            0.0922,
+            0.319
+          ],
+          "controlled_coef_ci": [
+            -0.0098,
+            0.1039
+          ],
+          "pct_reduction_ci": [
+            43.6654,
+            98.356
+          ],
+          "n_bootstrap": 1000
+        },
+        {
+          "label": "family=qwen",
+          "n_obs": 15,
+          "n_models": 3,
+          "n_tasks": 5,
+          "raw_coef": 0.2784,
+          "controlled_coef": 0.0672,
+          "pct_reduction": 75.8475,
+          "accuracy_coef": 0.8009,
+          "r2_raw": 0.7151,
+          "r2_controlled": 0.9796,
+          "raw_coef_ci": [
+            0.1905,
+            0.3526
+          ],
+          "controlled_coef_ci": [
+            0.0242,
+            0.1255
+          ],
+          "pct_reduction_ci": [
+            56.9775,
+            91.1073
+          ],
+          "n_bootstrap": 1000
+        }
+      ]
+    },
+    {
+      "k": 50,
+      "n_cells": 30,
+      "mean_proxy": 0.6173,
+      "mean_ci_width": 0.1095,
+      "max_abs_diff_vs_k100": 0.0104,
+      "mean_abs_diff_vs_k100": 0.0027,
+      "spearman_vs_k100": 0.9991,
+      "decomposition": {
+        "label": "k=50",
+        "n_obs": 30,
+        "n_models": 6,
+        "n_tasks": 5,
+        "raw_coef": 0.2382,
+        "controlled_coef": 0.0527,
+        "pct_reduction": 77.8608,
+        "accuracy_coef": 0.8613,
+        "r2_raw": 0.5517,
+        "r2_controlled": 0.9707,
+        "raw_coef_ci": [
+          0.1722,
+          0.3081
+        ],
+        "controlled_coef_ci": [
+          0.0225,
+          0.0917
+        ],
+        "pct_reduction_ci": [
+          62.7837,
+          91.2495
+        ],
+        "n_bootstrap": 1000
+      },
+      "per_task_summary": {
+        "n_fits": 5,
+        "min_pct_reduction": 51.1749,
+        "median_pct_reduction": 77.7814,
+        "max_pct_reduction": 90.7809,
+        "min_label": "task=logiqa",
+        "max_label": "task=aqua",
+        "all_above_50": true
+      },
+      "per_family": [
+        {
+          "label": "family=llama",
+          "n_obs": 15,
+          "n_models": 3,
+          "n_tasks": 5,
+          "raw_coef": 0.2181,
+          "controlled_coef": 0.0487,
+          "pct_reduction": 77.6901,
+          "accuracy_coef": 0.8955,
+          "r2_raw": 0.4735,
+          "r2_controlled": 0.9638,
+          "raw_coef_ci": [
+            0.0943,
+            0.3189
+          ],
+          "controlled_coef_ci": [
+            -0.0058,
+            0.1025
+          ],
+          "pct_reduction_ci": [
+            43.4423,
+            97.9583
+          ],
+          "n_bootstrap": 1000
+        },
+        {
+          "label": "family=qwen",
+          "n_obs": 15,
+          "n_models": 3,
+          "n_tasks": 5,
+          "raw_coef": 0.2798,
+          "controlled_coef": 0.0712,
+          "pct_reduction": 74.5429,
+          "accuracy_coef": 0.791,
+          "r2_raw": 0.7224,
+          "r2_controlled": 0.9806,
+          "raw_coef_ci": [
+            0.1932,
+            0.3511
+          ],
+          "controlled_coef_ci": [
+            0.0314,
+            0.1319
+          ],
+          "pct_reduction_ci": [
+            55.5697,
+            88.45
+          ],
+          "n_bootstrap": 1000
+        }
+      ]
+    },
+    {
+      "k": 100,
+      "n_cells": 30,
+      "mean_proxy": 0.617,
+      "mean_ci_width": 0.109,
+      "max_abs_diff_vs_k100": 0.0,
+      "mean_abs_diff_vs_k100": 0.0,
+      "spearman_vs_k100": 1.0,
+      "decomposition": {
+        "label": "k=100",
+        "n_obs": 30,
+        "n_models": 6,
+        "n_tasks": 5,
+        "raw_coef": 0.2386,
+        "controlled_coef": 0.0536,
+        "pct_reduction": 77.5446,
+        "accuracy_coef": 0.8592,
+        "r2_raw": 0.5543,
+        "r2_controlled": 0.9719,
+        "raw_coef_ci": [
+          0.1734,
+          0.3086
+        ],
+        "controlled_coef_ci": [
+          0.025,
+          0.0912
+        ],
+        "pct_reduction_ci": [
+          62.955,
+          90.4689
+        ],
+        "n_bootstrap": 1000
+      },
+      "per_task_summary": {
+        "n_fits": 5,
+        "min_pct_reduction": 51.7266,
+        "median_pct_reduction": 77.4462,
+        "max_pct_reduction": 89.8753,
+        "min_label": "task=logiqa",
+        "max_label": "task=aqua",
+        "all_above_50": true
+      },
+      "per_family": [
+        {
+          "label": "family=llama",
+          "n_obs": 15,
+          "n_models": 3,
+          "n_tasks": 5,
+          "raw_coef": 0.2161,
+          "controlled_coef": 0.0467,
+          "pct_reduction": 78.3927,
+          "accuracy_coef": 0.8951,
+          "r2_raw": 0.4701,
+          "r2_controlled": 0.9657,
+          "raw_coef_ci": [
+            0.0919,
+            0.318
+          ],
+          "controlled_coef_ci": [
+            -0.0058,
+            0.0992
+          ],
+          "pct_reduction_ci": [
+            44.4848,
+            98.1867
+          ],
+          "n_bootstrap": 1000
+        },
+        {
+          "label": "family=qwen",
+          "n_obs": 15,
+          "n_models": 3,
+          "n_tasks": 5,
+          "raw_coef": 0.2823,
+          "controlled_coef": 0.0753,
+          "pct_reduction": 73.3207,
+          "accuracy_coef": 0.7851,
+          "r2_raw": 0.729,
+          "r2_controlled": 0.981,
+          "raw_coef_ci": [
+            0.1967,
+            0.3525
+          ],
+          "controlled_coef_ci": [
+            0.037,
+            0.1352
+          ],
+          "pct_reduction_ci": [
+            55.3416,
+            87.0123
+          ],
+          "n_bootstrap": 1000
+        }
+      ]
+    }
+  ]
+}

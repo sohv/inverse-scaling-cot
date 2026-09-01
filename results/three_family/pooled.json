@@ -1,0 +1,25 @@
+{
+  "label": "pooled",
+  "n_obs": 75,
+  "n_models": 15,
+  "n_tasks": 5,
+  "raw_coef": 0.2237,
+  "controlled_coef": 0.0388,
+  "pct_reduction": 82.6625,
+  "accuracy_coef": 0.8752,
+  "r2_raw": 0.4131,
+  "r2_controlled": 0.958,
+  "raw_coef_ci": [
+    0.1693,
+    0.2779
+  ],
+  "controlled_coef_ci": [
+    0.0162,
+    0.0632
+  ],
+  "pct_reduction_ci": [
+    72.1794,
+    92.5738
+  ],
+  "n_bootstrap": 1000
+}

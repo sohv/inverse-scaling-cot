@@ -1,0 +1,13 @@
+{
+  "git_hash": "ebb60693",
+  "vllm_version": "0.24.0",
+  "config": {
+    "samples_100_dir": "results/samples_100",
+    "output_dir": "results/sample_convergence",
+    "n_bootstrap": 1000,
+    "seed": 42
+  },
+  "metadata": {
+    "n_cells": 30
+  }
+}

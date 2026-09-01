@@ -1,0 +1,388 @@
+{
+  "fits": [
+    {
+      "label": "drop_model=Qwen/Qwen2.5-0.5B-Instruct",
+      "n_obs": 70,
+      "n_models": 14,
+      "n_tasks": 5,
+      "raw_coef": 0.2165,
+      "controlled_coef": 0.0332,
+      "pct_reduction": 84.6606,
+      "accuracy_coef": 0.8763,
+      "r2_raw": 0.346,
+      "r2_controlled": 0.9545,
+      "raw_coef_ci": [
+        0.147,
+        0.2808
+      ],
+      "controlled_coef_ci": [
+        0.0107,
+        0.0599
+      ],
+      "pct_reduction_ci": [
+        71.6402,
+        95.4387
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "drop_model=Qwen/Qwen2.5-1.5B-Instruct",
+      "n_obs": 70,
+      "n_models": 14,
+      "n_tasks": 5,
+      "raw_coef": 0.2327,
+      "controlled_coef": 0.0369,
+      "pct_reduction": 84.1515,
+      "accuracy_coef": 0.8707,
+      "r2_raw": 0.4338,
+      "r2_controlled": 0.9613,
+      "raw_coef_ci": [
+        0.1739,
+        0.2865
+      ],
+      "controlled_coef_ci": [
+        0.0132,
+        0.0632
+      ],
+      "pct_reduction_ci": [
+        73.0933,
+        94.3689
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "drop_model=Qwen/Qwen2.5-14B-Instruct",
+      "n_obs": 70,
+      "n_models": 14,
+      "n_tasks": 5,
+      "raw_coef": 0.218,
+      "controlled_coef": 0.0371,
+      "pct_reduction": 82.982,
+      "accuracy_coef": 0.8826,
+      "r2_raw": 0.4143,
+      "r2_controlled": 0.96,
+      "raw_coef_ci": [
+        0.16,
+        0.2689
+      ],
+      "controlled_coef_ci": [
+        0.0149,
+        0.0612
+      ],
+      "pct_reduction_ci": [
+        71.1863,
+        92.9889
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "drop_model=Qwen/Qwen2.5-32B-Instruct",
+      "n_obs": 70,
+      "n_models": 14,
+      "n_tasks": 5,
+      "raw_coef": 0.2165,
+      "controlled_coef": 0.0386,
+      "pct_reduction": 82.1798,
+      "accuracy_coef": 0.8799,
+      "r2_raw": 0.3895,
+      "r2_controlled": 0.9556,
+      "raw_coef_ci": [
+        0.1556,
+        0.2704
+      ],
+      "controlled_coef_ci": [
+        0.0158,
+        0.0639
+      ],
+      "pct_reduction_ci": [
+        70.1568,
+        92.8215
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "drop_model=Qwen/Qwen2.5-3B-Instruct",
+      "n_obs": 70,
+      "n_models": 14,
+      "n_tasks": 5,
+      "raw_coef": 0.2297,
+      "controlled_coef": 0.0402,
+      "pct_reduction": 82.5205,
+      "accuracy_coef": 0.8714,
+      "r2_raw": 0.4451,
+      "r2_controlled": 0.9574,
+      "raw_coef_ci": [
+        0.1717,
+        0.2825
+      ],
+      "controlled_coef_ci": [
+        0.0176,
+        0.0656
+      ],
+      "pct_reduction_ci": [
+        71.495,
+        92.0614
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "drop_model=Qwen/Qwen2.5-72B-Instruct-AWQ",
+      "n_obs": 70,
+      "n_models": 14,
+      "n_tasks": 5,
+      "raw_coef": 0.2258,
+      "controlled_coef": 0.0373,
+      "pct_reduction": 83.4772,
+      "accuracy_coef": 0.8809,
+      "r2_raw": 0.3825,
+      "r2_controlled": 0.9567,
+      "raw_coef_ci": [
+        0.1599,
+        0.2843
+      ],
+      "controlled_coef_ci": [
+        0.0144,
+        0.0622
+      ],
+      "pct_reduction_ci": [
+        72.383,
+        93.2705
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "drop_model=Qwen/Qwen2.5-7B-Instruct",
+      "n_obs": 70,
+      "n_models": 14,
+      "n_tasks": 5,
+      "raw_coef": 0.2234,
+      "controlled_coef": 0.0372,
+      "pct_reduction": 83.3314,
+      "accuracy_coef": 0.8823,
+      "r2_raw": 0.4304,
+      "r2_controlled": 0.9603,
+      "raw_coef_ci": [
+        0.166,
+        0.2748
+      ],
+      "controlled_coef_ci": [
+        0.0143,
+        0.0617
+      ],
+      "pct_reduction_ci": [
+        72.0625,
+        93.1758
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "drop_model=allenai/OLMo-2-0325-32B-Instruct",
+      "n_obs": 70,
+      "n_models": 14,
+      "n_tasks": 5,
+      "raw_coef": 0.2289,
+      "controlled_coef": 0.0406,
+      "pct_reduction": 82.2693,
+      "accuracy_coef": 0.8699,
+      "r2_raw": 0.43,
+      "r2_controlled": 0.9571,
+      "raw_coef_ci": [
+        0.1732,
+        0.2846
+      ],
+      "controlled_coef_ci": [
+        0.0193,
+        0.0647
+      ],
+      "pct_reduction_ci": [
+        71.3,
+        92.0234
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "drop_model=allenai/OLMo-2-0425-1B-Instruct",
+      "n_obs": 70,
+      "n_models": 14,
+      "n_tasks": 5,
+      "raw_coef": 0.2114,
+      "controlled_coef": 0.0422,
+      "pct_reduction": 80.0371,
+      "accuracy_coef": 0.8845,
+      "r2_raw": 0.3643,
+      "r2_controlled": 0.9574,
+      "raw_coef_ci": [
+        0.1493,
+        0.2696
+      ],
+      "controlled_coef_ci": [
+        0.0218,
+        0.0661
+      ],
+      "pct_reduction_ci": [
+        68.276,
+        89.6285
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "drop_model=allenai/OLMo-2-1124-13B-Instruct",
+      "n_obs": 70,
+      "n_models": 14,
+      "n_tasks": 5,
+      "raw_coef": 0.226,
+      "controlled_coef": 0.0405,
+      "pct_reduction": 82.093,
+      "accuracy_coef": 0.866,
+      "r2_raw": 0.4435,
+      "r2_controlled": 0.959,
+      "raw_coef_ci": [
+        0.1665,
+        0.2816
+      ],
+      "controlled_coef_ci": [
+        0.0201,
+        0.0639
+      ],
+      "pct_reduction_ci": [
+        71.2822,
+        91.5975
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "drop_model=allenai/OLMo-2-1124-7B-Instruct",
+      "n_obs": 70,
+      "n_models": 14,
+      "n_tasks": 5,
+      "raw_coef": 0.2239,
+      "controlled_coef": 0.0403,
+      "pct_reduction": 81.9984,
+      "accuracy_coef": 0.8683,
+      "r2_raw": 0.4355,
+      "r2_controlled": 0.9573,
+      "raw_coef_ci": [
+        0.1653,
+        0.2781
+      ],
+      "controlled_coef_ci": [
+        0.0189,
+        0.0647
+      ],
+      "pct_reduction_ci": [
+        70.7615,
+        91.4543
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "drop_model=hugging-quants/Meta-Llama-3.1-70B-Instruct-AWQ-INT4",
+      "n_obs": 70,
+      "n_models": 14,
+      "n_tasks": 5,
+      "raw_coef": 0.2403,
+      "controlled_coef": 0.0393,
+      "pct_reduction": 83.629,
+      "accuracy_coef": 0.8739,
+      "r2_raw": 0.4243,
+      "r2_controlled": 0.9583,
+      "raw_coef_ci": [
+        0.1855,
+        0.2945
+      ],
+      "controlled_coef_ci": [
+        0.0166,
+        0.0651
+      ],
+      "pct_reduction_ci": [
+        73.2504,
+        93.0486
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "drop_model=meta-llama/Llama-3.1-8B-Instruct",
+      "n_obs": 70,
+      "n_models": 14,
+      "n_tasks": 5,
+      "raw_coef": 0.2241,
+      "controlled_coef": 0.0409,
+      "pct_reduction": 81.7517,
+      "accuracy_coef": 0.8661,
+      "r2_raw": 0.436,
+      "r2_controlled": 0.9595,
+      "raw_coef_ci": [
+        0.1716,
+        0.2773
+      ],
+      "controlled_coef_ci": [
+        0.0186,
+        0.065
+      ],
+      "pct_reduction_ci": [
+        71.6109,
+        91.7757
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "drop_model=meta-llama/Llama-3.2-1B-Instruct",
+      "n_obs": 70,
+      "n_models": 14,
+      "n_tasks": 5,
+      "raw_coef": 0.2147,
+      "controlled_coef": 0.0362,
+      "pct_reduction": 83.1451,
+      "accuracy_coef": 0.8836,
+      "r2_raw": 0.376,
+      "r2_controlled": 0.9555,
+      "raw_coef_ci": [
+        0.1584,
+        0.2674
+      ],
+      "controlled_coef_ci": [
+        0.0154,
+        0.0607
+      ],
+      "pct_reduction_ci": [
+        73.0339,
+        92.4875
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "drop_model=meta-llama/Llama-3.2-3B-Instruct",
+      "n_obs": 70,
+      "n_models": 14,
+      "n_tasks": 5,
+      "raw_coef": 0.2237,
+      "controlled_coef": 0.0409,
+      "pct_reduction": 81.7148,
+      "accuracy_coef": 0.8732,
+      "r2_raw": 0.4242,
+      "r2_controlled": 0.9596,
+      "raw_coef_ci": [
+        0.1719,
+        0.2743
+      ],
+      "controlled_coef_ci": [
+        0.0199,
+        0.0647
+      ],
+      "pct_reduction_ci": [
+        71.7861,
+        91.2848
+      ],
+      "n_bootstrap": 1000
+    }
+  ],
+  "summary": {
+    "n_fits": 15,
+    "min_pct_reduction": 80.0371,
+    "median_pct_reduction": 82.5205,
+    "max_pct_reduction": 84.6606,
+    "min_label": "drop_model=allenai/OLMo-2-0425-1B-Instruct",
+    "max_label": "drop_model=Qwen/Qwen2.5-0.5B-Instruct",
+    "all_above_50": true
+  }
+}
