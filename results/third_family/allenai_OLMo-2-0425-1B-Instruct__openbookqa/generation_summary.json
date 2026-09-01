@@ -1,0 +1,9 @@
+{
+  "n_questions": 100,
+  "model_id": "allenai/OLMo-2-0425-1B-Instruct",
+  "dataset_name": "openbookqa",
+  "n_cot_samples_per_question": 20,
+  "n_cot_extraction_failures": 1,
+  "total_cot_samples": 2000,
+  "n_no_cot_extraction_failures": 0
+}

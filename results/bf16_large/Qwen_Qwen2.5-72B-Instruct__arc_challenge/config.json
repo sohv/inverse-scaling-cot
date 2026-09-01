@@ -1,0 +1,29 @@
+{
+  "git_hash": "53846568",
+  "vllm_version": "0.24.0",
+  "config": {
+    "model_id": "Qwen/Qwen2.5-72B-Instruct",
+    "dataset_name": "aqua,logiqa,arc_challenge,openbookqa,hellaswag",
+    "output_dir": "results/bf16_large",
+    "splits_dir": "data/splits",
+    "n_questions": 100,
+    "n_cot_samples": 20,
+    "seed": 42,
+    "temperature": 0.8,
+    "top_p": 0.95,
+    "max_tokens_cot": 1024,
+    "max_tokens_no_cot": 20,
+    "engine": "vllm",
+    "tensor_parallel_size": 2,
+    "gpu_memory_utilization": 0.95,
+    "max_model_len": 2048,
+    "enforce_eager": false,
+    "quantization": null,
+    "prompt_variant": "v0",
+    "skip_existing": true,
+    "permute_choices_seed": null
+  },
+  "metadata": {
+    "dataset_name": "arc_challenge"
+  }
+}

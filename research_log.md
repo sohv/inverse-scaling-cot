@@ -93,3 +93,39 @@ uv run -m src.experiments.robustness.run --core_sweep_results_dir results/core_s
 **Command:**
 uv run python experiments/figure_style/260901_thesis_style_v1/1_regenerate_figures.py --output_dir results/fig_new --seed 42
 **Output:** results/fig_new/
+
+## 260901 — Phase 2a: sample-count convergence, 20 vs 50 vs 100 (revision item 1)
+
+**What:** Generated a fresh pool of 100 CoT samples per question for 6 models spanning both
+families (Qwen 0.5B/7B/32B, Llama 1B/8B, Llama-70B-AWQ) x 5 tasks = 30 cells, then
+subsampled the same pool nestedly at k=20/50/100.
+**Result:** 20 samples is empirically sufficient. Mean proxy 0.6176 / 0.6173 / 0.6170 at
+k=20/50/100; worst per-cell deviation from k=100 is 0.0350 at k=20 and 0.0104 at k=50;
+Spearman rank correlation of model ordering vs k=100 is 0.9956 at k=20. The capability-
+controlled reduction is 78.7% / 77.9% / 77.5% -- a 1.2-point spread. Bootstrap CI width
+narrows only from 0.1116 to 0.1090, so 5x the compute buys a 2% tighter interval.
+**Command:**
+uv run -m src.experiments.sample_convergence.run --samples_100_dir results/samples_100 --output_dir results/sample_convergence --n_bootstrap 1000 --seed 42
+**Output:** `results/sample_convergence/convergence.json`, `results/figures/sample_convergence.png`
+
+## 260901 — Phase 4: third model family, OLMo-2-Instruct (revision item 7)
+
+**What:** Added OLMo-2-Instruct 1B/7B/13B/32B (ungated, independently trained by AI2) on the
+same 5 tasks, same prompts, sampling and extraction. Pooled table is 75 cells, 15 models,
+3 families.
+**Result:** The capability control holds independently in all three families:
+Qwen 75.3%, Llama 84.4%, **OLMo 97.9%** (controlled coefficient -0.005, i.e. no-CoT accuracy
+absorbs essentially the entire size effect). Pooled reduction rises to 82.7% [72.2, 92.6].
+All 5 per-task fits, all leave-one-task-out and all 15 leave-one-model-out fits clear the
+pre-registered threshold (LOMO spans 80.0-84.7%).
+CoT dependence stays positive with CI excluding zero in every task and every family
+(OLMo +0.2769 [0.1540, 0.3775]). 72/75 cells beat their own permutation null.
+Reconstruction from no-CoT accuracy alone now recovers 88.6% of the observed size slope.
+Capability-matched pairs strengthen: 19 cross-family pairs, mean |delta proxy| 0.0447 vs
+0.1873 predicted from size alone, paired p=0.009.
+The near-random regime sharpens with OLMo's small models: normalised answer entropy 0.651
+and modal-answer share 0.595, and the within-bin slope against model size is *negative*
+(-0.011) while the slope against accuracy is +0.966.
+**Command:**
+uv run -m src.experiments.robustness.run --core_sweep_results_dir results/core_sweep,results/third_family --output_dir results/three_family --n_bootstrap 1000 --seed 42
+**Output:** `results/three_family/`, `results/three_family_dependence/`, `results/three_family_capability/`
