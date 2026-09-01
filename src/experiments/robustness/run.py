@@ -37,6 +37,8 @@ class Config:
     n_bootstrap: int = 1000
     seed: int = 42
     exclude_quantized: bool = False
+    exclude_models: str = ""  # comma-separated model_ids to drop (e.g. AWQ cells superseded by BF16)
+    exclude_tasks: str = ""
 
 
 def main():
@@ -51,7 +53,12 @@ def main():
     seed_everything(config.seed)
 
     cells = load_cells(config.core_sweep_results_dir, n_bootstrap=config.n_bootstrap, seed=config.seed)
-    df = cells_to_table(cells[default_variant().key], exclude_quantized=config.exclude_quantized)
+    df = cells_to_table(
+        cells[default_variant().key],
+        exclude_models=[m.strip() for m in config.exclude_models.split(",") if m.strip()],
+        exclude_tasks=[t.strip() for t in config.exclude_tasks.split(",") if t.strip()],
+        exclude_quantized=config.exclude_quantized,
+    )
     df.round(4).to_csv(output_dir / "cell_table.csv", index=False)
 
     nb, seed = config.n_bootstrap, config.seed

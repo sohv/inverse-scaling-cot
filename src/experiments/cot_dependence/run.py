@@ -28,8 +28,9 @@ LOGGER = logging.getLogger(__name__)
 
 @dataclass
 class Config:
-    core_sweep_results_dir: str = ""
+    core_sweep_results_dir: str = ""  # one results dir, or several joined by commas
     output_dir: str = "results/cot_dependence"
+    exclude_models: str = ""
     n_permutations: int = 1000
     n_bootstrap: int = 1000
     seed: int = 42
@@ -108,10 +109,13 @@ def main():
     )
     seed_everything(config.seed)
 
+    excluded = {m.strip() for m in config.exclude_models.split(",") if m.strip()}
     labels_cache: dict[str, dict[str, list[str]]] = {}
     rows = []
     for cell_dir in find_cell_dirs(config.core_sweep_results_dir):
         results = [QuestionResult(**r) for r in read_jsonl(cell_dir / "generation_results.jsonl")]
+        if results[0].model_id in excluded:
+            continue
         dataset_name = results[0].dataset_name
         if dataset_name not in labels_cache:
             labels_cache[dataset_name] = choice_labels_by_id(dataset_name)
