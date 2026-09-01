@@ -55,8 +55,10 @@ def plot_reconstruction(df: pd.DataFrame, recon: dict, output_dir: Path) -> Path
     work = df.copy()
     work["proxy_predicted"] = recon["accuracy_intercept"] + recon["accuracy_slope"] * work["accuracy_no_cot"]
 
-    fig, axes = plt.subplots(1, 2, figsize=(11, 4.3), sharey=True)
-    for ax, family in zip(axes, ["qwen", "llama"]):
+    families = [f for f in ["qwen", "llama", "olmo"] if f in set(work.family)]
+    fig, axes = plt.subplots(1, len(families), figsize=(5.5 * len(families), 4.3), sharey=True)
+    axes = np.atleast_1d(axes)
+    for ax, family in zip(axes, families):
         sub = work[work.family == family]
         observed = sub.groupby("size_b").faithfulness_proxy.mean()
         predicted = sub.groupby("size_b").proxy_predicted.mean()

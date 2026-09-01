@@ -59,6 +59,8 @@ class Config:
     max_model_len: int | None = None
     enforce_eager: bool = False
     quantization: str | None = None
+    max_num_seqs: int | None = None
+    max_num_batched_tokens: int | None = None
     prompt_variant: str = "v0"  # v0 reproduces the original sweep; v1/v2 are rewordings
     skip_existing: bool = True  # skip cells already generated, so a queue is safe to re-run
     permute_choices_seed: int | None = None  # set to randomise answer positions per question
@@ -91,6 +93,8 @@ def main():
             max_model_len=config.max_model_len,
             enforce_eager=config.enforce_eager,
             quantization=config.quantization,
+            max_num_seqs=config.max_num_seqs,
+            max_num_batched_tokens=config.max_num_batched_tokens,
         )
 
     # 3. Configure generation

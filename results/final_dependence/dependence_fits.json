@@ -1,0 +1,121 @@
+{
+  "fits": [
+    {
+      "label": "pooled",
+      "n_obs": 75,
+      "slope": 0.2334,
+      "intercept": -1.9033,
+      "r_squared": 0.454,
+      "slope_ci": [
+        0.1819,
+        0.2845
+      ],
+      "n_bootstrap": 1000,
+      "mean_dependence": 0.3907
+    },
+    {
+      "label": "task=aqua",
+      "n_obs": 15,
+      "slope": 0.1645,
+      "intercept": -1.4543,
+      "r_squared": 0.5775,
+      "slope_ci": [
+        0.0962,
+        0.2201
+      ],
+      "n_bootstrap": 1000,
+      "mean_dependence": 0.1626
+    },
+    {
+      "label": "task=arc_challenge",
+      "n_obs": 15,
+      "slope": 0.2482,
+      "intercept": -1.917,
+      "r_squared": 0.8366,
+      "slope_ci": [
+        0.1693,
+        0.3188
+      ],
+      "n_bootstrap": 1000,
+      "mean_dependence": 0.5214
+    },
+    {
+      "label": "task=hellaswag",
+      "n_obs": 15,
+      "slope": 0.282,
+      "intercept": -2.3269,
+      "r_squared": 0.8061,
+      "slope_ci": [
+        0.1976,
+        0.3542
+      ],
+      "n_bootstrap": 1000,
+      "mean_dependence": 0.4444
+    },
+    {
+      "label": "task=logiqa",
+      "n_obs": 15,
+      "slope": 0.231,
+      "intercept": -1.9814,
+      "r_squared": 0.8064,
+      "slope_ci": [
+        0.1962,
+        0.2856
+      ],
+      "n_bootstrap": 1000,
+      "mean_dependence": 0.2883
+    },
+    {
+      "label": "task=openbookqa",
+      "n_obs": 15,
+      "slope": 0.2415,
+      "intercept": -1.8367,
+      "r_squared": 0.7684,
+      "slope_ci": [
+        0.1373,
+        0.3295
+      ],
+      "n_bootstrap": 1000,
+      "mean_dependence": 0.5367
+    },
+    {
+      "label": "family=llama",
+      "n_obs": 20,
+      "slope": 0.2112,
+      "intercept": -1.7201,
+      "r_squared": 0.4429,
+      "slope_ci": [
+        0.1033,
+        0.3083
+      ],
+      "n_bootstrap": 1000,
+      "mean_dependence": 0.3511
+    },
+    {
+      "label": "family=olmo",
+      "n_obs": 20,
+      "slope": 0.2769,
+      "intercept": -2.4021,
+      "r_squared": 0.4323,
+      "slope_ci": [
+        0.154,
+        0.3775
+      ],
+      "n_bootstrap": 1000,
+      "mean_dependence": 0.3303
+    },
+    {
+      "label": "family=qwen",
+      "n_obs": 35,
+      "slope": 0.2337,
+      "intercept": -1.8462,
+      "r_squared": 0.5594,
+      "slope_ci": [
+        0.1614,
+        0.3011
+      ],
+      "n_bootstrap": 1000,
+      "mean_dependence": 0.4478
+    }
+  ]
+}

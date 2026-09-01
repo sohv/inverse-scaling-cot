@@ -1,0 +1,88 @@
+{
+  "fits": [
+    {
+      "label": "family=llama",
+      "n_obs": 20,
+      "n_models": 4,
+      "n_tasks": 5,
+      "raw_coef": 0.2103,
+      "controlled_coef": 0.0376,
+      "pct_reduction": 82.1032,
+      "accuracy_coef": 0.8892,
+      "r2_raw": 0.41,
+      "r2_controlled": 0.9567,
+      "raw_coef_ci": [
+        0.0908,
+        0.3123
+      ],
+      "controlled_coef_ci": [
+        -0.02,
+        0.0849
+      ],
+      "pct_reduction_ci": [
+        51.7619,
+        98.9144
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "family=olmo",
+      "n_obs": 20,
+      "n_models": 4,
+      "n_tasks": 5,
+      "raw_coef": 0.2497,
+      "controlled_coef": -0.0052,
+      "pct_reduction": 97.9,
+      "accuracy_coef": 0.9444,
+      "r2_raw": 0.3656,
+      "r2_controlled": 0.9683,
+      "raw_coef_ci": [
+        0.1172,
+        0.3563
+      ],
+      "controlled_coef_ci": [
+        -0.0531,
+        0.0732
+      ],
+      "pct_reduction_ci": [
+        71.7281,
+        99.5802
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "family=qwen",
+      "n_obs": 35,
+      "n_models": 7,
+      "n_tasks": 5,
+      "raw_coef": 0.2297,
+      "controlled_coef": 0.0506,
+      "pct_reduction": 77.968,
+      "accuracy_coef": 0.8574,
+      "r2_raw": 0.5259,
+      "r2_controlled": 0.9594,
+      "raw_coef_ci": [
+        0.155,
+        0.2968
+      ],
+      "controlled_coef_ci": [
+        0.0283,
+        0.0804
+      ],
+      "pct_reduction_ci": [
+        66.1781,
+        87.8559
+      ],
+      "n_bootstrap": 1000
+    }
+  ],
+  "summary": {
+    "n_fits": 3,
+    "min_pct_reduction": 77.968,
+    "median_pct_reduction": 82.1032,
+    "max_pct_reduction": 97.9,
+    "min_label": "family=qwen",
+    "max_label": "family=olmo",
+    "all_above_50": true
+  }
+}

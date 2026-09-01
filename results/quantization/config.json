@@ -1,0 +1,16 @@
+{
+  "git_hash": "39cdd18f",
+  "vllm_version": "0.24.0",
+  "config": {
+    "baseline_dir": "results/core_sweep",
+    "variant_dir": "results/bf16_large",
+    "label": "awq_vs_bf16",
+    "output_dir": "results/quantization",
+    "n_permutations": 1000,
+    "n_bootstrap": 1000,
+    "seed": 42
+  },
+  "metadata": {
+    "n_paired_cells": 10
+  }
+}

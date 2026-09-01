@@ -1,0 +1,19 @@
+{
+  "label": "quadratic_accuracy",
+  "n_obs": 75,
+  "n_models": 15,
+  "n_tasks": 5,
+  "raw_coef": 0.2263,
+  "controlled_coef": 0.0389,
+  "pct_reduction": 82.8249,
+  "accuracy_coef": 1.1784,
+  "r2_raw": 0.4215,
+  "r2_controlled": 0.9633,
+  "raw_coef_ci": [],
+  "controlled_coef_ci": [
+    0.0186,
+    0.0602
+  ],
+  "pct_reduction_ci": [],
+  "n_bootstrap": 1000
+}

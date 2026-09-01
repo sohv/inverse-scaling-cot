@@ -34,6 +34,7 @@ from src.utils.seed import seed_everything
 LOGGER = logging.getLogger(__name__)
 
 JOIN_KEYS = ["family", "size_b", "dataset_name"]
+MIN_LOG_PARAM_SPAN = 0.5  # half a decade of parameter count before a scaling slope is meaningful
 
 
 @dataclass
@@ -119,14 +120,20 @@ def main():
         },
     }
 
-    # the decomposition only means something with several distinct model sizes on each side
+    # A slope needs real spread on the x axis. Two checkpoints 70B and 72B differ by 0.012
+    # in log10 params, so fitting them yields an enormous meaningless coefficient; require
+    # at least half a decade (~3x) of size range before reporting a decomposition.
     for name, df in [("baseline", base), ("variant", var)]:
-        if df.log_params.nunique() >= 2 and len(df) >= 4:
+        span = float(df.log_params.max() - df.log_params.min())
+        if df.log_params.nunique() >= 3 and len(df) >= 6 and span >= MIN_LOG_PARAM_SPAN:
             summary[f"decomposition_{name}"] = fit_decomposition(df, name, config.n_bootstrap, config.seed).model_dump()
         else:
             summary[f"decomposition_{name}"] = {
                 "skipped": True,
-                "reason": f"{df.log_params.nunique()} distinct sizes over {len(df)} cells",
+                "reason": (
+                    f"{df.log_params.nunique()} distinct sizes over {len(df)} cells spanning "
+                    f"{span:.3f} in log10 params (need >= 3 sizes, >= 6 cells, span >= {MIN_LOG_PARAM_SPAN})"
+                ),
             }
 
     write_json(output_dir / f"{config.label}_summary.json", summary)

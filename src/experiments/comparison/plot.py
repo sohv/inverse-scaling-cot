@@ -66,7 +66,6 @@ def _dumbbell(ax, df, metric, baseline_name, variant_name, title):
         fontsize=7.5, color=INK,
     )
     ax.invert_yaxis()
-    ax.set_title(title, fontsize=10, color=INK)
     _style(ax)
 
 
@@ -88,12 +87,6 @@ def main():
               "CoT dependence (real minus shuffled)")
     axes[1].set_xlabel("Dependence", fontsize=8.5, color=MUTED)
 
-    mean_abs = df.delta_faithfulness_proxy.abs().mean()
-    max_abs = df.delta_faithfulness_proxy.abs().max()
-    fig.suptitle(
-        f"{config.variant_name} vs {config.baseline_name}: {len(df)} paired cells\n"
-        f"Mean |delta proxy| {mean_abs:.3f}, max {max_abs:.3f}",
-        fontsize=11, color=INK)
     fig.tight_layout()
     path = output_dir / f"{config.label}.png"
     fig.savefig(path, dpi=200, bbox_inches="tight")

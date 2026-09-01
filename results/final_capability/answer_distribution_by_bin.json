@@ -1,0 +1,22 @@
+{
+  "by_bin": [
+    {
+      "capability_bin": "near_random",
+      "entropy": 1.4252,
+      "normalized_entropy": 0.6514,
+      "max_share": 0.5952
+    },
+    {
+      "capability_bin": "intermediate",
+      "entropy": 1.9195,
+      "normalized_entropy": 0.8795,
+      "max_share": 0.3855
+    },
+    {
+      "capability_bin": "ceiling",
+      "entropy": 2.0382,
+      "normalized_entropy": 0.9247,
+      "max_share": 0.2949
+    }
+  ]
+}

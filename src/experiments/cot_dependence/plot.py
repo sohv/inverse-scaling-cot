@@ -34,8 +34,8 @@ TASK_LABELS = {
     "logiqa": "LogiQA",
     "openbookqa": "OpenBookQA",
 }
-FAMILY_LABELS = {"qwen": "Qwen2.5-Instruct", "llama": "Llama-3-Instruct"}
-FAMILY_COLORS = {"qwen": BLUE, "llama": ORANGE}
+FAMILY_LABELS = {"qwen": "Qwen2.5-Instruct", "llama": "Llama-3-Instruct", "olmo": "OLMo-2-Instruct"}
+FAMILY_COLORS = {"qwen": BLUE, "llama": ORANGE, "olmo": AQUA}
 
 
 @dataclass
@@ -57,9 +57,10 @@ def plot_real_vs_null(df: pd.DataFrame, output_dir: Path) -> Path:
     tasks = sorted(df.dataset_name.unique())
     fig, axes = plt.subplots(1, len(tasks), figsize=(16, 3.6), sharey=True)
 
+    families = [f for f in ["qwen", "llama", "olmo"] if f in set(df.family)]
     for ax, task in zip(axes, tasks):
         sub = df[df.dataset_name == task]
-        for family in ["qwen", "llama"]:
+        for family in families:
             fam = sub[sub.family == family].sort_values("size_b")
             if fam.empty:
                 continue
@@ -106,9 +107,11 @@ def plot_real_vs_null(df: pd.DataFrame, output_dir: Path) -> Path:
 def plot_dependence_scaling(df: pd.DataFrame, fits: list[dict], output_dir: Path) -> Path:
     """CoT dependence (real - shuffled) against model size, per family."""
     fit_by_label = {f["label"]: f for f in fits}
-    fig, axes = plt.subplots(1, 2, figsize=(11, 4.2), sharey=True)
+    families = [f for f in ["qwen", "llama", "olmo"] if f in set(df.family)]
+    fig, axes = plt.subplots(1, len(families), figsize=(5.5 * len(families), 4.2), sharey=True)
+    axes = np.atleast_1d(axes)
 
-    for ax, family in zip(axes, ["qwen", "llama"]):
+    for ax, family in zip(axes, families):
         sub = df[df.family == family]
         fit = fit_by_label[f"family={family}"]
         ends = []

@@ -1,0 +1,16 @@
+{
+  "git_hash": "39cdd18f",
+  "vllm_version": "0.24.0",
+  "config": {
+    "baseline_dir": "results/core_sweep",
+    "variant_dir": "results/aqua_position",
+    "label": "aqua_position",
+    "output_dir": "results/aqua_position_analysis",
+    "n_permutations": 1000,
+    "n_bootstrap": 1000,
+    "seed": 42
+  },
+  "metadata": {
+    "n_paired_cells": 5
+  }
+}

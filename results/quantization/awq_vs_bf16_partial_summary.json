@@ -1,0 +1,69 @@
+{
+  "label": "awq_vs_bf16_partial",
+  "baseline_dir": "results/core_sweep",
+  "variant_dir": "results/bf16_large",
+  "n_paired_cells": 6,
+  "models_baseline": [
+    "Qwen/Qwen2.5-72B-Instruct-AWQ",
+    "hugging-quants/Meta-Llama-3.1-70B-Instruct-AWQ-INT4"
+  ],
+  "models_variant": [
+    "Qwen/Qwen2.5-72B-Instruct",
+    "meta-llama/Llama-3.1-70B-Instruct"
+  ],
+  "deltas": {
+    "faithfulness_proxy": {
+      "mean": 0.0081,
+      "mean_abs": 0.0233,
+      "max_abs": 0.0423,
+      "std": 0.0262
+    },
+    "accuracy_no_cot": {
+      "mean": 0.015,
+      "mean_abs": 0.0183,
+      "max_abs": 0.04,
+      "std": 0.0207
+    },
+    "shuffled_mean": {
+      "mean": 0.0007,
+      "mean_abs": 0.001,
+      "max_abs": 0.0022,
+      "std": 0.001
+    },
+    "dependence": {
+      "mean": 0.0074,
+      "mean_abs": 0.0229,
+      "max_abs": 0.0402,
+      "std": 0.0259
+    }
+  },
+  "decomposition_baseline": {
+    "label": "baseline",
+    "n_obs": 55,
+    "n_models": 11,
+    "n_tasks": 5,
+    "raw_coef": 0.2201,
+    "controlled_coef": 0.0476,
+    "pct_reduction": 78.356,
+    "accuracy_coef": 0.8595,
+    "r2_raw": 0.4512,
+    "r2_controlled": 0.9564,
+    "raw_coef_ci": [
+      0.1532,
+      0.2822
+    ],
+    "controlled_coef_ci": [
+      0.0239,
+      0.0732
+    ],
+    "pct_reduction_ci": [
+      65.5944,
+      89.2019
+    ],
+    "n_bootstrap": 1000
+  },
+  "decomposition_variant": {
+    "skipped": true,
+    "reason": "2 distinct sizes over 6 cells spanning 0.012 in log10 params (need >= 3 sizes, >= 6 cells, span >= 0.5)"
+  }
+}

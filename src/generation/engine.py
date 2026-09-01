@@ -119,10 +119,20 @@ class VLLMEngine:
         max_model_len: int | None = None,
         enforce_eager: bool = False,
         quantization: str | None = None,
+        max_num_seqs: int | None = None,
+        max_num_batched_tokens: int | None = None,
     ):
         from vllm import LLM
 
         self.model_id = model_id
+        # peak activation memory scales with the prefill chunk, not the KV cache: a 70B
+        # model with a 28672-wide MLP needs ~2 bytes * width * chunk_tokens of scratch, so
+        # capping max_num_batched_tokens is what keeps large tensor-parallel runs alive.
+        extra = {}
+        if max_num_seqs is not None:
+            extra["max_num_seqs"] = max_num_seqs
+        if max_num_batched_tokens is not None:
+            extra["max_num_batched_tokens"] = max_num_batched_tokens
         self.llm = LLM(
             model=model_id,
             tensor_parallel_size=tensor_parallel_size,
@@ -131,6 +141,7 @@ class VLLMEngine:
             enforce_eager=enforce_eager,
             quantization=quantization,
             trust_remote_code=True,
+            **extra,
         )
         LOGGER.info(f"Loaded model {model_id} with tp={tensor_parallel_size}")
 
