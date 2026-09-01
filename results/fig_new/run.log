@@ -1,0 +1,120 @@
+INFO:httpx:HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+WARNING:huggingface_hub._login:Note: Environment variable`HF_TOKEN` is set and is the current active token independently from the token you've just configured.
+INFO:src:Logged in to Hugging Face Hub
+INFO:__main__:regenerating src.experiments.core_sweep.plot
+INFO:src.experiments.core_sweep.plot:Loaded 55 faithfulness results from results/core_sweep
+INFO:__main__:regenerating src.experiments.shuffled_cot.plot
+INFO:__main__:regenerating src.experiments.regression.plot
+INFO:__main__:regenerating src.experiments.robustness.plot
+INFO:__main__:regenerating src.experiments.capability.plot
+INFO:__main__:regenerating src.experiments.cot_dependence.plot
+INFO:httpx:HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+WARNING:huggingface_hub._login:Note: Environment variable`HF_TOKEN` is set and is the current active token independently from the token you've just configured.
+INFO:src:Logged in to Hugging Face Hub
+INFO:__main__:regenerating src.experiments.core_sweep.plot
+INFO:src.experiments.core_sweep.plot:Loaded 55 faithfulness results from results/core_sweep
+INFO:__main__:regenerating src.experiments.shuffled_cot.plot
+INFO:__main__:regenerating src.experiments.regression.plot
+INFO:__main__:regenerating src.experiments.robustness.plot
+INFO:__main__:regenerating src.experiments.capability.plot
+INFO:__main__:regenerating src.experiments.cot_dependence.plot
+INFO:httpx:HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+WARNING:huggingface_hub._login:Note: Environment variable`HF_TOKEN` is set and is the current active token independently from the token you've just configured.
+INFO:src:Logged in to Hugging Face Hub
+INFO:__main__:regenerating src.experiments.core_sweep.plot
+INFO:src.experiments.core_sweep.plot:Loaded 55 faithfulness results from results/core_sweep
+INFO:__main__:regenerating src.experiments.shuffled_cot.plot
+INFO:__main__:regenerating src.experiments.regression.plot
+INFO:__main__:regenerating src.experiments.robustness.plot
+INFO:__main__:regenerating src.experiments.capability.plot
+INFO:__main__:regenerating src.experiments.cot_dependence.plot
+INFO:httpx:HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+WARNING:huggingface_hub._login:Note: Environment variable`HF_TOKEN` is set and is the current active token independently from the token you've just configured.
+INFO:src:Logged in to Hugging Face Hub
+INFO:__main__:regenerating src.experiments.core_sweep.plot
+INFO:src.experiments.core_sweep.plot:Loaded 55 faithfulness results from results/core_sweep
+INFO:__main__:regenerating src.experiments.shuffled_cot.plot
+INFO:__main__:regenerating src.experiments.regression.plot
+INFO:__main__:regenerating src.experiments.robustness.plot
+INFO:__main__:regenerating src.experiments.capability.plot
+INFO:__main__:regenerating src.experiments.cot_dependence.plot
+INFO:httpx:HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+WARNING:huggingface_hub._login:Note: Environment variable`HF_TOKEN` is set and is the current active token independently from the token you've just configured.
+INFO:src:Logged in to Hugging Face Hub
+INFO:__main__:regenerating src.experiments.core_sweep.plot
+INFO:src.experiments.core_sweep.plot:Loaded 55 faithfulness results from results/core_sweep
+INFO:__main__:regenerating src.experiments.shuffled_cot.plot
+INFO:__main__:regenerating src.experiments.regression.plot
+INFO:__main__:regenerating src.experiments.robustness.plot
+INFO:__main__:regenerating src.experiments.capability.plot
+INFO:__main__:regenerating src.experiments.cot_dependence.plot
+INFO:httpx:HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+WARNING:huggingface_hub._login:Note: Environment variable`HF_TOKEN` is set and is the current active token independently from the token you've just configured.
+INFO:src:Logged in to Hugging Face Hub
+INFO:__main__:regenerating src.experiments.core_sweep.plot
+INFO:src.experiments.core_sweep.plot:Loaded 55 faithfulness results from results/core_sweep
+INFO:__main__:regenerating src.experiments.shuffled_cot.plot
+INFO:__main__:regenerating src.experiments.regression.plot
+INFO:__main__:regenerating src.experiments.robustness.plot
+INFO:__main__:regenerating src.experiments.capability.plot
+INFO:__main__:regenerating src.experiments.cot_dependence.plot
+INFO:httpx:HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+WARNING:huggingface_hub._login:Note: Environment variable`HF_TOKEN` is set and is the current active token independently from the token you've just configured.
+INFO:src:Logged in to Hugging Face Hub
+INFO:__main__:regenerating src.experiments.core_sweep.plot
+INFO:src.experiments.core_sweep.plot:Loaded 55 faithfulness results from results/core_sweep
+INFO:__main__:regenerating src.experiments.shuffled_cot.plot
+INFO:__main__:regenerating src.experiments.regression.plot
+INFO:__main__:regenerating src.experiments.robustness.plot
+INFO:__main__:regenerating src.experiments.capability.plot
+INFO:__main__:regenerating src.experiments.cot_dependence.plot
+INFO:httpx:HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+WARNING:huggingface_hub._login:Note: Environment variable`HF_TOKEN` is set and is the current active token independently from the token you've just configured.
+INFO:src:Logged in to Hugging Face Hub
+INFO:__main__:regenerating src.experiments.core_sweep.plot
+INFO:src.experiments.core_sweep.plot:Loaded 55 faithfulness results from results/core_sweep
+INFO:__main__:regenerating src.experiments.shuffled_cot.plot
+INFO:__main__:regenerating src.experiments.regression.plot
+INFO:__main__:regenerating src.experiments.robustness.plot
+INFO:__main__:regenerating src.experiments.capability.plot
+INFO:__main__:regenerating src.experiments.cot_dependence.plot
+INFO:httpx:HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+WARNING:huggingface_hub._login:Note: Environment variable`HF_TOKEN` is set and is the current active token independently from the token you've just configured.
+INFO:src:Logged in to Hugging Face Hub
+INFO:__main__:regenerating src.experiments.core_sweep.plot
+INFO:src.experiments.core_sweep.plot:Loaded 55 faithfulness results from results/core_sweep
+INFO:__main__:regenerating src.experiments.shuffled_cot.plot
+INFO:__main__:regenerating src.experiments.regression.plot
+INFO:__main__:regenerating src.experiments.robustness.plot
+INFO:__main__:regenerating src.experiments.capability.plot
+INFO:__main__:regenerating src.experiments.cot_dependence.plot
+INFO:httpx:HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+WARNING:huggingface_hub._login:Note: Environment variable`HF_TOKEN` is set and is the current active token independently from the token you've just configured.
+INFO:src:Logged in to Hugging Face Hub
+INFO:__main__:regenerating src.experiments.core_sweep.plot
+INFO:src.experiments.core_sweep.plot:Loaded 55 faithfulness results from results/core_sweep
+INFO:__main__:regenerating src.experiments.shuffled_cot.plot
+INFO:__main__:regenerating src.experiments.regression.plot
+INFO:__main__:regenerating src.experiments.robustness.plot
+INFO:__main__:regenerating src.experiments.capability.plot
+INFO:__main__:regenerating src.experiments.cot_dependence.plot
+INFO:httpx:HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+WARNING:huggingface_hub._login:Note: Environment variable`HF_TOKEN` is set and is the current active token independently from the token you've just configured.
+INFO:src:Logged in to Hugging Face Hub
+INFO:__main__:regenerating src.experiments.core_sweep.plot
+INFO:src.experiments.core_sweep.plot:Loaded 55 faithfulness results from results/core_sweep
+INFO:__main__:regenerating src.experiments.shuffled_cot.plot
+INFO:__main__:regenerating src.experiments.regression.plot
+INFO:__main__:regenerating src.experiments.robustness.plot
+INFO:__main__:regenerating src.experiments.capability.plot
+INFO:__main__:regenerating src.experiments.cot_dependence.plot
+INFO:httpx:HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+WARNING:huggingface_hub._login:Note: Environment variable`HF_TOKEN` is set and is the current active token independently from the token you've just configured.
+INFO:src:Logged in to Hugging Face Hub
+INFO:__main__:regenerating src.experiments.core_sweep.plot
+INFO:src.experiments.core_sweep.plot:Loaded 55 faithfulness results from results/core_sweep
+INFO:__main__:regenerating src.experiments.shuffled_cot.plot
+INFO:__main__:regenerating src.experiments.regression.plot
+INFO:__main__:regenerating src.experiments.robustness.plot
+INFO:__main__:regenerating src.experiments.capability.plot
+INFO:__main__:regenerating src.experiments.cot_dependence.plot

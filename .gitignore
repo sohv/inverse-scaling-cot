@@ -9,4 +9,3 @@ results/raw/*
 .pytest_cache/
 .ruff_cache/
 CLAUDE.md
-research_log.md
