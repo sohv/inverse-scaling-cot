@@ -20,6 +20,7 @@ import simple_parsing
 
 from src.utils.io import read_json
 from src.utils.models import get_model_info
+from src.utils.plotting import legend_below
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(name)s %(levelname)s %(message)s")
 LOGGER = logging.getLogger(__name__)
@@ -96,6 +97,7 @@ def main():
 
     axes[0].set_ylabel("Faithfulness proxy\n(% same answer with vs without CoT)")
     plt.tight_layout()
+    legend_below(fig)
 
     # Save
     for ext in ["pdf", "png"]:

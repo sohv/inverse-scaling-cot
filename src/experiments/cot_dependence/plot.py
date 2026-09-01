@@ -16,6 +16,7 @@ import numpy as np
 import simple_parsing
 
 from src.utils.io import read_json
+from src.utils.plotting import legend_below
 
 LOGGER = logging.getLogger(__name__)
 
@@ -97,6 +98,7 @@ def plot_real_vs_null(df: pd.DataFrame, output_dir: Path) -> Path:
     axes[0].set_ylabel("Match fraction\n(with-CoT vs without-CoT)", fontsize=8.5, color=MUTED)
     axes[0].legend(fontsize=6.6, frameon=False, loc="upper left", labelcolor=MUTED)
     fig.tight_layout()
+    legend_below(fig)
     path = output_dir / "real_vs_empirical_null.png"
     fig.savefig(path, dpi=200, bbox_inches="tight")
     fig.savefig(path.with_suffix(".pdf"), bbox_inches="tight")

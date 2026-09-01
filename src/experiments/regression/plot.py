@@ -18,6 +18,8 @@ import pandas as pd
 import seaborn as sns
 import simple_parsing
 
+from src.utils.plotting import legend_below
+
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(name)s %(levelname)s %(message)s")
 LOGGER = logging.getLogger(__name__)
 
@@ -50,6 +52,7 @@ def main():
     ax1.set_ylabel("Faithfulness proxy (% same answer)")
     ax1.legend(fontsize=8)
     plt.tight_layout()
+    legend_below(fig1)
     for ext in ["pdf", "png"]:
         path = Path(config.output_dir) / f"faith_vs_params.{ext}"
         fig1.savefig(path, dpi=150, bbox_inches="tight")
@@ -98,6 +101,7 @@ def main():
     ax3.legend(fontsize=8)
     ax3.axhline(y=0, color="gray", linestyle=":", alpha=0.5)
     plt.tight_layout()
+    legend_below(fig3)
     for ext in ["pdf", "png"]:
         path = Path(config.output_dir) / f"residual_vs_params.{ext}"
         fig3.savefig(path, dpi=150, bbox_inches="tight")

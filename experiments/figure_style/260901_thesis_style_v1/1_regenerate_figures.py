@@ -18,6 +18,8 @@ import simple_parsing
 from matplotlib.axes import Axes
 from matplotlib.figure import Figure
 
+from src.utils.plotting import reserve_legend_space
+
 LOGGER = logging.getLogger(__name__)
 
 PALETTE = ["#4C72B0", "#DD8452", "#55A868", "#C44E52", "#8172B3"]
@@ -53,16 +55,43 @@ PLOTS = [
         ["--core_sweep_results_dir", "results/core_sweep", "--shuffled_cot_results_dir", "results/shuffled_cot"],
     ),
     ("src.experiments.regression.plot", ["--regression_table", "results/regression/regression_table.csv"]),
-    ("src.experiments.robustness.plot", ["--results_dir", "results/robustness"]),
-    ("src.experiments.capability.plot", ["--results_dir", "results/capability"]),
-    ("src.experiments.cot_dependence.plot", ["--results_dir", "results/cot_dependence"]),
+    ("src.experiments.robustness.plot", ["--results_dir", "results/final"]),
+    ("src.experiments.capability.plot", ["--results_dir", "results/final_capability"]),
+    ("src.experiments.cot_dependence.plot", ["--results_dir", "results/final_dependence"]),
+    ("src.experiments.sample_convergence.plot", ["--results_dir", "results/sample_convergence"]),
+    (
+        "src.experiments.comparison.plot",
+        ["--cells_csv", "results/quantization/awq_vs_bf16_cells.csv", "--label", "awq_vs_bf16",
+         "--baseline_name", "AWQ 4-bit", "--variant_name", "BF16"],
+    ),
+    (
+        "src.experiments.comparison.plot",
+        ["--cells_csv", "results/aqua_position_analysis/aqua_position_cells.csv", "--label", "aqua_position",
+         "--baseline_name", "Original order", "--variant_name", "Positions randomised"],
+    ),
+    (
+        "src.experiments.comparison.plot",
+        ["--cells_csv", "results/prompt_analysis/prompt_v1_cells.csv", "--label", "prompt_v1",
+         "--baseline_name", "Prompt v0", "--variant_name", "Prompt v1"],
+    ),
+    (
+        "src.experiments.comparison.plot",
+        ["--cells_csv", "results/prompt_analysis/prompt_v2_cells.csv", "--label", "prompt_v2",
+         "--baseline_name", "Prompt v0", "--variant_name", "Prompt v2"],
+    ),
 ]
 
-COLOR_OVERRIDES = {"BLUE": BLUE, "ORANGE": ORANGE, "AQUA": AQUA, "INK": INK, "MUTED": MUTED, "GRID": GRID}
+# repaint by value, not by name, so dicts keyed on families or sample counts survive intact
+OLD_TO_NEW = {
+    "#2a78d6": BLUE,
+    "#eb6834": ORANGE,
+    "#1baf7a": AQUA,
+    "#0b0b0b": INK,
+    "#52514e": MUTED,
+    "#d8d7d2": GRID,
+    "#c9c8c2": GRID,
+}
 
-# both panels of real_vs_shuffled carry the same ten entries, so they collapse into one legend below the axes
-LEGEND_BELOW = {"src.experiments.shuffled_cot.plot"}
-CURRENT_MODULE = {"path": None}
 
 
 def style_axes(ax) -> None:
@@ -84,19 +113,6 @@ def share_ylabel(fig) -> None:
     for ax in fig.axes:
         ax.set_ylabel("")
     fig.supylabel(labels[0], color=INK)
-
-
-def legend_below_axes(fig) -> None:
-    """Replace the per-panel legends with a single legend under the plot area."""
-    if not getattr(fig, "_legend_moved", False):
-        handles, labels = fig.axes[0].get_legend_handles_labels()
-        for ax in fig.axes:
-            if ax.get_legend() is not None: ax.get_legend().remove()
-        fig.legend(handles, labels, loc="lower center", bbox_to_anchor=(0.5, 0.01), ncol=5, frameon=False)
-        fig._legend_moved = True
-    # reapplied on every save: each savefig re-runs tight_layout, which reclaims the reserved strip
-    fig.set_layout_engine("none")
-    fig.subplots_adjust(bottom=0.24)
 
 
 def patch_matplotlib() -> None:
@@ -139,8 +155,9 @@ def patch_matplotlib() -> None:
             grow = 2 * overflow / self.dpi + 0.4
             self.set_size_inches(self.get_figwidth() + grow, self.get_figheight())
             self.tight_layout()
-        if CURRENT_MODULE["path"] in LEGEND_BELOW:
-            legend_below_axes(self)
+        # this wrapper's tight_layout reclaims the strip a source-side legend reserved
+        for legend in self.legends:
+            reserve_legend_space(self, legend)
         return original_savefig(self, *args, **kwargs)
 
     Figure.savefig = savefig
@@ -174,14 +191,12 @@ def main():
 
     for module_path, args in PLOTS:
         module = importlib.import_module(module_path)
-        for name, value in COLOR_OVERRIDES.items():
-            if hasattr(module, name): setattr(module, name, value)
-        # dicts built from the old constants at import time need rebuilding
-        if hasattr(module, "BIN_COLORS"): module.BIN_COLORS = {"near_random": BLUE, "intermediate": ORANGE, "ceiling": AQUA}
-        if hasattr(module, "FAMILY_COLORS"): module.FAMILY_COLORS = {"qwen": BLUE, "llama": ORANGE}
-        if hasattr(module, "NULL_FILL"): module.NULL_FILL = GRID
+        for name, value in vars(module).copy().items():
+            if isinstance(value, str) and value in OLD_TO_NEW:
+                setattr(module, name, OLD_TO_NEW[value])
+            elif isinstance(value, dict) and any(v in OLD_TO_NEW for v in value.values() if isinstance(v, str)):
+                setattr(module, name, {k: OLD_TO_NEW.get(v, v) for k, v in value.items()})
 
-        CURRENT_MODULE["path"] = module_path
         sys.argv = [module_path, *args, "--output_dir", str(output_dir)]
         LOGGER.info(f"regenerating {module_path}")
         module.main()
