@@ -1,0 +1,13 @@
+{
+  "n_audited": 200,
+  "categories": {
+    "numeric_choice_label": 188,
+    "lowercase_letter": 12
+  },
+  "permissive_correct": 200,
+  "strict_correct": 0,
+  "permissive_accuracy": 1.0,
+  "strict_accuracy": 0.0,
+  "rule": "answer is the option token emitted at the start of the completion, matched case-insensitively against the question's real choice_labels",
+  "conclusion": "every sampled disagreement is a strict-parser defect (hardcoded [A-E], case-sensitive), not genuine ambiguity"
+}

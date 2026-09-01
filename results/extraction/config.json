@@ -1,5 +1,6 @@
 {
-  "git_hash": "ab131a7f",
+  "git_hash": "f39ecff4",
+  "vllm_version": "0.24.0",
   "config": {
     "core_sweep_results_dir": "results/core_sweep",
     "output_dir": "results/extraction",

@@ -1,8 +1,11 @@
 """Independent strict answer parser for extraction-robustness checks (revision item 17).
 
-Deliberately stricter than src.generation.runner.extract_answer: it anchors only on a
-parenthesised letter and refuses to guess. Disagreement with the permissive parser is the
-quantity of interest, so this parser must never silently fall back to a heuristic.
+Stricter than src.generation.runner.extract_answer: it accepts only an unambiguous
+parenthesised option and never guesses. It is deliberately NOT restricted to A-E, and it
+is case-insensitive -- the 200-row manual audit (results/extraction/manual_audit_summary.json)
+showed that an [A-E]-only, case-sensitive version disagreed with the permissive parser on
+200/200 sampled cases and was wrong on every one of them: 188 were the ARC-Challenge
+questions whose choice labels are 1-4, and 12 were models emitting a lowercase "b)".
 """
 
 import logging
@@ -10,37 +13,30 @@ import re
 
 LOGGER = logging.getLogger(__name__)
 
-# letter immediately at the start of the completion, closing paren required: "B)" / "(B)"
-STRICT_LEADING_PATTERN = re.compile(r"^\s*\(?([A-E])\)")
 
-# explicit phrase with both parens: "the answer is (B)"
-STRICT_PHRASE_PATTERN = re.compile(r"the\s+answer\s+is\s*\(([A-E])\)", re.IGNORECASE)
+def _alternation(choice_labels: list[str]) -> str:
+    """Regex alternation over the question's real labels, longest first."""
+    return "|".join(re.escape(label) for label in sorted(choice_labels, key=len, reverse=True))
 
 
 def extract_answer_strict(text: str, choice_labels: list[str]) -> str | None:
-    """Extract an answer letter using only unambiguous parenthesised forms.
+    """Extract an answer using only unambiguous parenthesised forms.
 
-    No standalone-(A) scan over the whole text, no bare-letter fallback, no
-    first-character heuristic. Returns None whenever the format is not exact.
+    Accepts a leading "B)" / "(B)" / "3)" at the very start of the completion, or an
+    explicit "the answer is (B)". No bare-letter fallback, no scan for a stray "(A)"
+    mid-text, and no first-character heuristic.
     """
-    valid = {label.upper() for label in choice_labels}
+    if not choice_labels:
+        return None
+    canonical = {label.upper(): label for label in choice_labels}
+    alt = _alternation(choice_labels)
 
-    leading = STRICT_LEADING_PATTERN.match(text)
+    leading = re.match(rf"\s*\(?\s*({alt})\s*\)", text, re.IGNORECASE)
     if leading:
-        letter = leading.group(1).upper()
-        if letter in valid:
-            return letter
+        return canonical[leading.group(1).upper()]
 
-    phrases = STRICT_PHRASE_PATTERN.findall(text)
+    phrases = re.findall(rf"the\s+answer\s+is\s*\(\s*({alt})\s*\)", text, re.IGNORECASE)
     if phrases:
-        letter = phrases[-1].upper()
-        if letter in valid:
-            return letter
+        return canonical[phrases[-1].upper()]
 
     return None
-
-
-PARSERS = {
-    "permissive": None,  # resolved to runner.extract_answer_no_cot by callers
-    "strict": extract_answer_strict,
-}

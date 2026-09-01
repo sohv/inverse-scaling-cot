@@ -1,1 +1,7 @@
 2026-09-01 22:14:10,236 src.utils.config INFO Saved run config to results/final_capability/config.json
+2026-09-01 22:27:13,049 src.metrics.capability WARNING no matched pairs for within_tol0.01_ratio4.0 at tolerance 0.01
+2026-09-01 22:27:13,058 src.metrics.capability WARNING no matched pairs for within_tol0.01_ratio8.0 at tolerance 0.01
+2026-09-01 22:27:13,089 src.metrics.capability WARNING no matched pairs for within_tol0.02_ratio8.0 at tolerance 0.02
+2026-09-01 22:27:13,119 src.metrics.capability WARNING no matched pairs for within_tol0.03_ratio8.0 at tolerance 0.03
+2026-09-01 22:27:13,149 src.metrics.capability WARNING no matched pairs for within_tol0.05_ratio8.0 at tolerance 0.05
+2026-09-01 22:27:17,252 src.utils.config INFO Saved run config to results/final_capability/config.json

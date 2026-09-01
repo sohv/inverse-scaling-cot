@@ -34,6 +34,15 @@ def test_strict_parser_rejects_ambiguous_and_out_of_range():
     assert extract_answer_strict("E) out of range", list("ABCD")) is None
 
 
+def test_strict_parser_handles_numeric_labels_and_lowercase():
+    """Both cases the 200-row manual audit found the first version got wrong."""
+    assert extract_answer_strict("3) 20 N.", ["1", "2", "3", "4"]) == "3"
+    assert extract_answer_strict("1) the arrival of an air mass.", ["1", "2", "3", "4"]) == "1"
+    assert extract_answer_strict("b) 2 minutes. This is the most likely", list("ABCDE")) == "B"
+    assert extract_answer_strict("the answer is (c)", list("ABCD")) == "C"
+    assert extract_answer_strict("5) out of range", ["1", "2", "3", "4"]) is None
+
+
 def test_strict_parser_takes_last_phrase_match():
     assert extract_answer_strict("first the answer is (A) then the answer is (B)", list("ABCD")) == "B"
 

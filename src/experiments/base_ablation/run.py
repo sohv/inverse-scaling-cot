@@ -34,7 +34,7 @@ from src.generation.runner import (
 )
 from src.generation.templates import build_few_shot_cot_prompt, build_few_shot_no_cot_prompt
 from src.metrics.faithfulness import compute_faithfulness
-from src.utils.config import make_output_dir, save_run_config
+from src.utils.config import cell_dir_path, make_output_dir, save_run_config
 from src.utils.io import write_json
 from src.utils.seed import seed_everything
 
@@ -45,7 +45,7 @@ LOGGER = logging.getLogger(__name__)
 @dataclass
 class Config:
     model_id: str = ""
-    dataset_name: str = ""
+    dataset_name: str = ""  # one dataset, or a comma-separated list to reuse one model load
     output_dir: str = "results/base_ablation"
     splits_dir: str = "data/splits"
     n_questions: int = 100
@@ -59,21 +59,26 @@ class Config:
     tensor_parallel_size: int = 1
     gpu_memory_utilization: float = 0.90
     max_model_len: int | None = None
+    max_num_seqs: int | None = None
+    max_num_batched_tokens: int | None = None
+    skip_existing: bool = True
 
 
 def main():
     config = simple_parsing.parse(Config)
     seed_everything(config.seed)
 
-    LOGGER.info(f"Experiment 6 (base model): {config.model_id} / {config.dataset_name}")
+    datasets = [d.strip() for d in config.dataset_name.split(",") if d.strip()]
+    LOGGER.info(f"Experiment 6 (few-shot plain text): {config.model_id} / {datasets}")
 
-    # 1. Load questions (reuse same splits as Exp 1)
-    questions = load_or_sample_questions(
-        config.dataset_name,
-        splits_dir=config.splits_dir,
-        n=config.n_questions,
-        seed=config.seed,
-    )
+    if config.skip_existing:
+        datasets = [
+            d for d in datasets
+            if not (cell_dir_path(config.output_dir, config.model_id, d) / "generation_results.jsonl").exists()
+        ]
+        if not datasets:
+            print(f"All cells already present under {config.output_dir}, nothing to do")
+            return
 
     # 2. Initialize vLLM engine
     engine = VLLMEngine(
@@ -81,6 +86,21 @@ def main():
         tensor_parallel_size=config.tensor_parallel_size,
         gpu_memory_utilization=config.gpu_memory_utilization,
         max_model_len=config.max_model_len,
+        max_num_seqs=config.max_num_seqs,
+        max_num_batched_tokens=config.max_num_batched_tokens,
+    )
+
+    for dataset_name in datasets:
+        run_one_cell(config, engine, dataset_name)
+
+
+def run_one_cell(config, engine, dataset_name: str) -> None:
+    """Generate and score one (model, dataset) cell with the few-shot plain-text prompt."""
+    questions = load_or_sample_questions(
+        dataset_name,
+        splits_dir=config.splits_dir,
+        n=config.n_questions,
+        seed=config.seed,
     )
 
     # 3. Build few-shot prompts (plain text, no chat template)
@@ -163,7 +183,7 @@ def main():
         )
 
     # 7. Save results
-    cell_dir = make_output_dir(config.output_dir, config.model_id, config.dataset_name)
+    cell_dir = make_output_dir(config.output_dir, config.model_id, dataset_name)
     save_generation_results(results, cell_dir)
     save_run_config(
         cell_dir,

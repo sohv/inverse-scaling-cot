@@ -21,6 +21,7 @@ from src.metrics.capability import (
     matched_pairs,
     reconstruct,
     saturation,
+    tolerance_sensitivity,
 )
 from src.metrics.cells import find_cell_dirs
 from src.metrics.robustness import fit_decomposition
@@ -82,6 +83,9 @@ def main():
         },
     )
 
+    sensitivity = tolerance_sensitivity(df, raw_size_coef)
+    write_json(output_dir / "matched_pairs_sensitivity.json", {"sweep": sensitivity})
+
     bins = capability_bins(df)
     sat = saturation(df)
     write_json(output_dir / "capability_bins.json", {"bins": bins, "saturation": sat})
@@ -117,6 +121,16 @@ def main():
             f"vs {m.predicted_proxy_diff_from_size:.4f} predicted from the size coefficient alone "
             f"(mean size ratio {m.mean_size_ratio:.1f}x, paired p={m.paired_p_value:.3f})"
         )
+
+    print("\nMatched-pair threshold sensitivity (post-hoc; pre-registered point marked *)")
+    print(f"  {'scope':<8} {'tol':>6} {'ratio':>6} {'n':>4} {'mean |d proxy|':>15} {'predicted':>10} {'p':>8}")
+    for r in sensitivity:
+        if r["n_pairs"] == 0:
+            continue
+        star = "*" if r["is_preregistered_point"] else " "
+        scope = "within" if r["within_family"] else "across"
+        print(f"{star} {scope:<8} {r['acc_tolerance']:>6.3f} {r['min_size_ratio']:>6.1f} {r['n_pairs']:>4} "
+              f"{r['mean_abs_proxy_diff']:>15.4f} {r['predicted_proxy_diff_from_size']:>10.4f} {r['paired_p_value']:>8.3f}")
 
     print("\nCapability regimes")
     for b in bins:

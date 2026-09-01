@@ -228,3 +228,39 @@ def answer_distribution_stats(counts: dict[str, int]) -> dict:
         "n_distinct": int(sum(1 for c in counts.values() if c > 0)),
         "counts": counts,
     }
+
+
+def tolerance_sensitivity(
+    df: pd.DataFrame,
+    raw_size_coef: float,
+    tolerances: tuple[float, ...] = (0.01, 0.02, 0.03, 0.05, 0.075, 0.10),
+    size_ratios: tuple[float, ...] = (2.0, 4.0, 8.0),
+) -> list[dict]:
+    """Post-hoc sweep of the matching thresholds (revision item 10).
+
+    The pre-registered point (tolerance 0.03, ratio 4x) stays the primary result; this
+    exists because so few pairs qualify within a family at that setting that the headline
+    rests on cross-family pairs. Reported as sensitivity, never as the main estimate.
+    """
+    out = []
+    for within in (True, False):
+        for tol in tolerances:
+            for ratio in size_ratios:
+                m = matched_pairs(
+                    df, raw_size_coef, acc_tolerance=tol, min_size_ratio=ratio,
+                    within_family=within, label=f"{'within' if within else 'across'}_tol{tol}_ratio{ratio}",
+                )
+                out.append(
+                    {
+                        "within_family": within,
+                        "acc_tolerance": tol,
+                        "min_size_ratio": ratio,
+                        "n_pairs": m.n_pairs,
+                        "mean_abs_proxy_diff": m.mean_abs_proxy_diff,
+                        "predicted_proxy_diff_from_size": m.predicted_proxy_diff_from_size,
+                        "mean_size_ratio": m.mean_size_ratio,
+                        "paired_p_value": m.paired_p_value,
+                        "is_preregistered_point": bool(tol == ACC_TOLERANCE and ratio == MIN_SIZE_RATIO),
+                    }
+                )
+    return out
