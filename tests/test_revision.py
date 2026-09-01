@@ -236,3 +236,15 @@ def test_cells_to_table_rejects_duplicate_cells():
     cells = [make("Qwen/Qwen2.5-7B-Instruct"), make("Qwen/Qwen2.5-7B-Instruct")]
     with pytest.raises(ValueError, match="double-counted"):
         cells_to_table(cells)
+
+
+def test_cell_dir_path_does_not_create_directories(tmp_path):
+    """Existence checks must not litter the results tree with empty cell directories."""
+    from src.utils.config import cell_dir_path, make_output_dir
+
+    path = cell_dir_path(str(tmp_path), "Qwen/Qwen2.5-7B-Instruct", "aqua")
+    assert not path.exists()
+    assert list(tmp_path.iterdir()) == []
+
+    created = make_output_dir(str(tmp_path), "Qwen/Qwen2.5-7B-Instruct", "aqua")
+    assert created == path and created.exists()

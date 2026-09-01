@@ -32,7 +32,7 @@ from src.data.sampler import load_or_sample_questions
 from src.generation.engine import GenerationConfig, HFEngine, VLLMEngine
 from src.generation.runner import run_generation_for_model, save_generation_results
 from src.metrics.faithfulness import compute_faithfulness
-from src.utils.config import make_output_dir, save_run_config
+from src.utils.config import cell_dir_path, make_output_dir, save_run_config
 from src.utils.io import write_json
 from src.utils.seed import seed_everything
 
@@ -60,6 +60,7 @@ class Config:
     enforce_eager: bool = False
     quantization: str | None = None
     prompt_variant: str = "v0"  # v0 reproduces the original sweep; v1/v2 are rewordings
+    skip_existing: bool = True  # skip cells already generated, so a queue is safe to re-run
     permute_choices_seed: int | None = None  # set to randomise answer positions per question
 
 
@@ -69,6 +70,15 @@ def main():
 
     datasets = [d.strip() for d in config.dataset_name.split(",") if d.strip()]
     LOGGER.info(f"Experiment 1: {config.model_id} / {datasets}")
+
+    if config.skip_existing:
+        remaining = [
+            d for d in datasets
+            if not (cell_dir_path(config.output_dir, config.model_id, d) / "generation_results.jsonl").exists()
+        ]
+        if not remaining:
+            print(f"All {len(datasets)} cells already present under {config.output_dir}, nothing to do")
+            return
 
     # 2. Initialize engine
     if config.engine == "hf":
@@ -99,7 +109,20 @@ def main():
         seed=config.seed,
     )
 
-    for dataset_name in datasets:
+    pending = datasets
+    if config.skip_existing:
+        pending = [
+            d for d in datasets
+            if not (cell_dir_path(config.output_dir, config.model_id, d) / "generation_results.jsonl").exists()
+        ]
+        skipped = [d for d in datasets if d not in pending]
+        if skipped:
+            LOGGER.warning(f"Skipping {len(skipped)} already-generated cells: {skipped}")
+    if not pending:
+        print(f"All {len(datasets)} cells already present under {config.output_dir}, nothing to do")
+        return
+
+    for dataset_name in pending:
         # 1. Load or sample questions
         questions = load_or_sample_questions(
             dataset_name,

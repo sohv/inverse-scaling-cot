@@ -17,10 +17,18 @@ def normalize_name(name: str) -> str:
     return name.replace("/", "_").replace(" ", "_")
 
 
+def cell_dir_path(base: str, model_id: str, dataset_name: str) -> Path:
+    """Return the cell directory path without creating it.
+
+    Existence checks must use this, not make_output_dir, which mkdirs as a side effect
+    and would litter the results tree with empty directories for cells never generated.
+    """
+    return Path(base) / f"{normalize_name(model_id)}__{dataset_name}"
+
+
 def make_output_dir(base: str, model_id: str, dataset_name: str) -> Path:
     """Create and return output directory: base/model_name__dataset_name/."""
-    model_name = normalize_name(model_id)
-    dir_path = Path(base) / f"{model_name}__{dataset_name}"
+    dir_path = cell_dir_path(base, model_id, dataset_name)
     dir_path.mkdir(parents=True, exist_ok=True)
     return dir_path
 
