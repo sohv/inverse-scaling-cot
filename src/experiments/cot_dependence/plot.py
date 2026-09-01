@@ -90,18 +90,11 @@ def plot_real_vs_null(df: pd.DataFrame, output_dir: Path) -> Path:
                 fam.size_b, fam.null_ci_lower, fam.null_ci_upper, color=NULL_FILL, alpha=0.75, zorder=2, linewidth=0
             )
         ax.set_xscale("log")
-        ax.set_title(TASK_LABELS[task], fontsize=9.5, color=INK)
         ax.set_xlabel("Model size (B params)", fontsize=8, color=MUTED)
         _style(ax)
 
     axes[0].set_ylabel("Match fraction\n(with-CoT vs without-CoT)", fontsize=8.5, color=MUTED)
     axes[0].legend(fontsize=6.6, frameon=False, loc="upper left", labelcolor=MUTED)
-    fig.suptitle(
-        "Real CoT beats each cell's own permutation null, and the gap widens with scale\n"
-        "Shaded band: 95% interval of 1000 CoT reassignments within the same cell",
-        fontsize=11,
-        color=INK,
-    )
     fig.tight_layout()
     path = output_dir / "real_vs_empirical_null.png"
     fig.savefig(path, dpi=200, bbox_inches="tight")
@@ -145,18 +138,11 @@ def plot_dependence_scaling(df: pd.DataFrame, fits: list[dict], output_dir: Path
         ax.axhline(0, color=MUTED, linewidth=1.0, zorder=1)
         ax.set_xscale("log")
         ax.set_xlim(right=sub.size_b.max() * 3.2)
-        ax.set_title(FAMILY_LABELS[family], fontsize=10, color=INK)
         ax.set_xlabel("Model size (billions of parameters)", fontsize=8.5, color=MUTED)
         ax.legend(fontsize=8, frameon=False, loc="upper left", labelcolor=MUTED)
         _style(ax)
 
     axes[0].set_ylabel("CoT dependence\n(real minus shuffled match rate)", fontsize=8.5, color=MUTED)
-    fig.suptitle(
-        "Larger models depend more on their own CoT content, not less\n"
-        "Positive slope in every task and both families; the answer-match proxy moves the opposite way",
-        fontsize=11,
-        color=INK,
-    )
     fig.tight_layout()
     path = output_dir / "cot_dependence_scaling.png"
     fig.savefig(path, dpi=200, bbox_inches="tight")

@@ -22,10 +22,12 @@ For testing (10 questions):
 """
 
 import logging
+import random
 from dataclasses import dataclass
 
 import simple_parsing
 
+from src.data.loader import permute_choices
 from src.data.sampler import load_or_sample_questions
 from src.generation.engine import GenerationConfig, HFEngine, VLLMEngine
 from src.generation.runner import run_generation_for_model, save_generation_results
@@ -41,7 +43,7 @@ LOGGER = logging.getLogger(__name__)
 @dataclass
 class Config:
     model_id: str = ""
-    dataset_name: str = ""
+    dataset_name: str = ""  # one dataset, or a comma-separated list to reuse one model load
     output_dir: str = "results/core_sweep"
     splits_dir: str = "data/splits"
     n_questions: int = 100
@@ -57,22 +59,16 @@ class Config:
     max_model_len: int | None = None
     enforce_eager: bool = False
     quantization: str | None = None
+    prompt_variant: str = "v0"  # v0 reproduces the original sweep; v1/v2 are rewordings
+    permute_choices_seed: int | None = None  # set to randomise answer positions per question
 
 
 def main():
     config = simple_parsing.parse(Config)
     seed_everything(config.seed)
 
-    LOGGER.info(f"Experiment 1: {config.model_id} / {config.dataset_name}")
-
-    # 1. Load or sample questions
-    questions = load_or_sample_questions(
-        config.dataset_name,
-        splits_dir=config.splits_dir,
-        n=config.n_questions,
-        seed=config.seed,
-    )
-    LOGGER.info(f"Loaded {len(questions)} questions for {config.dataset_name}")
+    datasets = [d.strip() for d in config.dataset_name.split(",") if d.strip()]
+    LOGGER.info(f"Experiment 1: {config.model_id} / {datasets}")
 
     # 2. Initialize engine
     if config.engine == "hf":
@@ -103,31 +99,46 @@ def main():
         seed=config.seed,
     )
 
-    # 4. Run generation
-    results = run_generation_for_model(
-        engine=engine,
-        questions=questions,
-        model_id=config.model_id,
-        n_cot_samples=config.n_cot_samples,
-        cot_gen_config=cot_gen_config,
-        no_cot_gen_config=no_cot_gen_config,
-    )
+    for dataset_name in datasets:
+        # 1. Load or sample questions
+        questions = load_or_sample_questions(
+            dataset_name,
+            splits_dir=config.splits_dir,
+            n=config.n_questions,
+            seed=config.seed,
+        )
+        if config.permute_choices_seed is not None:
+            rng = random.Random(config.permute_choices_seed)
+            questions = [permute_choices(q, rng) for q in questions]
+            LOGGER.warning(f"Permuted answer positions with seed={config.permute_choices_seed}")
+        LOGGER.info(f"Loaded {len(questions)} questions for {dataset_name}")
 
-    # 5. Save generation results
-    cell_dir = make_output_dir(config.output_dir, config.model_id, config.dataset_name)
-    save_generation_results(results, cell_dir)
-    save_run_config(cell_dir, config)
+        # 4. Run generation
+        results = run_generation_for_model(
+            engine=engine,
+            questions=questions,
+            model_id=config.model_id,
+            n_cot_samples=config.n_cot_samples,
+            cot_gen_config=cot_gen_config,
+            no_cot_gen_config=no_cot_gen_config,
+            prompt_variant=config.prompt_variant,
+        )
 
-    # 6. Compute and save faithfulness metric
-    faithfulness = compute_faithfulness(results, n_bootstrap=1000, seed=config.seed)
-    faith_path = cell_dir / "faithfulness.json"
-    write_json(faith_path, faithfulness.model_dump())
+        # 5. Save generation results
+        cell_dir = make_output_dir(config.output_dir, config.model_id, dataset_name)
+        save_generation_results(results, cell_dir)
+        save_run_config(cell_dir, config, extra_metadata={"dataset_name": dataset_name})
 
-    print(f"\nResults saved to {cell_dir}")
-    print(
-        f"Faithfulness: {faithfulness.mean_match_fraction:.4f} "
-        f"[{faithfulness.bootstrap_ci_lower:.4f}, {faithfulness.bootstrap_ci_upper:.4f}]"
-    )
+        # 6. Compute and save faithfulness metric
+        faithfulness = compute_faithfulness(results, n_bootstrap=1000, seed=config.seed)
+        write_json(cell_dir / "faithfulness.json", faithfulness.model_dump())
+
+        print(f"\nResults saved to {cell_dir}")
+        print(
+            f"Faithfulness: {faithfulness.mean_match_fraction:.4f} "
+            f"[{faithfulness.bootstrap_ci_lower:.4f}, {faithfulness.bootstrap_ci_upper:.4f}]"
+        )
+
     print(
         f"\nPlot with: uv run -m src.experiments.core_sweep.plot "
         f"--results_dir {config.output_dir} --output_dir results/figures"

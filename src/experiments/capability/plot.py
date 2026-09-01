@@ -34,7 +34,6 @@ BIN_LABELS = {
     "intermediate": "Intermediate (0.35-0.75)",
     "ceiling": "Ceiling (acc >= 0.75)",
 }
-FAMILY_LABELS = {"qwen": "Qwen2.5-Instruct", "llama": "Llama-3-Instruct"}
 
 
 @dataclass
@@ -86,19 +85,11 @@ def plot_reconstruction(df: pd.DataFrame, recon: dict, output_dir: Path) -> Path
             markeredgewidth=0.9,
         )
         ax.set_xscale("log")
-        ax.set_title(FAMILY_LABELS[family], fontsize=10, color=INK)
         ax.set_xlabel("Model size (billions of parameters)", fontsize=8.5, color=MUTED)
         ax.legend(fontsize=8, frameon=False, loc="lower right", labelcolor=MUTED)
         _style(ax)
 
     axes[0].set_ylabel("Faithfulness proxy\n(mean over five tasks)", fontsize=8.5, color=MUTED)
-    fig.suptitle(
-        "Task capability alone reproduces most of the apparent scaling curve\n"
-        f"A fit on no-CoT accuracy recovers {recon['fraction_of_slope_reproduced'] * 100:.0f}% of the observed "
-        f"size slope (MAE {recon['mean_absolute_error']:.3f}); reconstruction, not causal decomposition",
-        fontsize=11,
-        color=INK,
-    )
     fig.tight_layout()
     path = output_dir / "reconstruction.png"
     fig.savefig(path, dpi=200, bbox_inches="tight")
@@ -131,7 +122,6 @@ def plot_regimes(df: pd.DataFrame, bins: list[dict], output_dir: Path) -> Path:
     ax.plot(lims, lims, color=MUTED, linewidth=1.2, linestyle="--", zorder=2, label="Proxy = accuracy")
     ax.set_xlabel("Accuracy without CoT", fontsize=8.5, color=MUTED)
     ax.set_ylabel("Faithfulness proxy", fontsize=8.5, color=MUTED)
-    ax.set_title("Three measurement regimes", fontsize=10, color=INK)
     ax.legend(fontsize=7.5, frameon=False, loc="upper left", labelcolor=MUTED)
     _style(ax)
 
@@ -161,11 +151,9 @@ def plot_regimes(df: pd.DataFrame, bins: list[dict], output_dir: Path) -> Path:
         [f"{BIN_LABELS[b['bin']].split(' (')[0]}\n(n={b['n_obs']})" for b in valid], fontsize=8, color=INK
     )
     ax.set_ylabel("Regression slope", fontsize=8.5, color=MUTED)
-    ax.set_title("Within each regime the proxy tracks accuracy, not size", fontsize=10, color=INK)
     ax.legend(fontsize=8, frameon=False, labelcolor=MUTED)
     _style(ax)
 
-    fig.suptitle("Capability regimes in the answer-match proxy, 55 model-task cells", fontsize=11, color=INK)
     fig.tight_layout()
     path = output_dir / "capability_regimes.png"
     fig.savefig(path, dpi=200, bbox_inches="tight")

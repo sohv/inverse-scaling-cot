@@ -1,0 +1,238 @@
+{
+  "fits": [
+    {
+      "label": "drop_model=Qwen/Qwen2.5-0.5B-Instruct",
+      "n_obs": 40,
+      "n_models": 8,
+      "n_tasks": 5,
+      "raw_coef": 0.272,
+      "controlled_coef": 0.046,
+      "pct_reduction": 83.0889,
+      "accuracy_coef": 0.8596,
+      "r2_raw": 0.3615,
+      "r2_controlled": 0.947,
+      "raw_coef_ci": [
+        0.1618,
+        0.3737
+      ],
+      "controlled_coef_ci": [
+        0.0075,
+        0.0904
+      ],
+      "pct_reduction_ci": [
+        65.9067,
+        96.9593
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "drop_model=Qwen/Qwen2.5-1.5B-Instruct",
+      "n_obs": 40,
+      "n_models": 8,
+      "n_tasks": 5,
+      "raw_coef": 0.2931,
+      "controlled_coef": 0.0546,
+      "pct_reduction": 81.3891,
+      "accuracy_coef": 0.8419,
+      "r2_raw": 0.5089,
+      "r2_controlled": 0.9608,
+      "raw_coef_ci": [
+        0.2188,
+        0.3665
+      ],
+      "controlled_coef_ci": [
+        0.0149,
+        0.0968
+      ],
+      "pct_reduction_ci": [
+        67.9445,
+        94.8578
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "drop_model=Qwen/Qwen2.5-14B-Instruct",
+      "n_obs": 40,
+      "n_models": 8,
+      "n_tasks": 5,
+      "raw_coef": 0.2704,
+      "controlled_coef": 0.0499,
+      "pct_reduction": 81.5393,
+      "accuracy_coef": 0.8714,
+      "r2_raw": 0.4378,
+      "r2_controlled": 0.957,
+      "raw_coef_ci": [
+        0.1842,
+        0.3481
+      ],
+      "controlled_coef_ci": [
+        0.0181,
+        0.0852
+      ],
+      "pct_reduction_ci": [
+        67.9065,
+        93.5619
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "drop_model=Qwen/Qwen2.5-32B-Instruct",
+      "n_obs": 40,
+      "n_models": 8,
+      "n_tasks": 5,
+      "raw_coef": 0.2994,
+      "controlled_coef": 0.061,
+      "pct_reduction": 79.6164,
+      "accuracy_coef": 0.8612,
+      "r2_raw": 0.4085,
+      "r2_controlled": 0.949,
+      "raw_coef_ci": [
+        0.1942,
+        0.3892
+      ],
+      "controlled_coef_ci": [
+        0.0161,
+        0.1129
+      ],
+      "pct_reduction_ci": [
+        63.9139,
+        94.4822
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "drop_model=Qwen/Qwen2.5-3B-Instruct",
+      "n_obs": 40,
+      "n_models": 8,
+      "n_tasks": 5,
+      "raw_coef": 0.2844,
+      "controlled_coef": 0.0569,
+      "pct_reduction": 80.0066,
+      "accuracy_coef": 0.8471,
+      "r2_raw": 0.5164,
+      "r2_controlled": 0.9539,
+      "raw_coef_ci": [
+        0.2059,
+        0.3535
+      ],
+      "controlled_coef_ci": [
+        0.0219,
+        0.099
+      ],
+      "pct_reduction_ci": [
+        66.9192,
+        92.2134
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "drop_model=Qwen/Qwen2.5-7B-Instruct",
+      "n_obs": 40,
+      "n_models": 8,
+      "n_tasks": 5,
+      "raw_coef": 0.2758,
+      "controlled_coef": 0.0476,
+      "pct_reduction": 82.7492,
+      "accuracy_coef": 0.8728,
+      "r2_raw": 0.4795,
+      "r2_controlled": 0.9581,
+      "raw_coef_ci": [
+        0.1923,
+        0.3461
+      ],
+      "controlled_coef_ci": [
+        0.0133,
+        0.0839
+      ],
+      "pct_reduction_ci": [
+        70.2262,
+        94.8294
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "drop_model=meta-llama/Llama-3.1-8B-Instruct",
+      "n_obs": 40,
+      "n_models": 8,
+      "n_tasks": 5,
+      "raw_coef": 0.2931,
+      "controlled_coef": 0.0632,
+      "pct_reduction": 78.4277,
+      "accuracy_coef": 0.8305,
+      "r2_raw": 0.5345,
+      "r2_controlled": 0.9585,
+      "raw_coef_ci": [
+        0.2176,
+        0.3695
+      ],
+      "controlled_coef_ci": [
+        0.031,
+        0.1062
+      ],
+      "pct_reduction_ci": [
+        65.7235,
+        89.5941
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "drop_model=meta-llama/Llama-3.2-1B-Instruct",
+      "n_obs": 40,
+      "n_models": 8,
+      "n_tasks": 5,
+      "raw_coef": 0.2633,
+      "controlled_coef": 0.0495,
+      "pct_reduction": 81.2035,
+      "accuracy_coef": 0.8741,
+      "r2_raw": 0.4218,
+      "r2_controlled": 0.95,
+      "raw_coef_ci": [
+        0.1845,
+        0.3399
+      ],
+      "controlled_coef_ci": [
+        0.0167,
+        0.0896
+      ],
+      "pct_reduction_ci": [
+        66.9756,
+        93.5865
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "drop_model=meta-llama/Llama-3.2-3B-Instruct",
+      "n_obs": 40,
+      "n_models": 8,
+      "n_tasks": 5,
+      "raw_coef": 0.2798,
+      "controlled_coef": 0.0551,
+      "pct_reduction": 80.3027,
+      "accuracy_coef": 0.8564,
+      "r2_raw": 0.4998,
+      "r2_controlled": 0.9584,
+      "raw_coef_ci": [
+        0.2058,
+        0.3525
+      ],
+      "controlled_coef_ci": [
+        0.0206,
+        0.0967
+      ],
+      "pct_reduction_ci": [
+        66.5483,
+        92.3826
+      ],
+      "n_bootstrap": 1000
+    }
+  ],
+  "summary": {
+    "n_fits": 9,
+    "min_pct_reduction": 78.4277,
+    "median_pct_reduction": 81.2035,
+    "max_pct_reduction": 83.0889,
+    "min_label": "drop_model=meta-llama/Llama-3.1-8B-Instruct",
+    "max_label": "drop_model=Qwen/Qwen2.5-0.5B-Instruct",
+    "all_above_50": true
+  }
+}

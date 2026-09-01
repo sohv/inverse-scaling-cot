@@ -4,7 +4,7 @@ from dataclasses import dataclass
 @dataclass(frozen=True)
 class ModelInfo:
     model_id: str
-    family: str  # "qwen" or "llama"
+    family: str  # "qwen", "llama" or "olmo"
     size_b: float  # parameter count in billions
     is_instruct: bool
     is_base: bool
@@ -26,6 +26,11 @@ INSTRUCT_MODELS: list[ModelInfo] = [
     ModelInfo("meta-llama/Llama-3.1-8B-Instruct", "llama", 8.0, True, False),
     ModelInfo("meta-llama/Llama-3.1-70B-Instruct", "llama", 70.0, True, False),
     ModelInfo("hugging-quants/Meta-Llama-3.1-70B-Instruct-AWQ-INT4", "llama", 70.0, True, False),
+    # OLMo-2-Instruct family (4 sizes), added for the revision's third-family check
+    ModelInfo("allenai/OLMo-2-0425-1B-Instruct", "olmo", 1.0, True, False),
+    ModelInfo("allenai/OLMo-2-1124-7B-Instruct", "olmo", 7.0, True, False),
+    ModelInfo("allenai/OLMo-2-1124-13B-Instruct", "olmo", 13.0, True, False),
+    ModelInfo("allenai/OLMo-2-0325-32B-Instruct", "olmo", 32.0, True, False),
 ]
 
 BASE_MODELS: list[ModelInfo] = [

@@ -48,7 +48,6 @@ def main():
     ax1.plot(x_range, p(x_range), "k--", alpha=0.5, label=f"OLS fit (slope={z[0]:.4f})")
     ax1.set_xlabel("log10(parameters)")
     ax1.set_ylabel("Faithfulness proxy (% same answer)")
-    ax1.set_title("Faithfulness vs model scale (unadjusted)")
     ax1.legend(fontsize=8)
     plt.tight_layout()
     for ext in ["pdf", "png"]:
@@ -74,7 +73,6 @@ def main():
         )
     ax2.set_xlabel("Accuracy without CoT")
     ax2.set_ylabel("Faithfulness proxy (% same answer)")
-    ax2.set_title("Faithfulness vs accuracy (the confound)")
     ax2.legend()
     plt.tight_layout()
     for ext in ["pdf", "png"]:
@@ -97,7 +95,6 @@ def main():
     ax3.plot(x_range, np.polyval(z_res, x_range), "k--", alpha=0.5, label=f"OLS fit (slope={z_res[0]:.4f})")
     ax3.set_xlabel("log10(parameters)")
     ax3.set_ylabel("Faithfulness residual\n(after controlling for accuracy)")
-    ax3.set_title("Does inverse scaling survive after controlling for accuracy?")
     ax3.legend(fontsize=8)
     ax3.axhline(y=0, color="gray", linestyle=":", alpha=0.5)
     plt.tight_layout()

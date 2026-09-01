@@ -1,4 +1,5 @@
 import logging
+import random
 
 from datasets import load_dataset
 from pydantic import BaseModel
@@ -180,3 +181,27 @@ def load_dataset_questions(dataset_name: str) -> list[Question]:
 
     LOGGER.info(f"Loaded {len(questions)} questions from {dataset_name}")
     return questions
+
+
+def permute_choices(question: Question, rng: "random.Random") -> Question:
+    """Return the question with its answer options reordered under a random permutation.
+
+    Choice texts move to new positions while the label sequence stays A, B, C, ... so the
+    task is identical and only the position of the correct answer changes. The caller must
+    apply the same permutation to the CoT and no-CoT conditions.
+    """
+    order = list(range(len(question.choices)))
+    rng.shuffle(order)
+    permuted_choices = [question.choices[i] for i in order]
+    old_correct_index = question.choice_labels.index(question.correct_label)
+    new_correct_index = order.index(old_correct_index)
+
+    return Question(
+        id=question.id,
+        dataset_name=question.dataset_name,
+        question_text=question.question_text,
+        choices=permuted_choices,
+        choice_labels=list(question.choice_labels),
+        correct_label=question.choice_labels[new_correct_index],
+        raw_index=question.raw_index,
+    )

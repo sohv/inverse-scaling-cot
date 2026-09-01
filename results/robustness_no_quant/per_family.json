@@ -1,0 +1,63 @@
+{
+  "fits": [
+    {
+      "label": "family=llama",
+      "n_obs": 15,
+      "n_models": 3,
+      "n_tasks": 5,
+      "raw_coef": 0.2594,
+      "controlled_coef": 0.0275,
+      "pct_reduction": 89.3911,
+      "accuracy_coef": 0.8944,
+      "r2_raw": 0.2389,
+      "r2_controlled": 0.941,
+      "raw_coef_ci": [
+        -0.0137,
+        0.4867
+      ],
+      "controlled_coef_ci": [
+        -0.073,
+        0.1272
+      ],
+      "pct_reduction_ci": [
+        -3.8456,
+        99.0396
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "family=qwen",
+      "n_obs": 30,
+      "n_models": 6,
+      "n_tasks": 5,
+      "raw_coef": 0.2706,
+      "controlled_coef": 0.0607,
+      "pct_reduction": 77.5541,
+      "accuracy_coef": 0.8456,
+      "r2_raw": 0.5431,
+      "r2_controlled": 0.9561,
+      "raw_coef_ci": [
+        0.1851,
+        0.3436
+      ],
+      "controlled_coef_ci": [
+        0.0257,
+        0.1052
+      ],
+      "pct_reduction_ci": [
+        62.6607,
+        90.2196
+      ],
+      "n_bootstrap": 1000
+    }
+  ],
+  "summary": {
+    "n_fits": 2,
+    "min_pct_reduction": 77.5541,
+    "median_pct_reduction": 83.4726,
+    "max_pct_reduction": 89.3911,
+    "min_label": "family=qwen",
+    "max_label": "family=llama",
+    "all_above_50": true
+  }
+}

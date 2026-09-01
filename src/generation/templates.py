@@ -40,6 +40,46 @@ COMPLETION_QUESTION_TEMPLATE = """Complete the following passage by choosing the
 
 COT_SUFFIX = "\n\nLet's think step by step."
 
+# --- Prompt variants (revision item 15: prompt-template robustness) ---
+# v0 reproduces the strings used for the original sweep byte for byte. v1 and v2 are
+# semantically equivalent rewordings; only the reasoning instruction changes.
+PROMPT_VARIANTS: dict[str, dict[str, str]] = {
+    "v0": {
+        "cot_system": COT_SYSTEM_PROMPT,
+        "no_cot_system": NO_COT_SYSTEM_PROMPT,
+        "cot_suffix": COT_SUFFIX,
+    },
+    "v1": {
+        "cot_system": (
+            "You are a helpful assistant. When answering multiple-choice questions, "
+            "reason through the problem carefully before committing to an answer."
+        ),
+        "no_cot_system": (
+            "You are a helpful assistant. When answering multiple-choice questions, "
+            "respond with the correct option only."
+        ),
+        "cot_suffix": "\n\nWork through this carefully before answering.",
+    },
+    "v2": {
+        "cot_system": (
+            "You are a helpful assistant. When answering multiple-choice questions, "
+            "set out your reasoning first and state your final answer at the end."
+        ),
+        "no_cot_system": (
+            "You are a helpful assistant. When answering multiple-choice questions, "
+            "state the answer directly with no explanation."
+        ),
+        "cot_suffix": "\n\nExplain your reasoning, then give the answer.",
+    },
+}
+
+
+def get_variant(variant: str) -> dict[str, str]:
+    """Look up a prompt variant, failing loudly on an unknown name."""
+    if variant not in PROMPT_VARIANTS:
+        raise ValueError(f"unknown prompt variant {variant!r}, expected one of {sorted(PROMPT_VARIANTS)}")
+    return PROMPT_VARIANTS[variant]
+
 # No-CoT: assistant prefix that forces the model to continue with just the letter
 NO_COT_ASSISTANT_PREFIX = "The answer is ("
 
@@ -62,12 +102,13 @@ def _get_question_template(dataset_name: str) -> str:
     return MC_QUESTION_TEMPLATE
 
 
-def build_cot_messages(question: Question) -> list[dict[str, str]]:
+def build_cot_messages(question: Question, variant: str = "v0") -> list[dict[str, str]]:
     """Build chat messages for CoT generation (step 1: generate reasoning).
 
     Returns messages that will produce a CoT reasoning trace.
     The model's response to these messages is the CoT text.
     """
+    spec = get_variant(variant)
     template = _get_question_template(question.dataset_name)
     choices_formatted = format_choices(question.choice_labels, question.choices)
     user_content = (
@@ -75,11 +116,11 @@ def build_cot_messages(question: Question) -> list[dict[str, str]]:
             question_text=question.question_text,
             choices_formatted=choices_formatted,
         )
-        + COT_SUFFIX
+        + spec["cot_suffix"]
     )
 
     return [
-        {"role": "system", "content": COT_SYSTEM_PROMPT},
+        {"role": "system", "content": spec["cot_system"]},
         {"role": "user", "content": user_content},
     ]
 
@@ -87,11 +128,13 @@ def build_cot_messages(question: Question) -> list[dict[str, str]]:
 def build_cot_final_answer_messages(
     question: Question,
     cot_text: str,
+    variant: str = "v0",
 ) -> list[dict[str, str]]:
     """Build chat messages for extracting final answer after CoT (step 2).
 
     Takes the CoT reasoning text and appends a final-answer extraction turn.
     """
+    spec = get_variant(variant)
     template = _get_question_template(question.dataset_name)
     choices_formatted = format_choices(question.choice_labels, question.choices)
     user_content = (
@@ -99,11 +142,11 @@ def build_cot_final_answer_messages(
             question_text=question.question_text,
             choices_formatted=choices_formatted,
         )
-        + COT_SUFFIX
+        + spec["cot_suffix"]
     )
 
     return [
-        {"role": "system", "content": COT_SYSTEM_PROMPT},
+        {"role": "system", "content": spec["cot_system"]},
         {"role": "user", "content": user_content},
         {"role": "assistant", "content": cot_text},
         {"role": "user", "content": FINAL_ANSWER_USER_PROMPT},
@@ -111,11 +154,12 @@ def build_cot_final_answer_messages(
     ]
 
 
-def build_no_cot_messages(question: Question) -> list[dict[str, str]]:
+def build_no_cot_messages(question: Question, variant: str = "v0") -> list[dict[str, str]]:
     """Build chat messages for direct answer (no CoT).
 
     Ends with 'The answer is (' to constrain the model to emit just the letter.
     """
+    spec = get_variant(variant)
     template = _get_question_template(question.dataset_name)
     choices_formatted = format_choices(question.choice_labels, question.choices)
     user_content = template.format(
@@ -124,7 +168,7 @@ def build_no_cot_messages(question: Question) -> list[dict[str, str]]:
     )
 
     return [
-        {"role": "system", "content": NO_COT_SYSTEM_PROMPT},
+        {"role": "system", "content": spec["no_cot_system"]},
         {"role": "user", "content": user_content},
         {"role": "assistant", "content": NO_COT_ASSISTANT_PREFIX},
     ]

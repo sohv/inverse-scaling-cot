@@ -1,0 +1,100 @@
+{
+  "fits": [
+    {
+      "label": "pooled",
+      "n_obs": 45,
+      "slope": 0.0328,
+      "intercept": -0.3142,
+      "r2": 0.1152,
+      "slope_ci": [
+        0.0122,
+        0.0575
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "task=aqua",
+      "n_obs": 9,
+      "slope": 0.0168,
+      "intercept": -0.161,
+      "r2": 0.0444,
+      "slope_ci": [
+        -0.0249,
+        0.0954
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "task=arc_challenge",
+      "n_obs": 9,
+      "slope": 0.0122,
+      "intercept": -0.1169,
+      "r2": 0.0746,
+      "slope_ci": [
+        0.001,
+        0.0507
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "task=hellaswag",
+      "n_obs": 9,
+      "slope": 0.0073,
+      "intercept": -0.0703,
+      "r2": 0.0104,
+      "slope_ci": [
+        -0.015,
+        0.0434
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "task=logiqa",
+      "n_obs": 9,
+      "slope": 0.0419,
+      "intercept": -0.4014,
+      "r2": 0.1581,
+      "slope_ci": [
+        -0.0127,
+        0.1211
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "task=openbookqa",
+      "n_obs": 9,
+      "slope": 0.0105,
+      "intercept": -0.1009,
+      "r2": 0.0432,
+      "slope_ci": [
+        -0.0018,
+        0.036
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "family=llama",
+      "n_obs": 15,
+      "slope": 0.0216,
+      "intercept": -0.2047,
+      "r2": 0.0272,
+      "slope_ci": [
+        -0.0535,
+        0.1039
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "family=qwen",
+      "n_obs": 30,
+      "slope": 0.0339,
+      "intercept": -0.3269,
+      "r2": 0.1441,
+      "slope_ci": [
+        0.0126,
+        0.0594
+      ],
+      "n_bootstrap": 1000
+    }
+  ]
+}

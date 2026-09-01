@@ -41,8 +41,18 @@ def default_variant() -> Variant:
 
 
 def find_cell_dirs(results_dir: str | Path) -> list[Path]:
-    results_dir = Path(results_dir)
-    return sorted(d for d in results_dir.iterdir() if d.is_dir() and (d / "generation_results.jsonl").exists())
+    """Cell directories under one results dir, or several joined by commas.
+
+    Accepting a comma-separated list lets the consolidated analyses pool the core sweep
+    with the third-family and BF16 runs without copying files around.
+    """
+    dirs = [Path(d.strip()) for d in str(results_dir).split(",") if d.strip()]
+    cells: list[Path] = []
+    for base in dirs:
+        if not base.exists():
+            raise FileNotFoundError(f"results dir {base} does not exist")
+        cells.extend(d for d in base.iterdir() if d.is_dir() and (d / "generation_results.jsonl").exists())
+    return sorted(cells, key=lambda p: (p.name, str(p.parent)))
 
 
 def load_cells(
@@ -131,6 +141,14 @@ def cells_to_table(
         )
 
     df = pd.DataFrame(rows)
+    duplicates = df[df.duplicated(["model_id", "dataset_name"], keep=False)]
+    if not duplicates.empty:
+        pairs = sorted({(r.model_id, r.dataset_name) for r in duplicates.itertuples()})
+        raise ValueError(
+            f"duplicate cells would be double-counted in the regression: {pairs}. "
+            "Pooling several results dirs requires each (model, dataset) to appear once "
+            "-- use exclude_models to drop the superseded copy."
+        )
     df["accuracy_no_cot_sq"] = df["accuracy_no_cot"] ** 2
     df = df.sort_values(["dataset_name", "family", "size_b"]).reset_index(drop=True)
     LOGGER.info(

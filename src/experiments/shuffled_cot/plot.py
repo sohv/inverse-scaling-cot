@@ -99,14 +99,9 @@ def main():
 
         ax.set_xscale("log")
         ax.set_xlabel("Model size (billions of parameters)")
-        ax.set_title(f"{family.capitalize()} family")
         ax.legend(fontsize=7, ncol=2)
 
     axes[0].set_ylabel("Match fraction\n(with-CoT vs without-CoT)")
-    fig.suptitle(
-        "Experiment 2: Real vs shuffled CoT faithfulness\n(Gap between solid and dashed = signal from CoT content)",
-        fontsize=12,
-    )
     plt.tight_layout()
 
     for ext in ["pdf", "png"]:

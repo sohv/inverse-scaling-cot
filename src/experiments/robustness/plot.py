@@ -70,9 +70,6 @@ def plot_residualized(results_dir: Path, output_dir: Path) -> Path:
         xs = np.linspace(np.log10(sub.size_b.min()), np.log10(sub.size_b.max()), 50)
         ax.plot(10**xs, fit["intercept"] + fit["slope"] * (xs + 9), color=ORANGE, linewidth=2, zorder=4)
         ax.set_xscale("log")
-        title = "All 55 cells" if label == "pooled" else TASK_LABELS[label.split("=")[1]]
-        ci = fit.get("slope_ci") or [float("nan"), float("nan")]
-        ax.set_title(f"{title}\nslope={fit['slope']:.3f} [{ci[0]:.3f}, {ci[1]:.3f}]", fontsize=9, color=INK)
         _style(ax)
 
     for ax in axes[1, :]:
@@ -80,11 +77,6 @@ def plot_residualized(results_dir: Path, output_dir: Path) -> Path:
     for ax in axes[:, 0]:
         ax.set_ylabel("Faithfulness residual\n(after controlling for no-CoT accuracy)", fontsize=8, color=MUTED)
 
-    fig.suptitle(
-        "Residualised faithfulness proxy vs model size\nQwen2.5-Instruct and Llama-3-Instruct, 55 model-task cells",
-        fontsize=11,
-        color=INK,
-    )
     fig.tight_layout()
     path = output_dir / "residualized_scaling.png"
     fig.savefig(path, dpi=200, bbox_inches="tight")
@@ -129,12 +121,6 @@ def plot_per_task(results_dir: Path, output_dir: Path) -> Path:
     ax.set_xlabel(
         "Reduction in log-parameter coefficient after controlling for no-CoT accuracy (%)", fontsize=8.5, color=MUTED
     )
-    ax.set_title(
-        "Capability control reduces the size coefficient in every task\n"
-        "Dashed line: pre-registered 50% threshold; bars are 95% bootstrap CIs",
-        fontsize=9.5,
-        color=INK,
-    )
     fig.tight_layout()
     path = output_dir / "per_task_reduction.png"
     fig.savefig(path, dpi=200, bbox_inches="tight")
@@ -158,7 +144,6 @@ def plot_leave_one_out(results_dir: Path, output_dir: Path) -> Path:
         [f["pct_reduction_ci"][0] for f in loto],
         [f["pct_reduction_ci"][1] for f in loto],
     )
-    axes[0].set_title("Leave-one-task-out", fontsize=10, color=INK)
 
     order = sorted(lomo, key=lambda f: f["pct_reduction"])
     labels = [f["label"].split("=", 1)[1].split("/")[-1] for f in order]
@@ -169,11 +154,9 @@ def plot_leave_one_out(results_dir: Path, output_dir: Path) -> Path:
         [f["pct_reduction_ci"][0] for f in order],
         [f["pct_reduction_ci"][1] for f in order],
     )
-    axes[1].set_title("Leave-one-model-out", fontsize=10, color=INK)
 
     for ax in axes:
         ax.set_xlabel("Coefficient reduction (%)", fontsize=8.5, color=MUTED)
-    fig.suptitle("The capability confound survives dropping any single task or checkpoint", fontsize=11, color=INK)
     fig.tight_layout()
     path = output_dir / "loo_reduction.png"
     fig.savefig(path, dpi=200, bbox_inches="tight")

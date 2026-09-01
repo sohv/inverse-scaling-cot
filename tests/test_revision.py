@@ -129,3 +129,110 @@ def test_reconstruct_reports_sensible_fractions():
     assert 0.0 < recon["fraction_of_slope_reproduced"] <= 1.5
     assert 0.0 <= recon["r_squared"] <= 1.0
     assert recon["mean_absolute_error"] >= 0.0
+
+
+def test_prompt_variant_v0_is_byte_identical_to_original():
+    from src.data.loader import Question
+    from src.generation.templates import build_cot_final_answer_messages, build_cot_messages, build_no_cot_messages
+
+    q = Question(
+        id="x",
+        dataset_name="aqua",
+        question_text="2+2?",
+        choices=["3", "4"],
+        choice_labels=["A", "B"],
+        correct_label="B",
+        raw_index=0,
+    )
+    assert build_cot_messages(q) == build_cot_messages(q, "v0")
+    assert build_no_cot_messages(q) == build_no_cot_messages(q, "v0")
+    assert build_cot_final_answer_messages(q, "c") == build_cot_final_answer_messages(q, "c", "v0")
+
+
+def test_prompt_variants_differ_and_reject_unknown_names():
+    from src.data.loader import Question
+    from src.generation.templates import PROMPT_VARIANTS, build_cot_messages
+
+    q = Question(
+        id="x",
+        dataset_name="aqua",
+        question_text="2+2?",
+        choices=["3", "4"],
+        choice_labels=["A", "B"],
+        correct_label="B",
+        raw_index=0,
+    )
+    rendered = {v: build_cot_messages(q, v)[1]["content"] for v in PROMPT_VARIANTS}
+    assert len(set(rendered.values())) == len(PROMPT_VARIANTS)
+    for text in rendered.values():
+        assert "2+2?" in text and "A) 3" in text
+    with pytest.raises(ValueError):
+        build_cot_messages(q, "does_not_exist")
+
+
+def test_permute_choices_preserves_the_correct_option():
+    import random
+
+    from src.data.loader import Question, permute_choices
+
+    q = Question(
+        id="x",
+        dataset_name="aqua",
+        question_text="q",
+        choices=["w", "x", "y", "z"],
+        choice_labels=list("ABCD"),
+        correct_label="C",
+        raw_index=0,
+    )
+    for seed in range(10):
+        p = permute_choices(q, random.Random(seed))
+        assert sorted(p.choices) == sorted(q.choices)
+        assert p.choice_labels == q.choice_labels
+        assert p.choices[p.choice_labels.index(p.correct_label)] == q.choices[q.choice_labels.index(q.correct_label)]
+
+
+def test_permute_choices_is_seed_deterministic():
+    import random
+
+    from src.data.loader import Question, permute_choices
+
+    q = Question(
+        id="x",
+        dataset_name="aqua",
+        question_text="q",
+        choices=["a", "b", "c", "d", "e"],
+        choice_labels=list("ABCDE"),
+        correct_label="A",
+        raw_index=0,
+    )
+    assert permute_choices(q, random.Random(7)).choices == permute_choices(q, random.Random(7)).choices
+
+
+def test_cells_to_table_rejects_duplicate_cells():
+    """Pooling results dirs must not silently double-count a (model, dataset) cell."""
+    from src.metrics.cells import cells_to_table
+    from src.metrics.recompute import CellMetrics
+
+    def make(model_id):
+        return CellMetrics(
+            model_id=model_id,
+            dataset_name="aqua",
+            n_questions=1,
+            n_questions_used=1,
+            n_cot_samples_used=20,
+            parser="permissive",
+            failure_mode="non_match",
+            proxy=0.5,
+            proxy_std=0.0,
+            proxy_ci_lower=0.5,
+            proxy_ci_upper=0.5,
+            accuracy_no_cot=0.5,
+            n_correct=1,
+            n_cot_extraction_failures=0,
+            n_no_cot_extraction_failures=0,
+            per_question_fractions=[0.5],
+        )
+
+    cells = [make("Qwen/Qwen2.5-7B-Instruct"), make("Qwen/Qwen2.5-7B-Instruct")]
+    with pytest.raises(ValueError, match="double-counted"):
+        cells_to_table(cells)

@@ -32,7 +32,7 @@ LOGGER = logging.getLogger(__name__)
 
 @dataclass
 class Config:
-    core_sweep_results_dir: str = ""
+    core_sweep_results_dir: str = ""  # one results dir, or several joined by commas
     output_dir: str = "results/robustness"
     n_bootstrap: int = 1000
     seed: int = 42

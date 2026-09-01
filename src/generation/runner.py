@@ -111,6 +111,7 @@ def run_generation_for_model(
     n_cot_samples: int = 20,
     cot_gen_config: GenerationConfig | None = None,
     no_cot_gen_config: GenerationConfig | None = None,
+    prompt_variant: str = "v0",
 ) -> list[QuestionResult]:
     """Run CoT and no-CoT generation for all questions on one model.
 
@@ -129,7 +130,7 @@ def run_generation_for_model(
 
     # Step 1: Generate CoT reasoning traces (n=n_cot_samples per question)
     LOGGER.info("Step 1: Generating CoT reasoning traces...")
-    cot_conversations = [build_cot_messages(q) for q in questions]
+    cot_conversations = [build_cot_messages(q, prompt_variant) for q in questions]
     cot_outputs = engine.generate_chat(cot_conversations, cot_gen_config)
     # cot_outputs[i] = list of n_cot_samples CoT texts for question i
 
@@ -141,7 +142,7 @@ def run_generation_for_model(
 
     for q_idx, question in enumerate(questions):
         for s_idx, cot_text in enumerate(cot_outputs[q_idx]):
-            msgs = build_cot_final_answer_messages(question, cot_text)
+            msgs = build_cot_final_answer_messages(question, cot_text, prompt_variant)
             all_final_conversations.append(msgs)
             conversation_index_map.append((q_idx, s_idx))
 
@@ -154,7 +155,7 @@ def run_generation_for_model(
 
     # Step 3: Generate no-CoT answers (n=1 per question)
     LOGGER.info("Step 3: Generating no-CoT answers...")
-    no_cot_conversations = [build_no_cot_messages(q) for q in questions]
+    no_cot_conversations = [build_no_cot_messages(q, prompt_variant) for q in questions]
     no_cot_outputs = engine.generate_chat(no_cot_conversations, no_cot_gen_config, continue_final_message=True)
 
     # Step 4: Assemble results with answer extraction

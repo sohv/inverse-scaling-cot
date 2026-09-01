@@ -92,11 +92,9 @@ def main():
 
         ax.set_xscale("log")
         ax.set_xlabel("Model size (billions of parameters)")
-        ax.set_title(f"{family_name.capitalize()} family")
         ax.legend(fontsize=8)
 
     axes[0].set_ylabel("Faithfulness proxy\n(% same answer with vs without CoT)")
-    fig.suptitle("Experiment 1: CoT faithfulness vs model scale", fontsize=14)
     plt.tight_layout()
 
     # Save
