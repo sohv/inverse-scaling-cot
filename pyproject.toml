@@ -27,7 +27,7 @@ dev = [
     "ruff",
 ]
 inference = [
-    "vllm>=0.6.0",
+    "vllm==0.24.0",
     "transformers",
     "accelerate",
     "torch",

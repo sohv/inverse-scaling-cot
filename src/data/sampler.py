@@ -62,6 +62,10 @@ def load_or_sample_questions(
         all_questions = load_dataset_questions(dataset_name)
         questions = [q for q in all_questions if q.id in saved_ids]
         questions.sort(key=lambda q: q.raw_index)
+        if n < len(questions):
+            # deterministic prefix, so --n_questions 10 really is a 10-question smoke run
+            LOGGER.warning(f"Truncating {len(questions)} saved questions to the first {n} (n={n} requested)")
+            questions = questions[:n]
         LOGGER.info(f"Loaded {len(questions)} questions from saved IDs")
         return questions
 
@@ -69,3 +73,32 @@ def load_or_sample_questions(
     questions = sample_questions(dataset_name, n=n, seed=seed)
     save_sample_ids(questions, ids_path)
     return questions
+
+
+def load_questions_with_cache(
+    dataset_name: str,
+    splits_dir: str | Path = "data/splits",
+    cache_dir: str | Path = "data/processed",
+    n: int = 100,
+    seed: int = 42,
+) -> list[Question]:
+    """Load the fixed question sample, caching full question objects to disk.
+
+    The offline revision analyses need choice_labels per question (ARC-Challenge has
+    3-, 4- and 5-choice items), which generation_results.jsonl does not store. Caching
+    the materialised questions removes the HuggingFace dependency from every downstream
+    analysis run.
+    """
+    cache_path = Path(cache_dir) / f"{dataset_name}_questions.jsonl"
+    if cache_path.exists():
+        return [Question(**r) for r in read_jsonl(cache_path)]
+
+    questions = load_or_sample_questions(dataset_name, splits_dir=splits_dir, n=n, seed=seed)
+    write_jsonl(cache_path, [q.model_dump() for q in questions])
+    LOGGER.info(f"Cached {len(questions)} materialised questions to {cache_path}")
+    return questions
+
+
+def choice_labels_by_id(dataset_name: str, **kwargs) -> dict[str, list[str]]:
+    """Map question id -> choice_labels for one dataset."""
+    return {q.id: q.choice_labels for q in load_questions_with_cache(dataset_name, **kwargs)}

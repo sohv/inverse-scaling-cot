@@ -39,12 +39,12 @@ def read_jsonl(path: str | Path) -> list[dict]:
     return records
 
 
-def write_json(path: str | Path, data: dict, indent: int = 2) -> None:
-    """Write dict to JSON with indentation. Prints path to stdout."""
+def write_json(path: str | Path, data: dict, indent: int = 2, round_digits: int = 4) -> None:
+    """Write dict to JSON with indentation and float rounding. Prints path to stdout."""
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     with open(path, "w") as f:
-        json.dump(data, f, indent=indent, ensure_ascii=False)
+        json.dump(round_floats(data, round_digits), f, indent=indent, ensure_ascii=False)
         f.write("\n")
     print(f"Saved config to {path}")
 

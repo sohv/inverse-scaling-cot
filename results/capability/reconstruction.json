@@ -1,0 +1,12 @@
+{
+  "accuracy_intercept": 0.0662,
+  "accuracy_slope": 0.9435,
+  "r_squared": 0.9428,
+  "observed_scaling_range": 0.5035,
+  "predicted_scaling_range": 0.4397,
+  "fraction_of_range_reproduced": 0.8733,
+  "observed_size_slope": 0.2201,
+  "predicted_size_slope": 0.1894,
+  "fraction_of_slope_reproduced": 0.8602,
+  "mean_absolute_error": 0.0382
+}

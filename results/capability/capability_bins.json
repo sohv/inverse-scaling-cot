@@ -1,0 +1,81 @@
+{
+  "bins": [
+    {
+      "bin": "near_random",
+      "n_obs": 9,
+      "insufficient_data": false,
+      "accuracy_range": [
+        0.18,
+        0.34
+      ],
+      "mean_proxy": 0.311,
+      "mean_accuracy": 0.2722,
+      "slope_vs_log_params": 0.0409,
+      "slope_vs_accuracy": 0.8229,
+      "r2_vs_accuracy": 0.7164,
+      "tasks": [
+        "aqua",
+        "hellaswag",
+        "logiqa"
+      ]
+    },
+    {
+      "bin": "intermediate",
+      "n_obs": 27,
+      "insufficient_data": false,
+      "accuracy_range": [
+        0.36,
+        0.75
+      ],
+      "mean_proxy": 0.599,
+      "mean_accuracy": 0.5519,
+      "slope_vs_log_params": 0.1,
+      "slope_vs_accuracy": 1.0653,
+      "r2_vs_accuracy": 0.7656,
+      "tasks": [
+        "aqua",
+        "arc_challenge",
+        "hellaswag",
+        "logiqa",
+        "openbookqa"
+      ]
+    },
+    {
+      "bin": "ceiling",
+      "n_obs": 19,
+      "insufficient_data": false,
+      "accuracy_range": [
+        0.76,
+        0.98
+      ],
+      "mean_proxy": 0.8871,
+      "mean_accuracy": 0.8821,
+      "slope_vs_log_params": 0.1022,
+      "slope_vs_accuracy": 0.9219,
+      "r2_vs_accuracy": 0.8769,
+      "tasks": [
+        "arc_challenge",
+        "hellaswag",
+        "openbookqa"
+      ]
+    }
+  ],
+  "saturation": {
+    "threshold": 0.75,
+    "below": {
+      "n_obs": 35,
+      "insufficient_data": false,
+      "slope": 1.0665,
+      "intercept": 0.0157,
+      "r_squared": 0.8812
+    },
+    "above": {
+      "n_obs": 20,
+      "insufficient_data": false,
+      "slope": 0.9837,
+      "intercept": 0.0174,
+      "r_squared": 0.8914
+    },
+    "slope_ratio_above_over_below": 0.9223
+  }
+}

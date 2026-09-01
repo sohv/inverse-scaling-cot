@@ -139,6 +139,99 @@ uv run -m src.experiments.base_ablation.run \
     --seed 42
 ```
 
+## Revision experiments (BlackboxNLP reproducibility response)
+
+Execution plan: `docs/revision_plan.md`. Pre-registered thresholds: `docs/decisions.md`.
+Phase 1 runs entirely off the committed generations and needs no GPU.
+
+### Phase 1a: Regression battery
+
+Runs the Model 1 vs Model 2 decomposition on every subset of the 55 cells: per task,
+leave-one-task-out, leave-one-model-out, per family, plus residualised, partial-correlation,
+quadratic and task-random-effect fits.
+
+**Input:** `results/core_sweep/*/generation_results.jsonl` -- fields: `id`, `model_id`, `correct_label`, `no_cot_extracted_answer`, `cot_samples[].extracted_answer`
+**Output:** `results/robustness/cell_table.csv` -- fields: `model_id`, `dataset_name`, `faithfulness_proxy`, `accuracy_no_cot`, `log_params`, `family`, `size_b`, `is_quantized`
+**Output:** `results/robustness/{pooled,per_task,leave_one_task_out,leave_one_model_out,per_family,residualized,partial_correlation,mixed_effects,nonlinear}.json` -- each fit reports `raw_coef`, `controlled_coef`, `pct_reduction` and bootstrap CIs
+
+```bash
+uv run -m src.experiments.robustness.run \
+    --core_sweep_results_dir results/core_sweep \
+    --output_dir results/robustness --n_bootstrap 1000 --seed 42
+
+uv run -m src.experiments.robustness.plot \
+    --results_dir results/robustness --output_dir results/figures
+```
+
+### Phase 1b: Capability matching, regimes and reconstruction
+
+Finds cell pairs matched on no-CoT accuracy but far apart in size, quantifies the three
+measurement regimes, and reconstructs the scaling curve from accuracy alone.
+
+**Input:** `results/robustness/cell_table.csv` and `results/core_sweep/`
+**Output:** `results/capability/matched_pairs.json` -- fields: `n_pairs`, `mean_abs_proxy_diff`, `predicted_proxy_diff_from_size`, `paired_p_value`, `pairs[]`
+**Output:** `results/capability/{capability_bins,reconstruction,answer_distribution_by_bin}.json`, `binned_cells.csv`, `answer_distribution.csv`
+
+```bash
+uv run -m src.experiments.capability.run \
+    --core_sweep_results_dir results/core_sweep \
+    --cell_table results/robustness/cell_table.csv \
+    --output_dir results/capability --seed 42
+
+uv run -m src.experiments.capability.plot \
+    --results_dir results/capability --output_dir results/figures
+```
+
+### Phase 1c: Empirical shuffled-CoT null and CoT dependence
+
+Replaces the assumed 0.25 chance level with a per-cell permutation null, then regresses
+CoT dependence (real minus shuffled) on model size.
+
+**Input:** `results/core_sweep/*/generation_results.jsonl`
+**Output:** `results/cot_dependence/null_table.csv` -- fields: `model_id`, `dataset_name`, `real_match_rate`, `shuffled_mean`, `null_ci_lower`, `null_ci_upper`, `dependence`, `real_above_null`
+**Output:** `results/cot_dependence/{dependence_fits,monotonicity,null_summary}.json`
+
+```bash
+uv run -m src.experiments.cot_dependence.run \
+    --core_sweep_results_dir results/core_sweep \
+    --output_dir results/cot_dependence --n_permutations 1000 --seed 42
+
+uv run -m src.experiments.cot_dependence.plot \
+    --results_dir results/cot_dependence --output_dir results/figures
+```
+
+### Phase 1d: Extraction robustness
+
+Compares an independent strict parser against the permissive one and recomputes the main
+result under the 2x2 parser x failure-treatment grid.
+
+**Input:** `results/core_sweep/*/generation_results.jsonl` -- uses `no_cot_raw_text` and `cot_samples[].final_answer_raw`
+**Output:** `results/extraction/parser_agreement.csv` -- fields: `model_id`, `dataset_name`, `agreement_rate`, `n_permissive_only`, `n_strict_only`, `n_different_letter`
+**Output:** `results/extraction/treatment_grid.json`, `manual_audit_sample.jsonl` (200 stratified disagreements with a blank `human_label` field for manual audit)
+
+```bash
+uv run -m src.experiments.extraction.run \
+    --core_sweep_results_dir results/core_sweep \
+    --output_dir results/extraction --n_manual_sample 200 --seed 42
+```
+
+### Phase 2a: Sample-count convergence (100 CoT samples)
+
+Regenerates a fresh pool of 100 CoT samples per question, then subsamples it nestedly to
+compare k=20, 50 and 100. Requires GPU.
+
+**Input:** same fixed question splits as Experiment 1
+**Output:** `results/samples_100/{model}__{dataset}/generation_results.jsonl`
+
+```bash
+for dataset in aqua logiqa arc_challenge openbookqa hellaswag; do
+    uv run -m src.experiments.core_sweep.run \
+        --model_id Qwen/Qwen2.5-7B-Instruct --dataset_name "$dataset" \
+        --output_dir results/samples_100 \
+        --n_questions 100 --n_cot_samples 100 --seed 42
+done
+```
+
 ## Testing
 
 ```bash

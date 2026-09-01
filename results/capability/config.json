@@ -1,0 +1,12 @@
+{
+  "git_hash": "ab131a7f",
+  "config": {
+    "core_sweep_results_dir": "results/core_sweep",
+    "cell_table": "results/robustness/cell_table.csv",
+    "output_dir": "results/capability",
+    "seed": 42
+  },
+  "metadata": {
+    "n_cells": 55
+  }
+}

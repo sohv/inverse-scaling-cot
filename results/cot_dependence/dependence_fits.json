@@ -1,0 +1,108 @@
+{
+  "fits": [
+    {
+      "label": "pooled",
+      "n_obs": 55,
+      "slope": 0.2235,
+      "intercept": -1.7818,
+      "r_squared": 0.4857,
+      "slope_ci": [
+        0.1605,
+        0.2812
+      ],
+      "n_bootstrap": 1000,
+      "mean_dependence": 0.4114
+    },
+    {
+      "label": "task=aqua",
+      "n_obs": 11,
+      "slope": 0.1761,
+      "intercept": -1.534,
+      "r_squared": 0.7436,
+      "slope_ci": [
+        0.1077,
+        0.25
+      ],
+      "n_bootstrap": 1000,
+      "mean_dependence": 0.1936
+    },
+    {
+      "label": "task=arc_challenge",
+      "n_obs": 11,
+      "slope": 0.2257,
+      "intercept": -1.6788,
+      "r_squared": 0.8465,
+      "slope_ci": [
+        0.1422,
+        0.3138
+      ],
+      "n_bootstrap": 1000,
+      "mean_dependence": 0.5359
+    },
+    {
+      "label": "task=hellaswag",
+      "n_obs": 11,
+      "slope": 0.2663,
+      "intercept": -2.1494,
+      "r_squared": 0.7906,
+      "slope_ci": [
+        0.1527,
+        0.3845
+      ],
+      "n_bootstrap": 1000,
+      "mean_dependence": 0.4631
+    },
+    {
+      "label": "task=logiqa",
+      "n_obs": 11,
+      "slope": 0.2421,
+      "intercept": -2.0644,
+      "r_squared": 0.8455,
+      "slope_ci": [
+        0.1958,
+        0.3259
+      ],
+      "n_bootstrap": 1000,
+      "mean_dependence": 0.3112
+    },
+    {
+      "label": "task=openbookqa",
+      "n_obs": 11,
+      "slope": 0.2075,
+      "intercept": -1.4825,
+      "r_squared": 0.791,
+      "slope_ci": [
+        0.1106,
+        0.3061
+      ],
+      "n_bootstrap": 1000,
+      "mean_dependence": 0.553
+    },
+    {
+      "label": "family=llama",
+      "n_obs": 20,
+      "slope": 0.2032,
+      "intercept": -1.6447,
+      "r_squared": 0.4187,
+      "slope_ci": [
+        0.0892,
+        0.3015
+      ],
+      "n_bootstrap": 1000,
+      "mean_dependence": 0.3476
+    },
+    {
+      "label": "family=qwen",
+      "n_obs": 35,
+      "slope": 0.2338,
+      "intercept": -1.847,
+      "r_squared": 0.5594,
+      "slope_ci": [
+        0.1601,
+        0.2996
+      ],
+      "n_bootstrap": 1000,
+      "mean_dependence": 0.4478
+    }
+  ]
+}

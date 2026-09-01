@@ -1,0 +1,92 @@
+{
+  "fits": [
+    {
+      "label": "pooled",
+      "n_obs": 55,
+      "raw_correlation": 0.6717,
+      "partial_correlation": 0.4883,
+      "partial_ci": [
+        0.2851,
+        0.6622
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "task=aqua",
+      "n_obs": 11,
+      "raw_correlation": 0.8491,
+      "partial_correlation": 0.3922,
+      "partial_ci": [
+        -0.7268,
+        0.9072
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "task=arc_challenge",
+      "n_obs": 11,
+      "raw_correlation": 0.9193,
+      "partial_correlation": 0.6244,
+      "partial_ci": [
+        0.3593,
+        0.9355
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "task=hellaswag",
+      "n_obs": 11,
+      "raw_correlation": 0.8889,
+      "partial_correlation": 0.5164,
+      "partial_ci": [
+        -0.1229,
+        0.9047
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "task=logiqa",
+      "n_obs": 11,
+      "raw_correlation": 0.9069,
+      "partial_correlation": 0.6872,
+      "partial_ci": [
+        -0.1179,
+        0.966
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "task=openbookqa",
+      "n_obs": 11,
+      "raw_correlation": 0.8927,
+      "partial_correlation": 0.3531,
+      "partial_ci": [
+        -0.1266,
+        0.9183
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "family=llama",
+      "n_obs": 20,
+      "raw_correlation": 0.62,
+      "partial_correlation": 0.3441,
+      "partial_ci": [
+        -0.3099,
+        0.763
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "family=qwen",
+      "n_obs": 35,
+      "raw_correlation": 0.7236,
+      "partial_correlation": 0.5507,
+      "partial_ci": [
+        0.3483,
+        0.7418
+      ],
+      "n_bootstrap": 1000
+    }
+  ]
+}

@@ -25,10 +25,22 @@ def make_output_dir(base: str, model_id: str, dataset_name: str) -> Path:
     return dir_path
 
 
+def get_vllm_version() -> str | None:
+    """Return the installed vLLM version, or None when the inference extra is absent."""
+    import importlib.util
+
+    if importlib.util.find_spec("vllm") is None:
+        return None
+    import vllm
+
+    return vllm.__version__
+
+
 def save_run_config(output_dir: Path, config: object, extra_metadata: dict | None = None) -> Path:
-    """Save config.json with git hash, all config fields, and optional metadata."""
+    """Save config.json with git hash, vLLM version, all config fields, and optional metadata."""
     data: dict = {}
     data["git_hash"] = get_git_hash()
+    data["vllm_version"] = get_vllm_version()
     if hasattr(config, "__dataclass_fields__"):
         data["config"] = asdict(config)
     else:

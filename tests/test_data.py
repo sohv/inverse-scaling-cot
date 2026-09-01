@@ -67,3 +67,14 @@ def test_question_ids_are_unique():
         questions = load_dataset_questions(name)
         ids = [q.id for q in questions]
         assert len(ids) == len(set(ids)), f"Duplicate IDs in {name}"
+
+
+def test_saved_ids_are_truncated_to_requested_n(tmp_path):
+    """--n_questions must shrink a run even when a saved split already exists."""
+    from src.data.sampler import load_or_sample_questions
+
+    full = load_or_sample_questions("openbookqa", splits_dir="data/splits", n=100, seed=42)
+    small = load_or_sample_questions("openbookqa", splits_dir="data/splits", n=10, seed=42)
+    assert len(full) == 100
+    assert len(small) == 10
+    assert [q.id for q in small] == [q.id for q in full[:10]]

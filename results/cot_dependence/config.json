@@ -1,0 +1,13 @@
+{
+  "git_hash": "ab131a7f",
+  "config": {
+    "core_sweep_results_dir": "results/core_sweep",
+    "output_dir": "results/cot_dependence",
+    "n_permutations": 1000,
+    "n_bootstrap": 1000,
+    "seed": 42
+  },
+  "metadata": {
+    "n_cells": 55
+  }
+}

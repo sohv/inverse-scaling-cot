@@ -43,7 +43,7 @@ def test_json_roundtrip():
     write_json(path, data)
     loaded = read_json(path)
     assert loaded["model_id"] == "test"
-    assert loaded["accuracy"] == 0.12345  # JSON write does not round
+    assert loaded["accuracy"] == 0.1235  # JSON write rounds to 4 dp, as JSONL does
     Path(path).unlink()
 
 

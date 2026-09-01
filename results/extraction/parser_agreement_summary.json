@@ -1,0 +1,13 @@
+{
+  "n_cells": 55,
+  "total_extractions": 115500,
+  "mean_agreement_rate": 0.9936,
+  "min_agreement_rate": 0.9695,
+  "max_disagreement_rate": 0.0305,
+  "worst_cell": "Qwen/Qwen2.5-3B-Instruct__arc_challenge",
+  "n_cells_above_warn_threshold": 0,
+  "warn_threshold": 0.05,
+  "mean_permissive_failure_rate": 0.0028,
+  "mean_strict_failure_rate": 0.0092,
+  "n_audit_samples": 200
+}

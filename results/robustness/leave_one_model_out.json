@@ -1,0 +1,288 @@
+{
+  "fits": [
+    {
+      "label": "drop_model=Qwen/Qwen2.5-0.5B-Instruct",
+      "n_obs": 50,
+      "n_models": 10,
+      "n_tasks": 5,
+      "raw_coef": 0.2027,
+      "controlled_coef": 0.0429,
+      "pct_reduction": 78.8412,
+      "accuracy_coef": 0.8585,
+      "r2_raw": 0.3482,
+      "r2_controlled": 0.9486,
+      "raw_coef_ci": [
+        0.1259,
+        0.2793
+      ],
+      "controlled_coef_ci": [
+        0.0173,
+        0.0704
+      ],
+      "pct_reduction_ci": [
+        62.7394,
+        91.5953
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "drop_model=Qwen/Qwen2.5-1.5B-Instruct",
+      "n_obs": 50,
+      "n_models": 10,
+      "n_tasks": 5,
+      "raw_coef": 0.228,
+      "controlled_coef": 0.0474,
+      "pct_reduction": 79.2266,
+      "accuracy_coef": 0.8478,
+      "r2_raw": 0.4732,
+      "r2_controlled": 0.9606,
+      "raw_coef_ci": [
+        0.1633,
+        0.2878
+      ],
+      "controlled_coef_ci": [
+        0.0202,
+        0.0754
+      ],
+      "pct_reduction_ci": [
+        66.7394,
+        90.8706
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "drop_model=Qwen/Qwen2.5-14B-Instruct",
+      "n_obs": 50,
+      "n_models": 10,
+      "n_tasks": 5,
+      "raw_coef": 0.2139,
+      "controlled_coef": 0.0455,
+      "pct_reduction": 78.7263,
+      "accuracy_coef": 0.8689,
+      "r2_raw": 0.4555,
+      "r2_controlled": 0.9593,
+      "raw_coef_ci": [
+        0.1477,
+        0.2717
+      ],
+      "controlled_coef_ci": [
+        0.0203,
+        0.0715
+      ],
+      "pct_reduction_ci": [
+        66.5041,
+        89.6546
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "drop_model=Qwen/Qwen2.5-32B-Instruct",
+      "n_obs": 50,
+      "n_models": 10,
+      "n_tasks": 5,
+      "raw_coef": 0.2136,
+      "controlled_coef": 0.0478,
+      "pct_reduction": 77.6282,
+      "accuracy_coef": 0.8652,
+      "r2_raw": 0.4258,
+      "r2_controlled": 0.9533,
+      "raw_coef_ci": [
+        0.1452,
+        0.2772
+      ],
+      "controlled_coef_ci": [
+        0.0219,
+        0.0744
+      ],
+      "pct_reduction_ci": [
+        64.7437,
+        89.4356
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "drop_model=Qwen/Qwen2.5-3B-Instruct",
+      "n_obs": 50,
+      "n_models": 10,
+      "n_tasks": 5,
+      "raw_coef": 0.2258,
+      "controlled_coef": 0.0502,
+      "pct_reduction": 77.7598,
+      "accuracy_coef": 0.8517,
+      "r2_raw": 0.4914,
+      "r2_controlled": 0.9558,
+      "raw_coef_ci": [
+        0.1627,
+        0.2848
+      ],
+      "controlled_coef_ci": [
+        0.0248,
+        0.0775
+      ],
+      "pct_reduction_ci": [
+        65.7493,
+        88.8762
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "drop_model=Qwen/Qwen2.5-72B-Instruct-AWQ",
+      "n_obs": 50,
+      "n_models": 10,
+      "n_tasks": 5,
+      "raw_coef": 0.228,
+      "controlled_coef": 0.0473,
+      "pct_reduction": 79.2413,
+      "accuracy_coef": 0.866,
+      "r2_raw": 0.4228,
+      "r2_controlled": 0.9548,
+      "raw_coef_ci": [
+        0.1541,
+        0.2987
+      ],
+      "controlled_coef_ci": [
+        0.0207,
+        0.0767
+      ],
+      "pct_reduction_ci": [
+        66.0915,
+        90.3264
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "drop_model=Qwen/Qwen2.5-7B-Instruct",
+      "n_obs": 50,
+      "n_models": 10,
+      "n_tasks": 5,
+      "raw_coef": 0.2196,
+      "controlled_coef": 0.0456,
+      "pct_reduction": 79.2365,
+      "accuracy_coef": 0.869,
+      "r2_raw": 0.4744,
+      "r2_controlled": 0.9597,
+      "raw_coef_ci": [
+        0.1558,
+        0.2769
+      ],
+      "controlled_coef_ci": [
+        0.0203,
+        0.0715
+      ],
+      "pct_reduction_ci": [
+        67.2131,
+        90.6336
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "drop_model=hugging-quants/Meta-Llama-3.1-70B-Instruct-AWQ-INT4",
+      "n_obs": 50,
+      "n_models": 10,
+      "n_tasks": 5,
+      "raw_coef": 0.2477,
+      "controlled_coef": 0.0512,
+      "pct_reduction": 79.3163,
+      "accuracy_coef": 0.8527,
+      "r2_raw": 0.4866,
+      "r2_controlled": 0.9572,
+      "raw_coef_ci": [
+        0.1801,
+        0.3124
+      ],
+      "controlled_coef_ci": [
+        0.0248,
+        0.0801
+      ],
+      "pct_reduction_ci": [
+        67.51,
+        90.0898
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "drop_model=meta-llama/Llama-3.1-8B-Instruct",
+      "n_obs": 50,
+      "n_models": 10,
+      "n_tasks": 5,
+      "raw_coef": 0.2211,
+      "controlled_coef": 0.0512,
+      "pct_reduction": 76.8306,
+      "accuracy_coef": 0.8429,
+      "r2_raw": 0.4894,
+      "r2_controlled": 0.9587,
+      "raw_coef_ci": [
+        0.1553,
+        0.2834
+      ],
+      "controlled_coef_ci": [
+        0.0266,
+        0.0778
+      ],
+      "pct_reduction_ci": [
+        65.0967,
+        87.8734
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "drop_model=meta-llama/Llama-3.2-1B-Instruct",
+      "n_obs": 50,
+      "n_models": 10,
+      "n_tasks": 5,
+      "raw_coef": 0.2039,
+      "controlled_coef": 0.0452,
+      "pct_reduction": 77.8437,
+      "accuracy_coef": 0.8716,
+      "r2_raw": 0.3986,
+      "r2_controlled": 0.9509,
+      "raw_coef_ci": [
+        0.1318,
+        0.2653
+      ],
+      "controlled_coef_ci": [
+        0.021,
+        0.0709
+      ],
+      "pct_reduction_ci": [
+        64.9582,
+        89.3829
+      ],
+      "n_bootstrap": 1000
+    },
+    {
+      "label": "drop_model=meta-llama/Llama-3.2-3B-Instruct",
+      "n_obs": 50,
+      "n_models": 10,
+      "n_tasks": 5,
+      "raw_coef": 0.2185,
+      "controlled_coef": 0.0501,
+      "pct_reduction": 77.0708,
+      "accuracy_coef": 0.8583,
+      "r2_raw": 0.4671,
+      "r2_controlled": 0.9587,
+      "raw_coef_ci": [
+        0.1524,
+        0.2793
+      ],
+      "controlled_coef_ci": [
+        0.0249,
+        0.0768
+      ],
+      "pct_reduction_ci": [
+        64.4657,
+        88.2238
+      ],
+      "n_bootstrap": 1000
+    }
+  ],
+  "summary": {
+    "n_fits": 11,
+    "min_pct_reduction": 76.8306,
+    "median_pct_reduction": 78.7263,
+    "max_pct_reduction": 79.3163,
+    "min_label": "drop_model=meta-llama/Llama-3.1-8B-Instruct",
+    "max_label": "drop_model=hugging-quants/Meta-Llama-3.1-70B-Instruct-AWQ-INT4",
+    "all_above_50": true
+  }
+}

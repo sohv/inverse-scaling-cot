@@ -1,0 +1,9 @@
+{
+  "n_cells": 55,
+  "n_cells_real_above_null": 53,
+  "mean_shuffled_rate": 0.24,
+  "min_shuffled_rate": 0.1838,
+  "max_shuffled_rate": 0.2924,
+  "mean_uniform_chance": 0.24,
+  "mean_dependence": 0.4114
+}

@@ -1,0 +1,124 @@
+{
+  "curves": [
+    {
+      "family": "llama",
+      "dataset_name": "aqua",
+      "n_points": 4,
+      "spearman_rho": 0.8,
+      "p_value": 0.2,
+      "strictly_monotone": false,
+      "violations": [
+        {
+          "from_size_b": 3.0,
+          "to_size_b": 8.0,
+          "from_proxy": 0.3066,
+          "to_proxy": 0.2875
+        }
+      ]
+    },
+    {
+      "family": "llama",
+      "dataset_name": "arc_challenge",
+      "n_points": 4,
+      "spearman_rho": 1.0,
+      "p_value": 0.0,
+      "strictly_monotone": true,
+      "violations": []
+    },
+    {
+      "family": "llama",
+      "dataset_name": "hellaswag",
+      "n_points": 4,
+      "spearman_rho": 1.0,
+      "p_value": 0.0,
+      "strictly_monotone": true,
+      "violations": []
+    },
+    {
+      "family": "llama",
+      "dataset_name": "logiqa",
+      "n_points": 4,
+      "spearman_rho": 1.0,
+      "p_value": 0.0,
+      "strictly_monotone": true,
+      "violations": []
+    },
+    {
+      "family": "llama",
+      "dataset_name": "openbookqa",
+      "n_points": 4,
+      "spearman_rho": 1.0,
+      "p_value": 0.0,
+      "strictly_monotone": true,
+      "violations": []
+    },
+    {
+      "family": "qwen",
+      "dataset_name": "aqua",
+      "n_points": 7,
+      "spearman_rho": 0.9643,
+      "p_value": 0.0005,
+      "strictly_monotone": false,
+      "violations": [
+        {
+          "from_size_b": 32.0,
+          "to_size_b": 72.0,
+          "from_proxy": 0.6222,
+          "to_proxy": 0.6101
+        }
+      ]
+    },
+    {
+      "family": "qwen",
+      "dataset_name": "arc_challenge",
+      "n_points": 7,
+      "spearman_rho": 1.0,
+      "p_value": 0.0,
+      "strictly_monotone": true,
+      "violations": []
+    },
+    {
+      "family": "qwen",
+      "dataset_name": "hellaswag",
+      "n_points": 7,
+      "spearman_rho": 1.0,
+      "p_value": 0.0,
+      "strictly_monotone": true,
+      "violations": []
+    },
+    {
+      "family": "qwen",
+      "dataset_name": "logiqa",
+      "n_points": 7,
+      "spearman_rho": 0.8571,
+      "p_value": 0.0137,
+      "strictly_monotone": false,
+      "violations": [
+        {
+          "from_size_b": 14.0,
+          "to_size_b": 32.0,
+          "from_proxy": 0.788,
+          "to_proxy": 0.7735
+        },
+        {
+          "from_size_b": 32.0,
+          "to_size_b": 72.0,
+          "from_proxy": 0.7735,
+          "to_proxy": 0.7695
+        }
+      ]
+    },
+    {
+      "family": "qwen",
+      "dataset_name": "openbookqa",
+      "n_points": 7,
+      "spearman_rho": 1.0,
+      "p_value": 0.0,
+      "strictly_monotone": true,
+      "violations": []
+    }
+  ],
+  "n_curves": 10,
+  "n_strictly_monotone": 7,
+  "n_with_violations": 3
+}

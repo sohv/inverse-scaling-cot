@@ -52,9 +52,11 @@ def test_cot_messages_contain_question():
 
 def test_no_cot_messages_end_with_answer_prompt():
     messages = build_no_cot_messages(SAMPLE_QUESTION)
-    assert len(messages) == 2
+    assert len(messages) == 3
     assert messages[0]["role"] == "system"
-    assert messages[1]["content"].rstrip().endswith("The answer is (")
+    assert messages[1]["role"] == "user"
+    assert messages[2]["role"] == "assistant"
+    assert messages[2]["content"].rstrip().endswith("The answer is (")
 
 
 def test_no_cot_system_prompt_says_no_reasoning():
@@ -64,13 +66,14 @@ def test_no_cot_system_prompt_says_no_reasoning():
 
 def test_cot_final_answer_messages():
     messages = build_cot_final_answer_messages(SAMPLE_QUESTION, "I think the answer is 4.")
-    assert len(messages) == 4
+    assert len(messages) == 5
     assert messages[0]["role"] == "system"
     assert messages[1]["role"] == "user"
     assert messages[2]["role"] == "assistant"
     assert messages[2]["content"] == "I think the answer is 4."
     assert messages[3]["role"] == "user"
-    assert "The answer is (" in messages[3]["content"]
+    assert messages[4]["role"] == "assistant"
+    assert messages[4]["content"].rstrip().endswith("The answer is (")
 
 
 def test_hellaswag_uses_completion_template():
