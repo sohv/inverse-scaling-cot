@@ -1,5 +1,5 @@
 {
-  "git_hash": "ebb60693",
+  "git_hash": "d6f6234a",
   "vllm_version": "0.24.0",
   "config": {
     "samples_100_dir": "results/samples_100",
@@ -8,6 +8,6 @@
     "seed": 42
   },
   "metadata": {
-    "n_cells": 30
+    "n_cells": 55
   }
 }

@@ -32,3 +32,62 @@
 2026-09-01 18:42:48,969 src.metrics.cells INFO built cell table with 30 rows, 6 models, 5 tasks
 2026-09-01 18:42:48,972 src.metrics.cells INFO built cell table with 30 rows, 6 models, 5 tasks
 2026-09-01 18:43:15,951 src.utils.config INFO Saved run config to results/sample_convergence/config.json
+2026-09-02 02:09:43,070 src.metrics.cells INFO processed Qwen_Qwen2.5-0.5B-Instruct__aqua
+2026-09-02 02:09:43,186 src.metrics.cells INFO processed Qwen_Qwen2.5-0.5B-Instruct__arc_challenge
+2026-09-02 02:09:43,355 src.metrics.cells INFO processed Qwen_Qwen2.5-0.5B-Instruct__hellaswag
+2026-09-02 02:09:43,493 src.metrics.cells INFO processed Qwen_Qwen2.5-0.5B-Instruct__logiqa
+2026-09-02 02:09:43,641 src.metrics.cells INFO processed Qwen_Qwen2.5-0.5B-Instruct__openbookqa
+2026-09-02 02:09:43,762 src.metrics.cells INFO processed Qwen_Qwen2.5-1.5B-Instruct__aqua
+2026-09-02 02:09:43,857 src.metrics.cells INFO processed Qwen_Qwen2.5-1.5B-Instruct__arc_challenge
+2026-09-02 02:09:44,000 src.metrics.cells INFO processed Qwen_Qwen2.5-1.5B-Instruct__hellaswag
+2026-09-02 02:09:44,124 src.metrics.cells INFO processed Qwen_Qwen2.5-1.5B-Instruct__logiqa
+2026-09-02 02:09:44,214 src.metrics.cells INFO processed Qwen_Qwen2.5-1.5B-Instruct__openbookqa
+2026-09-02 02:09:44,391 src.metrics.cells INFO processed Qwen_Qwen2.5-14B-Instruct__aqua
+2026-09-02 02:09:44,505 src.metrics.cells INFO processed Qwen_Qwen2.5-14B-Instruct__arc_challenge
+2026-09-02 02:09:44,629 src.metrics.cells INFO processed Qwen_Qwen2.5-14B-Instruct__hellaswag
+2026-09-02 02:09:44,825 src.metrics.cells INFO processed Qwen_Qwen2.5-14B-Instruct__logiqa
+2026-09-02 02:09:44,928 src.metrics.cells INFO processed Qwen_Qwen2.5-14B-Instruct__openbookqa
+2026-09-02 02:09:45,043 src.metrics.cells INFO processed Qwen_Qwen2.5-32B-Instruct__aqua
+2026-09-02 02:09:45,195 src.metrics.cells INFO processed Qwen_Qwen2.5-32B-Instruct__arc_challenge
+2026-09-02 02:09:45,303 src.metrics.cells INFO processed Qwen_Qwen2.5-32B-Instruct__hellaswag
+2026-09-02 02:09:45,436 src.metrics.cells INFO processed Qwen_Qwen2.5-32B-Instruct__logiqa
+2026-09-02 02:09:45,582 src.metrics.cells INFO processed Qwen_Qwen2.5-32B-Instruct__openbookqa
+2026-09-02 02:09:45,716 src.metrics.cells INFO processed Qwen_Qwen2.5-3B-Instruct__aqua
+2026-09-02 02:09:45,827 src.metrics.cells INFO processed Qwen_Qwen2.5-3B-Instruct__arc_challenge
+2026-09-02 02:09:46,004 src.metrics.cells INFO processed Qwen_Qwen2.5-3B-Instruct__hellaswag
+2026-09-02 02:09:46,151 src.metrics.cells INFO processed Qwen_Qwen2.5-3B-Instruct__logiqa
+2026-09-02 02:09:46,254 src.metrics.cells INFO processed Qwen_Qwen2.5-3B-Instruct__openbookqa
+2026-09-02 02:09:46,418 src.metrics.cells INFO processed Qwen_Qwen2.5-72B-Instruct-AWQ__aqua
+2026-09-02 02:09:46,520 src.metrics.cells INFO processed Qwen_Qwen2.5-72B-Instruct-AWQ__arc_challenge
+2026-09-02 02:09:46,628 src.metrics.cells INFO processed Qwen_Qwen2.5-72B-Instruct-AWQ__hellaswag
+2026-09-02 02:09:46,804 src.metrics.cells INFO processed Qwen_Qwen2.5-72B-Instruct-AWQ__logiqa
+2026-09-02 02:09:46,900 src.metrics.cells INFO processed Qwen_Qwen2.5-72B-Instruct-AWQ__openbookqa
+2026-09-02 02:09:47,069 src.metrics.cells INFO processed Qwen_Qwen2.5-7B-Instruct__aqua
+2026-09-02 02:09:47,177 src.metrics.cells INFO processed Qwen_Qwen2.5-7B-Instruct__arc_challenge
+2026-09-02 02:09:47,295 src.metrics.cells INFO processed Qwen_Qwen2.5-7B-Instruct__hellaswag
+2026-09-02 02:09:47,483 src.metrics.cells INFO processed Qwen_Qwen2.5-7B-Instruct__logiqa
+2026-09-02 02:09:47,585 src.metrics.cells INFO processed Qwen_Qwen2.5-7B-Instruct__openbookqa
+2026-09-02 02:09:47,688 src.metrics.cells INFO processed hugging-quants_Meta-Llama-3.1-70B-Instruct-AWQ-INT4__aqua
+2026-09-02 02:09:47,832 src.metrics.cells INFO processed hugging-quants_Meta-Llama-3.1-70B-Instruct-AWQ-INT4__arc_challenge
+2026-09-02 02:09:47,922 src.metrics.cells INFO processed hugging-quants_Meta-Llama-3.1-70B-Instruct-AWQ-INT4__hellaswag
+2026-09-02 02:09:48,026 src.metrics.cells INFO processed hugging-quants_Meta-Llama-3.1-70B-Instruct-AWQ-INT4__logiqa
+2026-09-02 02:09:48,163 src.metrics.cells INFO processed hugging-quants_Meta-Llama-3.1-70B-Instruct-AWQ-INT4__openbookqa
+2026-09-02 02:09:48,278 src.metrics.cells INFO processed meta-llama_Llama-3.1-8B-Instruct__aqua
+2026-09-02 02:09:48,369 src.metrics.cells INFO processed meta-llama_Llama-3.1-8B-Instruct__arc_challenge
+2026-09-02 02:09:48,509 src.metrics.cells INFO processed meta-llama_Llama-3.1-8B-Instruct__hellaswag
+2026-09-02 02:09:48,616 src.metrics.cells INFO processed meta-llama_Llama-3.1-8B-Instruct__logiqa
+2026-09-02 02:09:48,702 src.metrics.cells INFO processed meta-llama_Llama-3.1-8B-Instruct__openbookqa
+2026-09-02 02:09:48,867 src.metrics.cells INFO processed meta-llama_Llama-3.2-1B-Instruct__aqua
+2026-09-02 02:09:48,962 src.metrics.cells INFO processed meta-llama_Llama-3.2-1B-Instruct__arc_challenge
+2026-09-02 02:09:49,052 src.metrics.cells INFO processed meta-llama_Llama-3.2-1B-Instruct__hellaswag
+2026-09-02 02:09:49,202 src.metrics.cells INFO processed meta-llama_Llama-3.2-1B-Instruct__logiqa
+2026-09-02 02:09:49,291 src.metrics.cells INFO processed meta-llama_Llama-3.2-1B-Instruct__openbookqa
+2026-09-02 02:09:49,403 src.metrics.cells INFO processed meta-llama_Llama-3.2-3B-Instruct__aqua
+2026-09-02 02:09:49,541 src.metrics.cells INFO processed meta-llama_Llama-3.2-3B-Instruct__arc_challenge
+2026-09-02 02:09:49,630 src.metrics.cells INFO processed meta-llama_Llama-3.2-3B-Instruct__hellaswag
+2026-09-02 02:09:49,731 src.metrics.cells INFO processed meta-llama_Llama-3.2-3B-Instruct__logiqa
+2026-09-02 02:09:49,866 src.metrics.cells INFO processed meta-llama_Llama-3.2-3B-Instruct__openbookqa
+2026-09-02 02:09:49,874 src.metrics.cells INFO built cell table with 55 rows, 11 models, 5 tasks
+2026-09-02 02:09:49,876 src.metrics.cells INFO built cell table with 55 rows, 11 models, 5 tasks
+2026-09-02 02:09:49,879 src.metrics.cells INFO built cell table with 55 rows, 11 models, 5 tasks
+2026-09-02 02:10:16,793 src.utils.config INFO Saved run config to results/sample_convergence/config.json
