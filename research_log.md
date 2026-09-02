@@ -94,7 +94,7 @@ uv run -m src.experiments.robustness.run --core_sweep_results_dir results/core_s
 uv run python experiments/figure_style/260901_thesis_style_v1/1_regenerate_figures.py --output_dir results/fig_new --seed 42
 **Output:** results/fig_new/
 
-## 260901 — Phase 2a: sample-count convergence, 20 vs 50 vs 100 (revision item 1)
+## 260901 — Phase 2a: sample-count convergence, 20 vs 50 vs 100 (revision item 1, SUPERSEDED by the 55-cell rerun below)
 
 **What:** Generated a fresh pool of 100 CoT samples per question for 6 models spanning both
 families (Qwen 0.5B/7B/32B, Llama 1B/8B, Llama-70B-AWQ) x 5 tasks = 30 cells, then
@@ -234,3 +234,49 @@ deduplicated, so repeated per-panel copies collapse to one
 uv run -m src.experiments.core_sweep.plot --results_dir results/core_sweep --output_dir results/figures
 uv run python experiments/figure_style/260901_thesis_style_v1/1_regenerate_figures.py --output_dir results/fig_new --seed 42
 **Output:** results/figures/, results/fig_new/, pushed to hf.co/datasets/sohv/cot-inverse
+
+## 260902 — Item 16: controlled base vs instruction-tuned comparison
+
+**What:** Ran all 6 Qwen2.5 *instruct* checkpoints (0.5B-32B) through the identical few-shot
+plain-text prompt used for the base checkpoints, giving a third arm that lets the original
+confounded comparison be split into its two components. Cells join on (family, size_b,
+dataset), 30 pairs per contrast.
+**Result:** The decomposition is exactly additive (sum of the two parts equals the direct
+confounded comparison to 4 dp), so the split is clean:
+
+| contrast | held fixed | mean delta proxy | mean delta dependence |
+|---|---|---|---|
+| base few-shot -> instruct few-shot | prompt | +0.1080 | +0.1148 |
+| instruct few-shot -> instruct chat | model  | +0.2584 | +0.2271 |
+| base few-shot -> instruct chat (the paper's comparison) | nothing | +0.3664 | +0.3420 |
+
+**Prompt format accounts for 70.5% of the gap the paper attributes to instruction tuning;
+instruction tuning accounts for 29.5%** (66.4% / 33.6% for CoT dependence). Instruction
+tuning does have a real independent effect -- it is not zero -- but it is the smaller half,
+and the effect is strongly size-dependent (near zero at 0.5-1.5B, large at 14-32B: ARC-C at
+14B moves +0.316 in proxy). The appendix claim that base-model faithfulness is
+"substantially lower than their instruct counterparts" is therefore mostly a statement
+about prompt format, not about instruction tuning.
+**Command:**
+uv run -m src.experiments.base_ablation.run --model_id Qwen/Qwen2.5-7B-Instruct --dataset_name aqua,logiqa,arc_challenge,openbookqa,hellaswag --output_dir results/fewshot_instruct --n_questions 100 --n_cot_samples 20 --seed 42
+uv run -m src.experiments.comparison.run --baseline_dir results/base_ablation --variant_dir results/fewshot_instruct --label base_vs_instruct --output_dir results/base_instruct --n_permutations 1000 --seed 42
+**Output:** `results/fewshot_instruct/` (30 cells), `results/base_instruct/`
+
+## 260902 — Item 1 completed at full scale: all 55 cells at k=100
+
+**What:** Extended the 100-sample rerun from the 30-cell representative subset to the
+**entire 55-cell setup** (all 11 core-sweep models x 5 tasks), then recomputed the proxy at
+k=20/50/100 by nested subsampling of the same pool. This is the "strongest version" of the
+sampling check.
+**Result:** 20 samples is sufficient at full scale. Mean proxy 0.6496 / 0.6490 / 0.6491 at
+k=20/50/100; worst per-cell deviation from k=100 is 0.0350 at k=20 and 0.0104 at k=50;
+Spearman rank correlation of model ordering against k=100 is 0.9972 at k=20. The
+capability-controlled reduction is 78.9% / 77.6% / 77.4% -- a 1.5-point spread across a 5x
+change in sampling budget. Mean bootstrap CI width narrows only 0.1136 -> 0.1114 (2%).
+The k=100 coefficients (raw 0.2237, controlled 0.0506) sit within a hair of the published
+k=20 values (0.2201, 0.0476), so the paper's headline 78.4% becomes 77.4% at k=100.
+**Command:**
+uv run -m src.experiments.sample_convergence.run --samples_100_dir results/samples_100 --output_dir results/sample_convergence --n_bootstrap 1000 --seed 42
+**Output:** `results/sample_convergence/convergence.json`, `results/figures/sample_convergence.png`
+**Note:** OLMo-2 was not included -- item 1's scope is the 11-model core sweep. Extending
+the convergence check to the third family would be ~4 more GPU-hours.
