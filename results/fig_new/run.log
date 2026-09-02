@@ -155,3 +155,15 @@ INFO:__main__:regenerating src.experiments.comparison.plot
 INFO:__main__:regenerating src.experiments.comparison.plot
 INFO:__main__:regenerating src.experiments.comparison.plot
 INFO:__main__:regenerating src.experiments.comparison.plot
+INFO:__main__:regenerating src.experiments.core_sweep.plot
+INFO:src.experiments.core_sweep.plot:Loaded 55 faithfulness results from results/core_sweep
+INFO:__main__:regenerating src.experiments.shuffled_cot.plot
+INFO:__main__:regenerating src.experiments.regression.plot
+INFO:__main__:regenerating src.experiments.robustness.plot
+INFO:__main__:regenerating src.experiments.capability.plot
+INFO:__main__:regenerating src.experiments.cot_dependence.plot
+INFO:__main__:regenerating src.experiments.sample_convergence.plot
+INFO:__main__:regenerating src.experiments.comparison.plot
+INFO:__main__:regenerating src.experiments.comparison.plot
+INFO:__main__:regenerating src.experiments.comparison.plot
+INFO:__main__:regenerating src.experiments.comparison.plot
