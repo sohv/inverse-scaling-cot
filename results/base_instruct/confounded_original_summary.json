@@ -1,0 +1,98 @@
+{
+  "label": "confounded_original",
+  "baseline_dir": "results/base_ablation",
+  "variant_dir": "results/core_sweep",
+  "n_paired_cells": 30,
+  "models_baseline": [
+    "Qwen/Qwen2.5-0.5B",
+    "Qwen/Qwen2.5-1.5B",
+    "Qwen/Qwen2.5-14B",
+    "Qwen/Qwen2.5-32B",
+    "Qwen/Qwen2.5-3B",
+    "Qwen/Qwen2.5-7B"
+  ],
+  "models_variant": [
+    "Qwen/Qwen2.5-0.5B-Instruct",
+    "Qwen/Qwen2.5-1.5B-Instruct",
+    "Qwen/Qwen2.5-14B-Instruct",
+    "Qwen/Qwen2.5-32B-Instruct",
+    "Qwen/Qwen2.5-3B-Instruct",
+    "Qwen/Qwen2.5-7B-Instruct"
+  ],
+  "deltas": {
+    "faithfulness_proxy": {
+      "mean": 0.3664,
+      "mean_abs": 0.3664,
+      "max_abs": 0.631,
+      "std": 0.1678
+    },
+    "accuracy_no_cot": {
+      "mean": 0.0677,
+      "mean_abs": 0.0703,
+      "max_abs": 0.23,
+      "std": 0.0613
+    },
+    "shuffled_mean": {
+      "mean": 0.0244,
+      "mean_abs": 0.0261,
+      "max_abs": 0.1179,
+      "std": 0.0272
+    },
+    "dependence": {
+      "mean": 0.342,
+      "mean_abs": 0.342,
+      "max_abs": 0.6271,
+      "std": 0.1846
+    }
+  },
+  "decomposition_baseline": {
+    "label": "baseline",
+    "n_obs": 30,
+    "n_models": 6,
+    "n_tasks": 5,
+    "raw_coef": 0.0849,
+    "controlled_coef": 0.0413,
+    "pct_reduction": 51.346,
+    "accuracy_coef": 0.1631,
+    "r2_raw": 0.4866,
+    "r2_controlled": 0.6216,
+    "raw_coef_ci": [
+      0.0591,
+      0.1144
+    ],
+    "controlled_coef_ci": [
+      0.0013,
+      0.0835
+    ],
+    "pct_reduction_ci": [
+      13.8695,
+      92.3229
+    ],
+    "n_bootstrap": 1000
+  },
+  "decomposition_variant": {
+    "label": "variant",
+    "n_obs": 55,
+    "n_models": 11,
+    "n_tasks": 5,
+    "raw_coef": 0.2201,
+    "controlled_coef": 0.0476,
+    "pct_reduction": 78.356,
+    "accuracy_coef": 0.8595,
+    "r2_raw": 0.4512,
+    "r2_controlled": 0.9564,
+    "raw_coef_ci": [
+      0.1532,
+      0.2822
+    ],
+    "controlled_coef_ci": [
+      0.0239,
+      0.0732
+    ],
+    "pct_reduction_ci": [
+      65.5944,
+      89.2019
+    ],
+    "n_bootstrap": 1000
+  }
+}

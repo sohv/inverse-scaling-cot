@@ -1,0 +1,98 @@
+{
+  "label": "base_vs_instruct",
+  "baseline_dir": "results/base_ablation",
+  "variant_dir": "results/fewshot_instruct",
+  "n_paired_cells": 30,
+  "models_baseline": [
+    "Qwen/Qwen2.5-0.5B",
+    "Qwen/Qwen2.5-1.5B",
+    "Qwen/Qwen2.5-14B",
+    "Qwen/Qwen2.5-32B",
+    "Qwen/Qwen2.5-3B",
+    "Qwen/Qwen2.5-7B"
+  ],
+  "models_variant": [
+    "Qwen/Qwen2.5-0.5B-Instruct",
+    "Qwen/Qwen2.5-1.5B-Instruct",
+    "Qwen/Qwen2.5-14B-Instruct",
+    "Qwen/Qwen2.5-32B-Instruct",
+    "Qwen/Qwen2.5-3B-Instruct",
+    "Qwen/Qwen2.5-7B-Instruct"
+  ],
+  "deltas": {
+    "faithfulness_proxy": {
+      "mean": 0.108,
+      "mean_abs": 0.137,
+      "max_abs": 0.3675,
+      "std": 0.1377
+    },
+    "accuracy_no_cot": {
+      "mean": 0.0617,
+      "mean_abs": 0.0637,
+      "max_abs": 0.17,
+      "std": 0.0522
+    },
+    "shuffled_mean": {
+      "mean": -0.0068,
+      "mean_abs": 0.0262,
+      "max_abs": 0.1563,
+      "std": 0.0448
+    },
+    "dependence": {
+      "mean": 0.1148,
+      "mean_abs": 0.123,
+      "max_abs": 0.3657,
+      "std": 0.1203
+    }
+  },
+  "decomposition_baseline": {
+    "label": "baseline",
+    "n_obs": 30,
+    "n_models": 6,
+    "n_tasks": 5,
+    "raw_coef": 0.0849,
+    "controlled_coef": 0.0413,
+    "pct_reduction": 51.346,
+    "accuracy_coef": 0.1631,
+    "r2_raw": 0.4866,
+    "r2_controlled": 0.6216,
+    "raw_coef_ci": [
+      0.0591,
+      0.1144
+    ],
+    "controlled_coef_ci": [
+      0.0013,
+      0.0835
+    ],
+    "pct_reduction_ci": [
+      13.8695,
+      92.3229
+    ],
+    "n_bootstrap": 1000
+  },
+  "decomposition_variant": {
+    "label": "variant",
+    "n_obs": 30,
+    "n_models": 6,
+    "n_tasks": 5,
+    "raw_coef": 0.1646,
+    "controlled_coef": 0.0701,
+    "pct_reduction": 57.413,
+    "accuracy_coef": 0.3798,
+    "r2_raw": 0.3669,
+    "r2_controlled": 0.5031,
+    "raw_coef_ci": [
+      0.0757,
+      0.2667
+    ],
+    "controlled_coef_ci": [
+      -0.0575,
+      0.1987
+    ],
+    "pct_reduction_ci": [
+      7.1761,
+      97.112
+    ],
+    "n_bootstrap": 1000
+  }
+}

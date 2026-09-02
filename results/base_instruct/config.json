@@ -1,0 +1,16 @@
+{
+  "git_hash": "13bf2f38",
+  "vllm_version": "0.24.0",
+  "config": {
+    "baseline_dir": "results/base_ablation",
+    "variant_dir": "results/core_sweep",
+    "label": "confounded_original",
+    "output_dir": "results/base_instruct",
+    "n_permutations": 1000,
+    "n_bootstrap": 1000,
+    "seed": 42
+  },
+  "metadata": {
+    "n_paired_cells": 30
+  }
+}
